@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "くらし予報"
+description = "家電・車・住まい・定期支出から、これからの出費と毎月の積立額を予測する日本向けのスマートフォン対応Webアプリ。"
+version = "1.0.0"
+id = "artifacts/kurashi-yohou"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 21088
+
+[services.development]
+run = "pnpm --filter @workspace/kurashi-yohou run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/kurashi-yohou", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/kurashi-yohou/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "21088"
+BASE_PATH = "/"

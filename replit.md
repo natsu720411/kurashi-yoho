@@ -1,6 +1,6 @@
-# [Project name]
+# くらし予報
 
-_Replace the heading above with the project's name, and this line with one sentence describing what this app does for users._
+家電・車・住まい・定期支出から、これからの出費と毎月の積立目安を予測するスマートフォン向けWebアプリです。
 
 ## Run & Operate
 
@@ -22,23 +22,29 @@ _Replace the heading above with the project's name, and this line with one sente
 
 ## Where things live
 
-_Populate as you build — short repo map plus pointers to the source-of-truth file for DB schema, API contracts, theme files, etc._
+- `artifacts/kurashi-yohou/src/App.tsx` — 画面フロー、localStorage保存、予測計算、タイムライン
+- `artifacts/kurashi-yohou/src/lib/constants.ts` — 家電の買い替え年数・平均費用・入力用定数の一元管理
+- `artifacts/kurashi-yohou/src/index.css` — くらし予報のテーマと共通アニメーション
 
 ## Architecture decisions
 
-_Populate as you build — non-obvious choices a reader couldn't infer from the code (3-5 bullets)._
+- MVPではログイン・外部API・DBを使わず、ブラウザのlocalStorageに入力内容を保存する。
+- 出費予測は、登録された家電の買い替え目安、車の更新予定、定期支出を同じタイムラインに展開して集計する。
+- 家電の目安年数と平均費用は `constants.ts` の定数から変更できるようにする。
 
 ## Product
 
-_Describe the high-level user-facing capabilities of this app once they exist._
+- 3ステップの診断で世帯情報、家電、車、定期支出を入力できる。
+- 今後1・3・5年間の予想支出、3年間に備える月額積立目安、年月順の支出タイムラインを表示する。
+- 入力内容は再訪時に復元され、結果画面から設定編集・支出編集・全リセットができる。
 
 ## User preferences
 
-_Populate as you build — explicit user instructions worth remembering across sessions._
+- 日本の初心者向けに、明るく清潔で、金融サービスほど堅くないUIにする。
 
 ## Gotchas
 
-_Populate as you build — sharp edges, "always run X before Y" rules._
+- Viteのビルドは `PORT` と `BASE_PATH` が必要なため、ワークフロー経由で確認するか両方を指定して実行する。
 
 ## Pointers
 

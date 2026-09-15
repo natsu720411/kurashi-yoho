@@ -1,0 +1,166 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;600;700;800&display=swap');
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@plugin "@tailwindcss/typography";
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+  --color-card-border: hsl(var(--card-border));
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --font-sans: var(--app-font-sans);
+  --font-display: var(--app-font-display);
+  --font-mono: var(--app-font-mono);
+}
+
+:root {
+  --background: 190 56% 96%;
+  --foreground: 209 42% 21%;
+  --border: 190 27% 84%;
+  --input: 190 27% 78%;
+  --ring: 190 78% 42%;
+  --card: 0 0% 100%;
+  --card-foreground: 209 42% 21%;
+  --card-border: 190 27% 88%;
+  --primary: 190 78% 39%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 44 100% 94%;
+  --secondary-foreground: 209 42% 21%;
+  --muted: 190 30% 92%;
+  --muted-foreground: 205 22% 46%;
+  --accent: 13 83% 67%;
+  --accent-foreground: 209 42% 21%;
+  --destructive: 0 70% 57%;
+  --destructive-foreground: 0 0% 100%;
+  --app-font-sans: 'Noto Sans JP', sans-serif;
+  --app-font-display: 'DM Sans', 'Noto Sans JP', sans-serif;
+  --app-font-mono: 'DM Sans', monospace;
+  --radius: 1rem;
+  --shadow-soft: 0 16px 44px rgba(48, 111, 121, .10);
+  --shadow-card: 0 3px 0 rgba(37, 93, 104, .04), 0 12px 28px rgba(48, 111, 121, .08);
+}
+
+.dark {
+  --background: 203 31% 13%;
+  --foreground: 190 36% 94%;
+  --border: 199 22% 28%;
+  --input: 199 22% 32%;
+  --ring: 190 78% 49%;
+  --card: 203 29% 17%;
+  --card-foreground: 190 36% 94%;
+  --card-border: 199 22% 28%;
+  --primary: 190 78% 49%;
+  --primary-foreground: 203 31% 13%;
+  --secondary: 42 45% 23%;
+  --secondary-foreground: 190 36% 94%;
+  --muted: 199 22% 24%;
+  --muted-foreground: 199 13% 68%;
+  --accent: 13 75% 62%;
+  --accent-foreground: 203 31% 13%;
+  --destructive: 0 70% 64%;
+  --destructive-foreground: 203 31% 13%;
+  --shadow-soft: 0 16px 44px rgba(0, 0, 0, .20);
+  --shadow-card: 0 3px 0 rgba(0, 0, 0, .10), 0 12px 28px rgba(0, 0, 0, .18);
+}
+
+@layer base {
+  * { @apply border-border; }
+  html { scroll-behavior: smooth; }
+  body {
+    @apply font-sans antialiased bg-background text-foreground;
+    min-width: 320px;
+  }
+  button, input, select { font: inherit; }
+  button { cursor: pointer; }
+  button:disabled { cursor: not-allowed; }
+}
+
+@layer utilities {
+  .font-display { font-family: var(--app-font-display); }
+  .text-balance { text-wrap: balance; }
+}
+
+.app-shell {
+  min-height: 100dvh;
+  background:
+    radial-gradient(circle at 87% 5%, rgba(255, 214, 111, .20), transparent 19rem),
+    radial-gradient(circle at 2% 54%, rgba(122, 211, 207, .16), transparent 22rem),
+    hsl(var(--background));
+}
+
+.weather-sun {
+  position: absolute;
+  width: 132px;
+  height: 132px;
+  border-radius: 999px;
+  background: #ffd66f;
+  box-shadow: 0 0 0 12px rgba(255, 214, 111, .18), 0 0 0 28px rgba(255, 214, 111, .08);
+  animation: float-in 700ms cubic-bezier(.2,.8,.2,1) both;
+}
+
+.cloud {
+  position: absolute;
+  border-radius: 999px;
+  background: rgba(255,255,255,.74);
+  filter: blur(.2px);
+}
+.cloud::before, .cloud::after { content: ''; position: absolute; border-radius: 50%; background: inherit; }
+.cloud::before { width: 42px; height: 42px; left: 23px; bottom: 9px; }
+.cloud::after { width: 56px; height: 56px; left: 59px; bottom: 7px; }
+
+.lift { transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease; }
+.lift:hover { transform: translateY(-2px); box-shadow: var(--shadow-soft); }
+.press { transition: transform 120ms ease; }
+.press:active { transform: scale(.98); }
+.fade-up { animation: fade-up 500ms cubic-bezier(.2,.8,.2,1) both; }
+.fade-up-delay-1 { animation-delay: 80ms; }
+.fade-up-delay-2 { animation-delay: 160ms; }
+.fade-up-delay-3 { animation-delay: 240ms; }
+.fade-up-delay-4 { animation-delay: 320ms; }
+.stagger > * { animation: fade-up 450ms cubic-bezier(.2,.8,.2,1) both; }
+.stagger > *:nth-child(2) { animation-delay: 70ms; }
+.stagger > *:nth-child(3) { animation-delay: 140ms; }
+.stagger > *:nth-child(4) { animation-delay: 210ms; }
+.stagger > *:nth-child(5) { animation-delay: 280ms; }
+
+.input-style {
+  width: 100%;
+  height: 44px;
+  border: 1px solid #d5e5e4;
+  border-radius: 12px;
+  background: #fff;
+  padding: 0 14px;
+  color: #315e64;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 160ms ease, box-shadow 160ms ease;
+}
+.input-style::placeholder { color: #a2b5b6; }
+.input-style:focus { border-color: #2b8b8a; box-shadow: 0 0 0 3px rgba(43, 139, 138, .12); }
+
+@keyframes fade-up { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes float-in { from { opacity: 0; transform: translateY(-9px) scale(.94); } to { opacity: 1; transform: translateY(0) scale(1); } }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+}
