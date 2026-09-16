@@ -423,3 +423,6 @@
       });
   }
 })();
+const analyticsScript = document.createElement("script");
+analyticsScript.src = "/analytics.js";
+document.body.appendChild(analyticsScript);
