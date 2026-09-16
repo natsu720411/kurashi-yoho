@@ -1,0 +1,707 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>車検はいつ？次回車検時期と毎月の積立額を計算 | くらし予報</title>
+
+    <meta
+      name="description"
+      content="次の車検はいつ？車検証の有効期限と想定費用を入力すると、車検まであと何か月か、毎月いくら積み立てればよいかを簡単に計算できます。"
+    />
+
+    <link
+      rel="canonical"
+      href="https://kurashi-yoho.vercel.app/car-inspection-when/"
+    />
+
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/favicon.png" />
+    <meta name="theme-color" content="#175d68" />
+
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="くらし予報" />
+    <meta
+      property="og:title"
+      content="車検はいつ？次回車検時期と毎月の積立額を計算 | くらし予報"
+    />
+    <meta
+      property="og:description"
+      content="車検証の有効期限から、車検まであと何か月かと毎月の積立目安を簡単に計算できます。"
+    />
+    <meta
+      property="og:url"
+      content="https://kurashi-yoho.vercel.app/car-inspection-when/"
+    />
+    <meta
+      property="og:image"
+      content="https://kurashi-yoho.vercel.app/ogp.png"
+    />
+    <meta property="og:locale" content="ja_JP" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="車検はいつ？次回車検時期と毎月の積立額を計算 | くらし予報"
+    />
+    <meta
+      name="twitter:description"
+      content="車検証の有効期限から、車検まであと何か月かと毎月の積立目安を簡単に計算できます。"
+    />
+    <meta
+      name="twitter:image"
+      content="https://kurashi-yoho.vercel.app/ogp.png"
+    />
+
+    <link rel="stylesheet" href="/seo/styles.css" />
+
+    <style>
+      .car-form {
+        display: grid;
+        gap: 18px;
+        margin-top: 22px;
+      }
+
+      .car-field {
+        display: grid;
+        gap: 7px;
+      }
+
+      .car-field label {
+        color: #315e64;
+        font-size: 13px;
+        font-weight: 800;
+      }
+
+      .car-field input {
+        width: 100%;
+        min-height: 48px;
+        box-sizing: border-box;
+        border: 1px solid #cfe1df;
+        border-radius: 12px;
+        background: #fff;
+        color: #174f5b;
+        font: inherit;
+        padding: 10px 12px;
+      }
+
+      .car-field input:focus {
+        outline: 3px solid rgba(43, 139, 138, 0.18);
+        border-color: #2b8b8a;
+      }
+
+      .car-field-note {
+        color: #789093;
+        font-size: 11px;
+        line-height: 1.6;
+        margin: 0;
+      }
+
+      .car-results {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+        margin-top: 22px;
+      }
+
+      .car-result {
+        background: #eef8f7;
+        border-radius: 16px;
+        padding: 16px;
+      }
+
+      .car-result span {
+        display: block;
+        color: #668387;
+        font-size: 11px;
+        font-weight: 700;
+      }
+
+      .car-result strong {
+        display: block;
+        color: #175d68;
+        font-size: clamp(20px, 5vw, 28px);
+        line-height: 1.25;
+        margin-top: 5px;
+      }
+
+      .car-result small {
+        display: block;
+        color: #779093;
+        font-size: 10px;
+        line-height: 1.55;
+        margin-top: 5px;
+      }
+
+      .source-box {
+        background: #f7fbfa;
+        border-left: 4px solid #2b8b8a;
+        border-radius: 0 14px 14px 0;
+        margin-top: 18px;
+        padding: 15px 17px;
+      }
+
+      .source-box p {
+        margin: 0;
+      }
+
+      .source-box p + p {
+        margin-top: 8px;
+      }
+
+      .source-box a {
+        color: #176873;
+        font-weight: 700;
+      }
+
+      @media (max-width: 640px) {
+        .car-results {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "くらし予報",
+            "item": "https://kurashi-yoho.vercel.app/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "車検はいつ？次回車検時期を計算",
+            "item": "https://kurashi-yoho.vercel.app/car-inspection-when/"
+          }
+        ]
+      }
+    </script>
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "自家用乗用車の車検は何年ごとですか？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "自家用乗用車は、新車の初回は3年、2回目以降は2年が原則です。車種や用途によって異なるため、実際の期限は車検証で確認してください。"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "車検はいつから受けられますか？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "2025年4月1日から、有効期間満了日の2か月前から満了日までに受検すると、残っている車検証の有効期間を失わず更新できます。"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "車検費用は毎月いくら積み立てればいいですか？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "このページでは、入力した想定車検費用を有効期限までの残り月数で割って、毎月の積立目安を計算します。実際の費用は車種や整備内容などによって異なります。"
+            }
+          }
+        ]
+      }
+    </script>
+
+    <script src="/analytics.js" defer></script>
+  </head>
+
+  <body>
+    <div class="seo-shell">
+      <header class="seo-header">
+        <div class="seo-header-inner">
+          <a class="brand" href="/">
+            <img
+              src="/favicon.png"
+              alt=""
+              width="40"
+              height="40"
+            />
+            <span>
+              <span class="brand-name">くらし予報</span>
+              <span class="brand-subtitle">LIFE WEATHER</span>
+            </span>
+          </a>
+
+          <a class="header-cta" href="/">
+            未来の出費を予報する
+          </a>
+        </div>
+      </header>
+
+      <main class="seo-main">
+        <nav class="breadcrumbs" aria-label="パンくず">
+          <a href="/">くらし予報</a>
+          　›　車検はいつ？次回車検時期を計算
+        </nav>
+
+        <article>
+          <section class="hero">
+            <p class="eyebrow">CAR INSPECTION GUIDE</p>
+
+            <h1>
+              次の車検はいつ？
+              <br />
+              <span class="hero-accent">
+                時期と積立額をかんたん計算
+              </span>
+            </h1>
+
+            <p class="hero-lead">
+              車検証の有効期限と想定費用を入力すると、
+              車検まであと何か月か、いつ頃から準備を考えるとよいか、
+              毎月の積立目安を確認できます。
+            </p>
+          </section>
+
+          <div class="content-grid">
+            <section class="card calculator" id="calculator">
+              <h2>次回車検までの積立額を計算</h2>
+
+              <p>
+                車検証に記載されている有効期間の満了日を入力してください。
+              </p>
+
+              <div class="car-form">
+                <div class="car-field">
+                  <label for="inspection-expiry">
+                    車検証の有効期限
+                  </label>
+
+                  <input
+                    id="inspection-expiry"
+                    type="date"
+                  />
+
+                  <p class="car-field-note">
+                    電子車検証の場合は、車検証閲覧アプリや検査標章などでも確認できます。
+                  </p>
+                </div>
+
+                <div class="car-field">
+                  <label for="inspection-cost">
+                    想定する車検費用
+                  </label>
+
+                  <input
+                    id="inspection-cost"
+                    type="number"
+                    min="0"
+                    step="1000"
+                    value="100000"
+                    inputmode="numeric"
+                  />
+
+                  <p class="car-field-note">
+                    100,000円を仮の入力値にしています。実際に見込む金額へ自由に変更してください。
+                  </p>
+                </div>
+              </div>
+
+              <div
+                class="car-results"
+                aria-live="polite"
+              >
+                <div class="car-result">
+                  <span>車検まで</span>
+                  <strong id="months-left">---</strong>
+                  <small id="days-detail">
+                    有効期限を入力すると表示されます
+                  </small>
+                </div>
+
+                <div class="car-result">
+                  <span>受検を考え始める時期</span>
+                  <strong id="inspection-window">---</strong>
+                  <small>
+                    有効期限の2か月前を目安に表示
+                  </small>
+                </div>
+
+                <div class="car-result">
+                  <span>想定車検費用</span>
+                  <strong id="cost-result">---</strong>
+                  <small>
+                    入力した金額を表示
+                  </small>
+                </div>
+
+                <div class="car-result">
+                  <span>毎月の積立目安</span>
+                  <strong id="monthly-saving">---</strong>
+                  <small>
+                    有効期限までに準備する場合
+                  </small>
+                </div>
+              </div>
+
+              <p class="calculator-note">
+                この計算は家計準備のための簡易試算です。
+                実際の車検費用や受検条件は、車種・用途・整備内容などによって異なります。
+              </p>
+            </section>
+
+            <section class="card">
+              <h2>自家用乗用車の車検時期</h2>
+
+              <p>
+                自家用乗用車の場合、車検証の有効期間は原則として
+                新車の初回が3年、2回目以降は2年です。
+              </p>
+
+              <ul class="check-list">
+                <li>初回の車検：新車登録から原則3年</li>
+                <li>2回目以降：原則2年ごと</li>
+                <li>実際の満了日は車検証で確認</li>
+                <li>車種や用途によって有効期間が異なる場合があります</li>
+              </ul>
+
+              <div class="source-box">
+                <p>
+                  <strong>制度について</strong>
+                </p>
+
+                <p>
+                  2025年4月1日から、有効期間満了日の
+                  2か月前から車検を受けても、
+                  残っている有効期間を失わず更新できます。
+                </p>
+
+                <p>
+                  出典：
+                  <a
+                    href="https://www.mlit.go.jp/page/kanbo01_hy_010105.html"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    国土交通省
+                  </a>
+                </p>
+              </div>
+            </section>
+          </div>
+
+          <section class="cta-card">
+            <div>
+              <h2>
+                車検だけでなく、家電の買い替えもまとめて確認
+              </h2>
+
+              <p>
+                冷蔵庫・洗濯機・エアコンなど、
+                同じ時期に重なる出費までまとめて予報できます。
+              </p>
+            </div>
+
+            <a class="primary-cta" href="/">
+              わが家全体の未来の出費を予報する
+            </a>
+          </section>
+
+          <section class="section">
+            <h2>車検費用は早めに分けて準備</h2>
+
+            <p>
+              車検は数年に一度のまとまった支出なので、
+              直前になって一度に用意するより、
+              有効期限までの残り月数で分けて考えると
+              家計への負担を把握しやすくなります。
+            </p>
+
+            <p>
+              たとえば想定費用を入力しておけば、
+              このページで期限までの毎月の積立目安を確認できます。
+              実際の支払額は整備内容などによって変わるため、
+              あくまで家計準備用の目安として利用してください。
+            </p>
+          </section>
+
+          <section class="section">
+            <h2>車検と家電の出費が重なることも</h2>
+
+            <p>
+              車検だけ準備できていても、
+              同じ年に冷蔵庫やエアコンの買い替え、
+              保険などの支出が重なることがあります。
+            </p>
+
+            <p>
+              「くらし予報」では、
+              家電・車・定期的な支出をひとつにまとめて、
+              今後1年・3年・5年の出費を見通せます。
+            </p>
+          </section>
+
+          <section class="section card faq">
+            <h2>よくある質問</h2>
+
+            <details>
+              <summary>
+                自家用乗用車の車検は何年ごとですか？
+              </summary>
+
+              <p>
+                自家用乗用車は、新車の初回は3年、
+                2回目以降は2年が原則です。
+                ただし車種や用途によって異なる場合があるため、
+                実際の期限は車検証で確認してください。
+              </p>
+            </details>
+
+            <details>
+              <summary>
+                車検はいつから受けられますか？
+              </summary>
+
+              <p>
+                2025年4月1日から、
+                有効期間満了日の2か月前から満了日までに受検すると、
+                残存する有効期間を失わず更新できます。
+              </p>
+            </details>
+
+            <details>
+              <summary>
+                毎月いくら積み立てればいいですか？
+              </summary>
+
+              <p>
+                上の計算機では、
+                入力した想定車検費用を有効期限までの残り月数で割って、
+                毎月の積立目安を表示します。
+                実際の車検費用を保証するものではありません。
+              </p>
+            </details>
+          </section>
+
+          <section class="cta-card">
+            <div>
+              <h2>
+                わが家全体の未来の出費を見通す
+              </h2>
+
+              <p>
+                家電・車・定期支出を登録して、
+                これから1年・3年・5年の予想支出を確認できます。
+              </p>
+            </div>
+
+            <a class="primary-cta" href="/">
+              わが家の未来の出費を予報する
+            </a>
+          </section>
+
+          <section class="section">
+            <h2>関連ページ</h2>
+
+            <div class="related-links">
+              <a href="/appliance-savings-calculator/">
+                家電の毎月の積立額を計算
+              </a>
+
+              <a href="/appliance-5year-cost/">
+                家電の5年間の出費を計算
+              </a>
+
+              <a href="/refrigerator-lifespan/">
+                冷蔵庫の買い替え時期を見る
+              </a>
+            </div>
+          </section>
+        </article>
+      </main>
+
+      <footer class="seo-footer">
+        <div class="seo-footer-inner">
+          <span>
+            くらし予報　・　あなたの暮らしに、晴れ間を。
+          </span>
+
+          <a href="/">
+            トップページへ戻る
+          </a>
+        </div>
+      </footer>
+    </div>
+
+    <script>
+      (function () {
+        const expiryInput =
+          document.getElementById("inspection-expiry");
+
+        const costInput =
+          document.getElementById("inspection-cost");
+
+        const monthsLeft =
+          document.getElementById("months-left");
+
+        const daysDetail =
+          document.getElementById("days-detail");
+
+        const inspectionWindow =
+          document.getElementById("inspection-window");
+
+        const costResult =
+          document.getElementById("cost-result");
+
+        const monthlySaving =
+          document.getElementById("monthly-saving");
+
+        const yen = (value) =>
+          new Intl.NumberFormat("ja-JP").format(
+            Math.round(value)
+          ) + "円";
+
+        const formatDate = (date) =>
+          `${date.getFullYear()}年${
+            date.getMonth() + 1
+          }月${date.getDate()}日`;
+
+        function addMonths(date, amount) {
+          const result = new Date(date);
+
+          result.setMonth(
+            result.getMonth() + amount
+          );
+
+          return result;
+        }
+
+        function update() {
+          if (!expiryInput.value) {
+            monthsLeft.textContent = "---";
+            daysDetail.textContent =
+              "有効期限を入力すると表示されます";
+            inspectionWindow.textContent = "---";
+            costResult.textContent = "---";
+            monthlySaving.textContent = "---";
+            return;
+          }
+
+          const expiry = new Date(
+            expiryInput.value + "T00:00:00"
+          );
+
+          const today = new Date();
+
+          today.setHours(0, 0, 0, 0);
+
+          const difference =
+            expiry.getTime() - today.getTime();
+
+          const days =
+            Math.ceil(
+              difference / (1000 * 60 * 60 * 24)
+            );
+
+          const cost =
+            Math.max(
+              0,
+              Number(costInput.value) || 0
+            );
+
+          const inspectionStart =
+            addMonths(expiry, -2);
+
+          inspectionWindow.textContent =
+            formatDate(inspectionStart) + "ごろ";
+
+          costResult.textContent =
+            yen(cost);
+
+          if (days < 0) {
+            monthsLeft.textContent =
+              "期限を過ぎています";
+
+            daysDetail.textContent =
+              "車検証の有効期限を確認してください";
+
+            monthlySaving.textContent =
+              yen(cost);
+
+            return;
+          }
+
+          if (days === 0) {
+            monthsLeft.textContent =
+              "今日が期限です";
+
+            daysDetail.textContent =
+              "早めに確認してください";
+
+            monthlySaving.textContent =
+              yen(cost);
+
+            return;
+          }
+
+          const months =
+            Math.max(
+              1,
+              Math.ceil(days / 30.44)
+            );
+
+          monthsLeft.textContent =
+            `約${months}か月`;
+
+          daysDetail.textContent =
+            `有効期限まであと${days}日`;
+
+          monthlySaving.textContent =
+            `毎月 約${yen(cost / months)}`;
+        }
+
+        if (!expiryInput.value) {
+          const defaultDate = new Date();
+
+          defaultDate.setFullYear(
+            defaultDate.getFullYear() + 1
+          );
+
+          const year =
+            defaultDate.getFullYear();
+
+          const month =
+            String(
+              defaultDate.getMonth() + 1
+            ).padStart(2, "0");
+
+          const day =
+            String(
+              defaultDate.getDate()
+            ).padStart(2, "0");
+
+          expiryInput.value =
+            `${year}-${month}-${day}`;
+        }
+
+        expiryInput.addEventListener(
+          "change",
+          update
+        );
+
+        costInput.addEventListener(
+          "input",
+          update
+        );
+
+        update();
+      })();
+    </script>
+
+    <script src="/seo/conversion-cta.js" defer></script>
+  </body>
+</html>
