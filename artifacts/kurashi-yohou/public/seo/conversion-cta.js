@@ -447,6 +447,16 @@
     carLink.textContent = "次の車検時期・積立額を計算";
     relatedLinks.appendChild(carLink);
   }
+    if (
+    relatedLinks &&
+    path !== "/car-insurance-renewal/" &&
+    !relatedLinks.querySelector('a[href="/car-insurance-renewal/"]')
+  ) {
+    const insuranceLink = document.createElement("a");
+    insuranceLink.href = "/car-insurance-renewal/";
+    insuranceLink.textContent = "自動車保険の更新日・積立額を計算";
+    relatedLinks.appendChild(insuranceLink);
+  }
 })();
 const analyticsScript = document.createElement("script");
 analyticsScript.src = "/analytics.js";
