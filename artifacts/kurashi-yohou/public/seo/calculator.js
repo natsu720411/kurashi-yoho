@@ -34,3 +34,6 @@
   select.addEventListener("change", render);
   render();
 })();
+const conversionScript = document.createElement("script");
+conversionScript.src = "/seo/conversion-cta.js";
+document.body.appendChild(conversionScript);
