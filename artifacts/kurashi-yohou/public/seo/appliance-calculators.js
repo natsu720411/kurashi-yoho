@@ -208,3 +208,6 @@
   if (type === "five-year") renderFiveYear(app, keys);
   if (type === "single") renderSingle(app, keys);
 })();
+const conversionScript = document.createElement("script");
+conversionScript.src = "/seo/conversion-cta.js";
+document.body.appendChild(conversionScript);
