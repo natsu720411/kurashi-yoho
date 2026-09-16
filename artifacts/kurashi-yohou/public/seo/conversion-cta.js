@@ -427,6 +427,18 @@
         sticky.remove();
       });
   }
+    const relatedLinks = document.querySelector(".related-links");
+
+  if (
+    relatedLinks &&
+    path !== "/car-inspection-when/" &&
+    !relatedLinks.querySelector('a[href="/car-inspection-when/"]')
+  ) {
+    const carLink = document.createElement("a");
+    carLink.href = "/car-inspection-when/";
+    carLink.textContent = "次の車検時期・積立額を計算";
+    relatedLinks.appendChild(carLink);
+  }
 })();
 const analyticsScript = document.createElement("script");
 analyticsScript.src = "/analytics.js";
