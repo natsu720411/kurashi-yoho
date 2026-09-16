@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>エアコンの寿命は何年？買い替え時期を簡単計算 | くらし予報</title>
+    <meta name="description" content="エアコンの買い替え時期を購入年から簡単計算。将来必要になりそうな交換費用も「くらし予報」で確認できます。" />
+    <link rel="canonical" href="https://kurashi-yoho.vercel.app/aircon-lifespan/" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/favicon.png" />
+    <meta name="theme-color" content="#175d68" />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="くらし予報" />
+    <meta property="og:title" content="エアコンの寿命は何年？買い替え時期を簡単計算 | くらし予報" />
+    <meta property="og:description" content="エアコンの買い替え時期を購入年から簡単計算。将来必要になりそうな交換費用も「くらし予報」で確認できます。" />
+    <meta property="og:url" content="https://kurashi-yoho.vercel.app/aircon-lifespan/" />
+    <meta property="og:image" content="https://kurashi-yoho.vercel.app/ogp.png" />
+    <meta property="og:locale" content="ja_JP" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="エアコンの寿命は何年？買い替え時期を簡単計算 | くらし予報" />
+    <meta name="twitter:description" content="エアコンの買い替え時期を購入年から簡単計算。将来必要になりそうな交換費用も「くらし予報」で確認できます。" />
+    <meta name="twitter:image" content="https://kurashi-yoho.vercel.app/ogp.png" />
+    <link rel="stylesheet" href="/seo/styles.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "くらし予報", "item": "https://kurashi-yoho.vercel.app/" },
+          { "@type": "ListItem", "position": 2, "name": "エアコンの寿命・買い替え時期", "item": "https://kurashi-yoho.vercel.app/aircon-lifespan/" }
+        ]
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          { "@type": "Question", "name": "エアコンの寿命は何年ですか？", "acceptedAnswer": { "@type": "Answer", "text": "エアコンは一般的に10年前後が買い替えを考える目安です。ただし、使用時間や設置環境、手入れの状態によって異なります。" } },
+          { "@type": "Question", "name": "エアコンの買い替えを考えるサインは何ですか？", "acceptedAnswer": { "@type": "Answer", "text": "冷暖房の効きが悪い、異音やにおいがする、水漏れがある、電気代が気になるといった変化は、買い替えを検討するきっかけになります。" } },
+          { "@type": "Question", "name": "エアコンの買い替え費用はいくらですか？", "acceptedAnswer": { "@type": "Answer", "text": "くらし予報では、試算用の目安として約120,000円を使用しています。本体の機能や設置工事の条件によって実際の費用は変わります。" } }
+        ]
+      }
+    </script>
+  </head>
+  <body data-lifespan="10" data-cost="120000">
+    <div class="seo-shell">
+      <header class="seo-header">
+        <div class="seo-header-inner">
+          <a class="brand" href="/">
+            <img src="/favicon.png" alt="" width="40" height="40" />
+            <span><span class="brand-name">くらし予報</span><span class="brand-subtitle">LIFE WEATHER</span></span>
+          </a>
+          <a class="header-cta" href="/">未来の出費を予報する</a>
+        </div>
+      </header>
+      <main class="seo-main">
+        <nav class="breadcrumbs" aria-label="パンくず"><a href="/">くらし予報</a>　›　エアコンの寿命・買い替え時期</nav>
+        <article>
+          <section class="hero">
+            <p class="eyebrow">APPLIANCE LIFE GUIDE</p>
+            <h1>エアコンの寿命は何年？<br /><span class="hero-accent">買い替え時期を簡単チェック</span></h1>
+            <p class="hero-lead">エアコンの購入年から、買い替え時期の目安と交換費用を確認できます。季節の途中で慌てないように、早めに未来の出費を見通しておきましょう。</p>
+          </section>
+
+          <div class="content-grid">
+            <section class="card calculator" id="calculator">
+              <h2>エアコンの買い替え時期を計算</h2>
+              <p>購入年を選ぶと、現在年をもとに買い替え時期を自動で計算します。</p>
+              <label for="purchase-year">購入年</label>
+              <select id="purchase-year" aria-label="エアコンの購入年"></select>
+              <div class="calculator-result" aria-live="polite">
+                <div class="result-label">買い替え時期の目安</div>
+                <div class="result-year" id="replacement-year">---</div>
+                <p class="result-detail" id="replacement-detail">---</p>
+                <div class="result-label">買い替え費用の目安</div>
+                <div class="result-year" id="replacement-cost">---</div>
+              </div>
+              <p class="calculator-note">くらし予報の試算用目安は10年・買い替え費用約120,000円です。故障時期を保証するものではなく、使用時間・製品・設置工事などによって変わります。</p>
+            </section>
+            <section class="card">
+              <h2>寿命・買い替え時期の目安</h2>
+              <p>エアコンは夏も冬も使うことがあり、使用時間や部屋の広さによって負担が変わります。</p>
+              <ul class="check-list">
+                <li>冷暖房の効きが以前より悪い</li>
+                <li>運転中に異音やにおいがする</li>
+                <li>室内機から水漏れがある</li>
+                <li>電気代が気になるようになった</li>
+              </ul>
+            </section>
+          </div>
+
+          <section class="cta-card">
+            <div><h2>エアコンだけでなく、家電や車検もまとめて確認</h2><p>冷蔵庫・洗濯機・車検など、これからのまとまった出費を一緒に予報できます。</p></div>
+            <a class="primary-cta" href="/">わが家の未来の出費を予報する</a>
+          </section>
+
+          <section class="section">
+            <h2>買い替えを考えるきっかけ</h2>
+            <p>エアコンは、冷暖房の効きや運転音、においなどの変化が買い替えを考えるサインになります。フィルター掃除や専門業者によるクリーニングで改善することもあるため、症状に応じて修理や手入れと比較しましょう。</p>
+            <p>設置場所によっては室外機の交換や配管工事が必要になる場合もあります。特に夏や冬の繁忙期は工事まで時間がかかることがあるので、使い始める季節の前に検討すると安心です。</p>
+          </section>
+
+          <section class="section">
+            <h2>買い替え費用の準備</h2>
+            <p>エアコンの買い替えでは、本体価格に加えて取り外し・設置工事、配管や室外機に関する費用が発生する場合があります。部屋の広さや省エネ性能で価格帯も変わるため、目安を広めに見積もって準備しましょう。</p>
+            <p>くらし予報なら、エアコンの予定を冷蔵庫や洗濯機、車検などと並べて確認できます。出費が重なる時期を把握して、無理のない積立計画を立てられます。</p>
+          </section>
+
+          <section class="section card faq">
+            <h2>よくある質問</h2>
+            <details><summary>エアコンの寿命は何年ですか？</summary><p>エアコンは一般的に10年前後が買い替えを考える目安です。ただし、使用時間や設置環境、手入れの状態によって異なります。</p></details>
+            <details><summary>エアコンの買い替えを考えるサインは何ですか？</summary><p>冷暖房の効きが悪い、異音やにおいがする、水漏れがある、電気代が気になるといった変化は、買い替えを検討するきっかけになります。</p></details>
+            <details><summary>エアコンの買い替え費用はいくらですか？</summary><p>くらし予報では、試算用の目安として約120,000円を使用しています。本体の機能や設置工事の条件によって実際の費用は変わります。</p></details>
+          </section>
+
+          <section class="cta-card">
+            <div><h2>家電全体の未来の出費を見通す</h2><p>家電・車・住まい・契約を登録して、今後1年・3年・5年の予想支出を確認できます。</p></div>
+            <a class="primary-cta" href="/">わが家の未来の出費を予報する</a>
+          </section>
+
+          <section class="section">
+            <h2>関連ページ</h2>
+            <div class="related-links">
+              <a href="/refrigerator-lifespan/">冷蔵庫の寿命を見る</a>
+              <a href="/washing-machine-lifespan/">洗濯機の寿命を見る</a>
+            </div>
+          </section>
+        </article>
+      </main>
+      <footer class="seo-footer"><div class="seo-footer-inner"><span>くらし予報　・　あなたの暮らしに、晴れ間を。</span><a href="/">トップページへ戻る</a></div></footer>
+    </div>
+    <script src="/seo/calculator.js" defer></script>
+  </body>
+</html>

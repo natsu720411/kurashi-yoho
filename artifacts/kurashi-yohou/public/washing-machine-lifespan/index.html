@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>洗濯機の寿命は何年？買い替え時期を簡単計算 | くらし予報</title>
+    <meta name="description" content="洗濯機の買い替え時期を購入年から簡単計算。買い替え費用の目安や、将来の家電出費をまとめて確認できます。" />
+    <link rel="canonical" href="https://kurashi-yoho.vercel.app/washing-machine-lifespan/" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/favicon.png" />
+    <meta name="theme-color" content="#175d68" />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="くらし予報" />
+    <meta property="og:title" content="洗濯機の寿命は何年？買い替え時期を簡単計算 | くらし予報" />
+    <meta property="og:description" content="洗濯機の買い替え時期を購入年から簡単計算。買い替え費用の目安や、将来の家電出費をまとめて確認できます。" />
+    <meta property="og:url" content="https://kurashi-yoho.vercel.app/washing-machine-lifespan/" />
+    <meta property="og:image" content="https://kurashi-yoho.vercel.app/ogp.png" />
+    <meta property="og:locale" content="ja_JP" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="洗濯機の寿命は何年？買い替え時期を簡単計算 | くらし予報" />
+    <meta name="twitter:description" content="洗濯機の買い替え時期を購入年から簡単計算。買い替え費用の目安や、将来の家電出費をまとめて確認できます。" />
+    <meta name="twitter:image" content="https://kurashi-yoho.vercel.app/ogp.png" />
+    <link rel="stylesheet" href="/seo/styles.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "くらし予報", "item": "https://kurashi-yoho.vercel.app/" },
+          { "@type": "ListItem", "position": 2, "name": "洗濯機の寿命・買い替え時期", "item": "https://kurashi-yoho.vercel.app/washing-machine-lifespan/" }
+        ]
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          { "@type": "Question", "name": "洗濯機の寿命は何年ですか？", "acceptedAnswer": { "@type": "Answer", "text": "洗濯機は一般的に8年前後が買い替えを考える目安です。ただし、使用頻度や機種、設置環境によって異なります。" } },
+          { "@type": "Question", "name": "洗濯機の買い替えを考えるサインは何ですか？", "acceptedAnswer": { "@type": "Answer", "text": "脱水時の大きな音、水漏れ、エラーの増加、洗濯物の仕上がりの変化などは、買い替えを検討するきっかけになります。" } },
+          { "@type": "Question", "name": "洗濯機の買い替え費用はいくらですか？", "acceptedAnswer": { "@type": "Answer", "text": "くらし予報では、試算用の目安として約100,000円を使用しています。容量や乾燥機能の有無で実際の費用は変わります。" } }
+        ]
+      }
+    </script>
+  </head>
+  <body data-lifespan="8" data-cost="100000">
+    <div class="seo-shell">
+      <header class="seo-header">
+        <div class="seo-header-inner">
+          <a class="brand" href="/">
+            <img src="/favicon.png" alt="" width="40" height="40" />
+            <span><span class="brand-name">くらし予報</span><span class="brand-subtitle">LIFE WEATHER</span></span>
+          </a>
+          <a class="header-cta" href="/">未来の出費を予報する</a>
+        </div>
+      </header>
+      <main class="seo-main">
+        <nav class="breadcrumbs" aria-label="パンくず"><a href="/">くらし予報</a>　›　洗濯機の寿命・買い替え時期</nav>
+        <article>
+          <section class="hero">
+            <p class="eyebrow">APPLIANCE LIFE GUIDE</p>
+            <h1>洗濯機の寿命は何年？<br /><span class="hero-accent">買い替え時期を簡単チェック</span></h1>
+            <p class="hero-lead">洗濯機の購入年から、買い替え時期の目安と費用を確認できます。毎日の家事に欠かせない家電だからこそ、先の予定を早めに見通しておきましょう。</p>
+          </section>
+
+          <div class="content-grid">
+            <section class="card calculator" id="calculator">
+              <h2>洗濯機の買い替え時期を計算</h2>
+              <p>購入年を選ぶと、現在年をもとに買い替え時期を自動で計算します。</p>
+              <label for="purchase-year">購入年</label>
+              <select id="purchase-year" aria-label="洗濯機の購入年"></select>
+              <div class="calculator-result" aria-live="polite">
+                <div class="result-label">買い替え時期の目安</div>
+                <div class="result-year" id="replacement-year">---</div>
+                <p class="result-detail" id="replacement-detail">---</p>
+                <div class="result-label">買い替え費用の目安</div>
+                <div class="result-year" id="replacement-cost">---</div>
+              </div>
+              <p class="calculator-note">くらし予報の試算用目安は8年・買い替え費用約100,000円です。故障時期を保証するものではなく、使用頻度・製品・設置環境などによって変わります。</p>
+            </section>
+            <section class="card">
+              <h2>寿命・買い替え時期の目安</h2>
+              <p>洗濯機は使用回数が多くなりやすく、家族人数や洗濯の頻度によって負担も変わります。</p>
+              <ul class="check-list">
+                <li>脱水時の振動や音が大きくなった</li>
+                <li>水漏れや給水の不具合がある</li>
+                <li>エラー表示が増えてきた</li>
+                <li>洗濯物の汚れ落ちや乾燥に変化がある</li>
+              </ul>
+            </section>
+          </div>
+
+          <section class="cta-card">
+            <div><h2>洗濯機だけでなく、家電や車検もまとめて確認</h2><p>冷蔵庫・エアコン・車検など、これからのまとまった出費を一緒に予報できます。</p></div>
+            <a class="primary-cta" href="/">わが家の未来の出費を予報する</a>
+          </section>
+
+          <section class="section">
+            <h2>買い替えを考えるきっかけ</h2>
+            <p>洗濯機の買い替えは、年数だけで決める必要はありません。脱水時の異音や振動、水漏れ、洗濯・乾燥の仕上がりの変化が続くときは、修理と買い替えを比較するタイミングです。</p>
+            <p>乾燥機能付きや大容量モデルは便利な一方で、価格や設置条件も変わります。今の家族人数、洗濯回数、搬入経路を確認してから選ぶと、買った後のギャップを減らせます。</p>
+          </section>
+
+          <section class="section">
+            <h2>買い替え費用の準備</h2>
+            <p>洗濯機本体に加え、設置や古い機種の処分、場合によっては防水パンや蛇口の工事が必要になることがあります。目安費用を先に知り、買い替え時期までに少しずつ準備しておくと安心です。</p>
+            <p>くらし予報では、洗濯機だけでなく冷蔵庫やエアコンなどの買い替え時期もまとめて表示できます。家電が重なる年を早めに知ることが、無理のない準備につながります。</p>
+          </section>
+
+          <section class="section card faq">
+            <h2>よくある質問</h2>
+            <details><summary>洗濯機の寿命は何年ですか？</summary><p>洗濯機は一般的に8年前後が買い替えを考える目安です。ただし、使用頻度や機種、設置環境によって異なります。</p></details>
+            <details><summary>洗濯機の買い替えを考えるサインは何ですか？</summary><p>脱水時の大きな音、水漏れ、エラーの増加、洗濯物の仕上がりの変化などは、買い替えを検討するきっかけになります。</p></details>
+            <details><summary>洗濯機の買い替え費用はいくらですか？</summary><p>くらし予報では、試算用の目安として約100,000円を使用しています。容量や乾燥機能の有無で実際の費用は変わります。</p></details>
+          </section>
+
+          <section class="cta-card">
+            <div><h2>家電全体の未来の出費を見通す</h2><p>家電・車・住まい・契約を登録して、今後1年・3年・5年の予想支出を確認できます。</p></div>
+            <a class="primary-cta" href="/">わが家の未来の出費を予報する</a>
+          </section>
+
+          <section class="section">
+            <h2>関連ページ</h2>
+            <div class="related-links">
+              <a href="/refrigerator-lifespan/">冷蔵庫の寿命を見る</a>
+              <a href="/aircon-lifespan/">エアコンの寿命を見る</a>
+            </div>
+          </section>
+        </article>
+      </main>
+      <footer class="seo-footer"><div class="seo-footer-inner"><span>くらし予報　・　あなたの暮らしに、晴れ間を。</span><a href="/">トップページへ戻る</a></div></footer>
+    </div>
+    <script src="/seo/calculator.js" defer></script>
+  </body>
+</html>
