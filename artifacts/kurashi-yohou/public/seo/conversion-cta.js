@@ -300,7 +300,7 @@
     <span class="forecast-result-cta-icon" aria-hidden="true">☀</span>
 
     <div>
-      <h2>この家電だけで大丈夫？</h2>
+      <h2>${config.heading || "この家電だけで大丈夫？"}</h2>
 
       <p>${config.description}</p>
 
