@@ -457,6 +457,15 @@
     insuranceLink.textContent = "自動車保険の更新日・積立額を計算";
     relatedLinks.appendChild(insuranceLink);
   }
+    if (
+    relatedLinks &&
+    !relatedLinks.querySelector('a[href="/life-cost-tools/"]')
+  ) {
+    const toolsLink = document.createElement("a");
+    toolsLink.href = "/life-cost-tools/";
+    toolsLink.textContent = "暮らしの出費計算ツール一覧";
+    relatedLinks.appendChild(toolsLink);
+  }
 })();
 const analyticsScript = document.createElement("script");
 analyticsScript.src = "/analytics.js";
