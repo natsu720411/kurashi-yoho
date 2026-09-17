@@ -513,6 +513,16 @@
   }
     if (
     relatedLinks &&
+    path !== "/toilet-replacement-cost/" &&
+    !relatedLinks.querySelector('a[href="/toilet-replacement-cost/"]')
+  ) {
+    const toiletLink = document.createElement("a");
+    toiletLink.href = "/toilet-replacement-cost/";
+    toiletLink.textContent = "トイレ交換・リフォーム費用を計算";
+    relatedLinks.appendChild(toiletLink);
+  }
+    if (
+    relatedLinks &&
     !relatedLinks.querySelector('a[href="/life-cost-tools/"]')
   ) {
     const toolsLink = document.createElement("a");
