@@ -88,6 +88,12 @@ function Landing({ onStart, hasSaved }: { onStart: () => void; hasSaved: boolean
       <h1 className="text-balance font-display text-[clamp(2.5rem,8vw,5.65rem)] font-bold leading-[1.08] tracking-[-.065em] text-[#174f5b]">これから何に、<br /><span className="text-[#e6a746]">いつ、いくら</span>かかる？</h1>
       <p className="mt-6 max-w-md text-[15px] leading-8 text-[#557276]">くらし予報は、家電の買い替えや車の予定を先回り。<br className="hidden sm:block" />家計簿が苦手でも、未来のお金をやさしく見通せます。</p>
       <div className="mt-9 flex flex-col items-start gap-4 sm:flex-row sm:items-center"><button type="button" data-testid="button-start" onClick={onStart} className="press flex h-14 w-full items-center justify-center gap-3 rounded-2xl bg-[#175d68] px-7 text-[15px] font-bold text-white shadow-[0_5px_0_#0d4953] transition-transform hover:-translate-y-0.5 sm:w-auto">{hasSaved ? '予報をつづける' : 'わが家の予報をつくる'} <ArrowRight size={18} /></button><span className="flex items-center gap-1.5 text-xs text-[#71898d]"><ShieldCheck size={15} className="text-[#3e9b87]" /> 登録不要・端末に保存</span></div>
+      <a
+  href="/life-cost-tools/"
+  className="mt-5 inline-flex text-sm font-bold text-[#176873] underline decoration-[#9fcac5] underline-offset-4 hover:text-[#0d4953]"
+>
+  無料の出費計算ツールを見る →
+</a>
       <div className="mt-11 grid max-w-md grid-cols-3 gap-3 border-t border-[#cde2e2] pt-5"><div><p className="font-display text-xl font-bold text-[#175d68]">約3分</p><p className="mt-1 text-[11px] text-[#769095]">かんたん診断</p></div><div><p className="font-display text-xl font-bold text-[#175d68]">1・3・5年</p><p className="mt-1 text-[11px] text-[#769095]">先まで見通す</p></div><div><p className="font-display text-xl font-bold text-[#175d68]">無料</p><p className="mt-1 text-[11px] text-[#769095]">ずっと使える</p></div></div>
     </section>
     <section className="fade-up fade-up-delay-2 relative min-h-[390px] md:min-h-[530px]" aria-label="予報のイメージ">
