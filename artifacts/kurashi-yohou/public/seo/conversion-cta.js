@@ -497,6 +497,16 @@
   }
     if (
     relatedLinks &&
+    path !== "/ecocute-replacement-cost/" &&
+    !relatedLinks.querySelector('a[href="/ecocute-replacement-cost/"]')
+  ) {
+    const ecocuteLink = document.createElement("a");
+    ecocuteLink.href = "/ecocute-replacement-cost/";
+    ecocuteLink.textContent = "エコキュートの交換費用・積立額を計算";
+    relatedLinks.appendChild(ecocuteLink);
+  }
+    if (
+    relatedLinks &&
     !relatedLinks.querySelector('a[href="/life-cost-tools/"]')
   ) {
     const toolsLink = document.createElement("a");
