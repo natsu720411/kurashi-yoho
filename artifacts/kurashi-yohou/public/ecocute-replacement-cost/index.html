@@ -1,1 +1,663 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
+    <title>エコキュートの交換費用はいくら？毎月の積立額を計算 | くらし予報</title>
+
+    <meta
+      name="description"
+      content="エコキュートの交換予定時期と想定費用を入力すると、交換までの残り期間と毎月の積立目安を無料で計算できます。"
+    />
+
+    <link
+      rel="canonical"
+      href="https://kurashi-yoho.vercel.app/ecocute-replacement-cost/"
+    />
+
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/favicon.png" />
+    <meta name="theme-color" content="#175d68" />
+
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="くらし予報" />
+    <meta
+      property="og:title"
+      content="エコキュートの交換費用・積立額を計算 | くらし予報"
+    />
+    <meta
+      property="og:description"
+      content="エコキュートの交換予定時期と想定費用から、毎月の積立目安をかんたん計算。"
+    />
+    <meta
+      property="og:url"
+      content="https://kurashi-yoho.vercel.app/ecocute-replacement-cost/"
+    />
+    <meta
+      property="og:image"
+      content="https://kurashi-yoho.vercel.app/ogp.png"
+    />
+    <meta property="og:locale" content="ja_JP" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="エコキュートの交換費用・積立額を計算 | くらし予報"
+    />
+    <meta
+      name="twitter:description"
+      content="エコキュートの交換予定時期と想定費用から、毎月の積立目安をかんたん計算。"
+    />
+    <meta
+      name="twitter:image"
+      content="https://kurashi-yoho.vercel.app/ogp.png"
+    />
+
+    <link rel="stylesheet" href="/seo/styles.css" />
+
+    <style>
+      .eco-form {
+        display: grid;
+        gap: 18px;
+        margin-top: 22px;
+      }
+
+      .eco-field {
+        display: grid;
+        gap: 7px;
+      }
+
+      .eco-field label {
+        color: #315e64;
+        font-size: 13px;
+        font-weight: 800;
+      }
+
+      .eco-field input {
+        background: #fff;
+        border: 1px solid #cfe1df;
+        border-radius: 12px;
+        box-sizing: border-box;
+        color: #174f5b;
+        font: inherit;
+        min-height: 48px;
+        padding: 10px 12px;
+        width: 100%;
+      }
+
+      .eco-field input:focus {
+        border-color: #2b8b8a;
+        outline: 3px solid rgba(43, 139, 138, 0.18);
+      }
+
+      .field-note {
+        color: #789093;
+        font-size: 11px;
+        line-height: 1.6;
+        margin: 0;
+      }
+
+      .eco-results {
+        display: grid;
+        gap: 12px;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        margin-top: 22px;
+      }
+
+      .eco-result {
+        background: #eef8f7;
+        border-radius: 16px;
+        padding: 16px;
+      }
+
+      .eco-result.highlight {
+        background: #175d68;
+      }
+
+      .eco-result span {
+        color: #668387;
+        display: block;
+        font-size: 11px;
+        font-weight: 700;
+      }
+
+      .eco-result strong {
+        color: #175d68;
+        display: block;
+        font-size: clamp(20px, 5vw, 28px);
+        line-height: 1.25;
+        margin-top: 5px;
+      }
+
+      .eco-result small {
+        color: #779093;
+        display: block;
+        font-size: 10px;
+        line-height: 1.55;
+        margin-top: 5px;
+      }
+
+      .eco-result.highlight span,
+      .eco-result.highlight small {
+        color: #c7e1de;
+      }
+
+      .eco-result.highlight strong {
+        color: #fff;
+      }
+
+      .notice-box {
+        background: #fff8e5;
+        border-radius: 14px;
+        color: #806b43;
+        font-size: 11px;
+        line-height: 1.8;
+        margin-top: 18px;
+        padding: 14px 16px;
+      }
+
+      @media (max-width: 640px) {
+        .eco-results {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "くらし予報",
+            "item": "https://kurashi-yoho.vercel.app/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "エコキュートの交換費用・積立額",
+            "item": "https://kurashi-yoho.vercel.app/ecocute-replacement-cost/"
+          }
+        ]
+      }
+    </script>
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "エコキュートの交換費用はいくらで計算すればいいですか？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "この計算機では固定額を使用せず、見積もりや自分で想定している交換費用を入力します。実際の費用は機種や工事内容、設置状況などによって異なります。"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "毎月の積立額はどう計算しますか？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "入力した想定交換費用を、交換予定時期までの残り月数で割って毎月の積立目安を表示します。"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "エコキュートは何年で交換すると計算していますか？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "交換時期は機種や使用状況、設置環境などによって異なるため、このページでは一律の交換年数を設定せず、利用者自身が交換予定時期を入力する方式にしています。"
+            }
+          }
+        ]
+      }
+    </script>
+
+    <script src="/analytics.js" defer></script>
+  </head>
+
+  <body>
+    <div class="seo-shell">
+      <header class="seo-header">
+        <div class="seo-header-inner">
+          <a class="brand" href="/">
+            <img src="/favicon.png" alt="" width="40" height="40" />
+
+            <span>
+              <span class="brand-name">くらし予報</span>
+              <span class="brand-subtitle">LIFE WEATHER</span>
+            </span>
+          </a>
+
+          <a class="header-cta" href="/">
+            未来の出費を予報する
+          </a>
+        </div>
+      </header>
+
+      <main class="seo-main">
+        <nav class="breadcrumbs" aria-label="パンくず">
+          <a href="/">くらし予報</a>
+          　›　エコキュートの交換費用・積立額
+        </nav>
+
+        <article>
+          <section class="hero">
+            <p class="eyebrow">
+              HOME MAINTENANCE
+            </p>
+
+            <h1>
+              エコキュートの交換、
+              <br />
+              <span class="hero-accent">
+                毎月いくら準備する？
+              </span>
+            </h1>
+
+            <p class="hero-lead">
+              交換したい時期と想定費用を入力すると、
+              交換までの残り期間と、
+              毎月の積立目安をかんたんに計算できます。
+            </p>
+          </section>
+
+          <div class="content-grid">
+            <section class="card calculator" id="calculator">
+              <h2>
+                エコキュートの交換費用を計算
+              </h2>
+
+              <p>
+                交換を考えている時期と、
+                想定している費用を入力してください。
+              </p>
+
+              <div class="eco-form">
+                <div class="eco-field">
+                  <label for="replacement-date">
+                    交換予定の年月
+                  </label>
+
+                  <input
+                    id="replacement-date"
+                    type="month"
+                  />
+
+                  <p class="field-note">
+                    自分で交換を予定している時期を入力します。
+                  </p>
+                </div>
+
+                <div class="eco-field">
+                  <label for="replacement-cost">
+                    想定する交換費用
+                  </label>
+
+                  <input
+                    id="replacement-cost"
+                    type="number"
+                    min="0"
+                    step="1000"
+                    value="0"
+                    inputmode="numeric"
+                  />
+
+                  <p class="field-note">
+                    本体・工事などを含め、自分で見込む総額を入力してください。
+                  </p>
+                </div>
+              </div>
+
+              <div
+                class="eco-results"
+                aria-live="polite"
+              >
+                <div class="eco-result">
+                  <span>
+                    交換予定まで
+                  </span>
+
+                  <strong id="months-left">
+                    ---
+                  </strong>
+
+                  <small id="date-detail">
+                    交換予定を入力すると表示されます
+                  </small>
+                </div>
+
+                <div class="eco-result">
+                  <span>
+                    想定交換費用
+                  </span>
+
+                  <strong id="cost-result">
+                    0円
+                  </strong>
+
+                  <small>
+                    入力した金額
+                  </small>
+                </div>
+
+                <div class="eco-result highlight">
+                  <span>
+                    毎月の積立目安
+                  </span>
+
+                  <strong id="monthly-result">
+                    ---
+                  </strong>
+
+                  <small>
+                    交換予定までに準備する場合
+                  </small>
+                </div>
+
+                <div class="eco-result">
+                  <span>
+                    1年あたりの準備額
+                  </span>
+
+                  <strong id="annual-result">
+                    ---
+                  </strong>
+
+                  <small>
+                    毎月の積立額を12か月換算
+                  </small>
+                </div>
+              </div>
+
+              <div class="notice-box">
+                この計算は家計準備のための簡易試算です。
+                実際の交換時期や費用は、
+                機種・設置状況・工事内容などによって異なります。
+              </div>
+            </section>
+
+            <section class="card">
+              <h2>
+                大きな住宅設備費は早めに分けて考える
+              </h2>
+
+              <p>
+                エコキュートの交換のような、
+                毎月は発生しない大きな支出は、
+                必要になる時期を決めて
+                少しずつ準備すると把握しやすくなります。
+              </p>
+
+              <ul class="check-list">
+                <li>
+                  交換を考えている時期を入力
+                </li>
+
+                <li>
+                  想定している交換費用を入力
+                </li>
+
+                <li>
+                  毎月の積立目安を確認
+                </li>
+
+                <li>
+                  見積もりが変わったら再計算
+                </li>
+              </ul>
+            </section>
+          </div>
+
+          <section class="cta-card">
+            <div>
+              <h2>
+                エコキュート以外の出費もまとめて確認
+              </h2>
+
+              <p>
+                給湯器・家電・車検・保険など、
+                将来重なりそうな支出をまとめて予報できます。
+              </p>
+            </div>
+
+            <a class="primary-cta" href="/">
+              わが家全体の未来の出費を予報する
+            </a>
+          </section>
+
+          <section class="section">
+            <h2>
+              交換費用は自分の見積もりで計算
+            </h2>
+
+            <p>
+              このページでは、
+              エコキュートの交換費用を一律の金額にはしていません。
+            </p>
+
+            <p>
+              設置する機種や工事内容によって条件が変わるため、
+              見積もりや自分で想定している金額を入力して
+              家計の準備額を確認できます。
+            </p>
+          </section>
+
+          <section class="section">
+            <h2>
+              住宅設備と家電の出費が重なることも
+            </h2>
+
+            <p>
+              エコキュートの交換を考えている時期に、
+              冷蔵庫・洗濯機・エアコンや
+              車検などの出費が重なることもあります。
+            </p>
+
+            <p>
+              くらし予報では、
+              家電・車・住宅設備などの将来支出を
+              まとめて考えられます。
+            </p>
+          </section>
+
+          <section class="section card faq">
+            <h2>
+              よくある質問
+            </h2>
+
+            <details>
+              <summary>
+                交換費用はいくら入力すればいいですか？
+              </summary>
+
+              <p>
+                固定額は設定していません。
+                見積もりや、自分で想定している交換総額を入力してください。
+              </p>
+            </details>
+
+            <details>
+              <summary>
+                何年で交換すると計算していますか？
+              </summary>
+
+              <p>
+                一律の年数では計算していません。
+                自分で交換予定年月を入力する方式です。
+              </p>
+            </details>
+
+            <details>
+              <summary>
+                毎月の積立額はどう計算されますか？
+              </summary>
+
+              <p>
+                想定交換費用を、
+                交換予定までの残り月数で割って表示します。
+                実際の必要額を保証するものではありません。
+              </p>
+            </details>
+          </section>
+
+          <section class="section">
+            <h2>
+              関連ページ
+            </h2>
+
+            <div class="related-links">
+              <a href="/water-heater-replacement-cost/">
+                給湯器の交換費用・積立額を計算
+              </a>
+
+              <a href="/appliance-savings-calculator/">
+                家電の毎月の積立額を計算
+              </a>
+
+              <a href="/car-annual-cost/">
+                車の年間維持費を計算
+              </a>
+
+              <a href="/life-cost-tools/">
+                暮らしの出費計算ツール一覧
+              </a>
+            </div>
+          </section>
+        </article>
+      </main>
+
+      <footer class="seo-footer">
+        <div class="seo-footer-inner">
+          <span>
+            くらし予報　・　あなたの暮らしに、晴れ間を。
+          </span>
+
+          <a href="/">
+            トップページへ戻る
+          </a>
+
+          <a href="/privacy-policy/">
+            プライバシーポリシー
+          </a>
+        </div>
+      </footer>
+    </div>
+
+    <script>
+      (function () {
+        const dateInput =
+          document.getElementById("replacement-date");
+
+        const costInput =
+          document.getElementById("replacement-cost");
+
+        const monthsLeft =
+          document.getElementById("months-left");
+
+        const dateDetail =
+          document.getElementById("date-detail");
+
+        const costResult =
+          document.getElementById("cost-result");
+
+        const monthlyResult =
+          document.getElementById("monthly-result");
+
+        const annualResult =
+          document.getElementById("annual-result");
+
+        const yen = (value) =>
+          new Intl.NumberFormat("ja-JP").format(
+            Math.round(value)
+          ) + "円";
+
+        function update() {
+          const cost =
+            Math.max(
+              0,
+              Number(costInput.value) || 0
+            );
+
+          costResult.textContent = yen(cost);
+
+          if (!dateInput.value) {
+            monthsLeft.textContent = "---";
+            dateDetail.textContent =
+              "交換予定を入力すると表示されます";
+            monthlyResult.textContent = "---";
+            annualResult.textContent = "---";
+            return;
+          }
+
+          const [year, month] =
+            dateInput.value
+              .split("-")
+              .map(Number);
+
+          const today = new Date();
+
+          const currentMonth =
+            today.getFullYear() * 12 +
+            today.getMonth();
+
+          const targetMonth =
+            year * 12 +
+            (month - 1);
+
+          const months =
+            targetMonth - currentMonth;
+
+          if (months <= 0) {
+            monthsLeft.textContent =
+              "予定時期を過ぎています";
+
+            dateDetail.textContent =
+              "未来の年月を入力してください";
+
+            monthlyResult.textContent = "---";
+            annualResult.textContent = "---";
+            return;
+          }
+
+          monthsLeft.textContent =
+            `${months}か月`;
+
+          dateDetail.textContent =
+            `${year}年${month}月に交換予定`;
+
+          const monthly =
+            cost / months;
+
+          monthlyResult.textContent =
+            yen(monthly);
+
+          annualResult.textContent =
+            yen(monthly * 12);
+        }
+
+        dateInput.addEventListener(
+          "input",
+          update
+        );
+
+        costInput.addEventListener(
+          "input",
+          update
+        );
+
+        update();
+      })();
+    </script>
+
+    <script
+      src="/seo/conversion-cta.js"
+      defer
+    ></script>
+  </body>
+</html>
