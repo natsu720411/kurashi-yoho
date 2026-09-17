@@ -527,6 +527,16 @@
     toiletLink.textContent = "トイレ交換・リフォーム費用を計算";
     relatedLinks.appendChild(toiletLink);
   }
+  if (
+  relatedLinks &&
+  path !== "/bathroom-reform-cost/" &&
+  !relatedLinks.querySelector('a[href="/bathroom-reform-cost/"]')
+) {
+  const bathroomLink = document.createElement("a");
+  bathroomLink.href = "/bathroom-reform-cost/";
+  bathroomLink.textContent = "浴室・お風呂リフォーム費用を計算";
+  relatedLinks.appendChild(bathroomLink);
+}
     if (
     relatedLinks &&
     !relatedLinks.querySelector('a[href="/life-cost-tools/"]')
