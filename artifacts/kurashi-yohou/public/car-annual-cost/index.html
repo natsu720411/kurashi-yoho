@@ -1,1 +1,976 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
+    <title>車の年間維持費はいくら？月額・5年間の費用を計算 | くらし予報</title>
+
+    <meta
+      name="description"
+      content="車の年間維持費を無料で計算。ガソリン代、駐車場代、自動車保険、税金、車検、メンテナンス費などを入力すると、年間・月間・5年間の負担額を確認できます。"
+    />
+
+    <link
+      rel="canonical"
+      href="https://kurashi-yoho.vercel.app/car-annual-cost/"
+    />
+
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/favicon.png" />
+    <meta name="theme-color" content="#175d68" />
+
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="くらし予報" />
+
+    <meta
+      property="og:title"
+      content="車の年間維持費はいくら？月額・5年間の費用を計算 | くらし予報"
+    />
+
+    <meta
+      property="og:description"
+      content="ガソリン・駐車場・保険・税金・車検などを入力して、車にかかる年間費用をかんたん計算。"
+    />
+
+    <meta
+      property="og:url"
+      content="https://kurashi-yoho.vercel.app/car-annual-cost/"
+    />
+
+    <meta
+      property="og:image"
+      content="https://kurashi-yoho.vercel.app/ogp.png"
+    />
+
+    <meta property="og:locale" content="ja_JP" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="stylesheet" href="/seo/styles.css" />
+
+    <style>
+      .car-cost-form {
+        display: grid;
+        gap: 18px;
+        margin-top: 24px;
+      }
+
+      .cost-group {
+        border-bottom: 1px solid #e0eceb;
+        padding-bottom: 20px;
+      }
+
+      .cost-group:last-child {
+        border-bottom: 0;
+        padding-bottom: 0;
+      }
+
+      .cost-group h3 {
+        color: #174f5b;
+        font-size: 15px;
+        margin: 0 0 14px;
+      }
+
+      .cost-fields {
+        display: grid;
+        gap: 13px;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .cost-field {
+        display: grid;
+        gap: 7px;
+      }
+
+      .cost-field label {
+        color: #315e64;
+        font-size: 13px;
+        font-weight: 800;
+      }
+
+      .cost-input-wrap {
+        position: relative;
+      }
+
+      .cost-field input {
+        background: #fff;
+        border: 1px solid #cfe1df;
+        border-radius: 12px;
+        box-sizing: border-box;
+        color: #174f5b;
+        font: inherit;
+        min-height: 48px;
+        padding: 10px 48px 10px 12px;
+        width: 100%;
+      }
+
+      .cost-field input:focus {
+        border-color: #2b8b8a;
+        outline: 3px solid rgba(43, 139, 138, 0.18);
+      }
+
+      .input-unit {
+        color: #81989b;
+        font-size: 12px;
+        pointer-events: none;
+        position: absolute;
+        right: 13px;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+
+      .field-note {
+        color: #819699;
+        font-size: 10px;
+        line-height: 1.55;
+        margin: 0;
+      }
+
+      .cost-results {
+        display: grid;
+        gap: 12px;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        margin-top: 24px;
+      }
+
+      .cost-result {
+        background: #eef8f7;
+        border-radius: 16px;
+        padding: 17px;
+      }
+
+      .cost-result.highlight {
+        background: #175d68;
+      }
+
+      .cost-result span {
+        color: #698588;
+        display: block;
+        font-size: 11px;
+        font-weight: 700;
+      }
+
+      .cost-result strong {
+        color: #175d68;
+        display: block;
+        font-size: clamp(20px, 5vw, 28px);
+        line-height: 1.25;
+        margin-top: 6px;
+      }
+
+      .cost-result small {
+        color: #809699;
+        display: block;
+        font-size: 10px;
+        line-height: 1.5;
+        margin-top: 5px;
+      }
+
+      .cost-result.highlight span,
+      .cost-result.highlight small {
+        color: #c7e1de;
+      }
+
+      .cost-result.highlight strong {
+        color: #fff;
+      }
+
+      .breakdown {
+        display: grid;
+        gap: 9px;
+        margin-top: 20px;
+      }
+
+      .breakdown-row {
+        align-items: center;
+        background: #f7fbfa;
+        border-radius: 12px;
+        display: flex;
+        gap: 12px;
+        justify-content: space-between;
+        padding: 11px 13px;
+      }
+
+      .breakdown-row span {
+        color: #627f83;
+        font-size: 12px;
+      }
+
+      .breakdown-row strong {
+        color: #175d68;
+        font-size: 13px;
+      }
+
+      .cost-notice {
+        background: #fff8e5;
+        border-radius: 14px;
+        color: #806b43;
+        font-size: 11px;
+        line-height: 1.8;
+        margin-top: 18px;
+        padding: 14px 16px;
+      }
+
+      @media (max-width: 700px) {
+        .cost-fields,
+        .cost-results {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "くらし予報",
+            "item": "https://kurashi-yoho.vercel.app/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "車の年間維持費計算",
+            "item": "https://kurashi-yoho.vercel.app/car-annual-cost/"
+          }
+        ]
+      }
+    </script>
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "車の年間維持費には何を含めますか？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "この計算機では、ガソリン代、駐車場代、ローン、自動車保険、税金、メンテナンス、車検、その他の費用を入力して計算できます。"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "月々の車の維持費はどう計算しますか？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "入力した月額費用を12倍し、年間費用と車検費用の年換算額を加え、その合計を12か月で割って月額の目安を表示します。"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "計算結果は実際にかかる費用と同じですか？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "計算結果は入力した金額をもとにした家計準備用の試算です。実際の費用は車種、契約、利用状況、地域、整備内容などによって異なります。"
+            }
+          }
+        ]
+      }
+    </script>
+
+    <script src="/analytics.js" defer></script>
+  </head>
+
+  <body>
+    <div class="seo-shell">
+      <header class="seo-header">
+        <div class="seo-header-inner">
+          <a class="brand" href="/">
+            <img
+              src="/favicon.png"
+              alt=""
+              width="40"
+              height="40"
+            />
+
+            <span>
+              <span class="brand-name">
+                くらし予報
+              </span>
+
+              <span class="brand-subtitle">
+                LIFE WEATHER
+              </span>
+            </span>
+          </a>
+
+          <a class="header-cta" href="/">
+            未来の出費を予報する
+          </a>
+        </div>
+      </header>
+
+      <main class="seo-main">
+        <nav class="breadcrumbs" aria-label="パンくず">
+          <a href="/">くらし予報</a>
+          　›　車の年間維持費計算
+        </nav>
+
+        <article>
+          <section class="hero">
+            <p class="eyebrow">
+              CAR COST CALCULATOR
+            </p>
+
+            <h1>
+              車の維持費、
+              <br />
+
+              <span class="hero-accent">
+                1年でいくらかかる？
+              </span>
+            </h1>
+
+            <p class="hero-lead">
+              ガソリン・駐車場・保険・税金・車検など、
+              車にかかる費用を入力すると、
+              年間・月間・5年間の負担額をまとめて計算できます。
+            </p>
+          </section>
+
+          <div class="content-grid">
+            <section
+              class="card calculator"
+              id="calculator"
+            >
+              <h2>
+                車の年間維持費を計算
+              </h2>
+
+              <p>
+                分かる項目だけ入力すればOKです。
+                かからない費用は0円のままにしてください。
+              </p>
+
+              <div class="car-cost-form">
+                <div class="cost-group">
+                  <h3>
+                    毎月かかる費用
+                  </h3>
+
+                  <div class="cost-fields">
+                    <div class="cost-field">
+                      <label for="fuel">
+                        ガソリン・充電代
+                      </label>
+
+                      <div class="cost-input-wrap">
+                        <input
+                          id="fuel"
+                          type="number"
+                          min="0"
+                          step="100"
+                          value="0"
+                          inputmode="numeric"
+                        />
+
+                        <span class="input-unit">
+                          円/月
+                        </span>
+                      </div>
+                    </div>
+
+                    <div class="cost-field">
+                      <label for="parking">
+                        駐車場代
+                      </label>
+
+                      <div class="cost-input-wrap">
+                        <input
+                          id="parking"
+                          type="number"
+                          min="0"
+                          step="100"
+                          value="0"
+                          inputmode="numeric"
+                        />
+
+                        <span class="input-unit">
+                          円/月
+                        </span>
+                      </div>
+                    </div>
+
+                    <div class="cost-field">
+                      <label for="loan">
+                        車のローン
+                      </label>
+
+                      <div class="cost-input-wrap">
+                        <input
+                          id="loan"
+                          type="number"
+                          min="0"
+                          step="100"
+                          value="0"
+                          inputmode="numeric"
+                        />
+
+                        <span class="input-unit">
+                          円/月
+                        </span>
+                      </div>
+
+                      <p class="field-note">
+                        ローンを維持費に含めたくない場合は0円でOKです。
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="cost-group">
+                  <h3>
+                    1年ごとに考える費用
+                  </h3>
+
+                  <div class="cost-fields">
+                    <div class="cost-field">
+                      <label for="insurance">
+                        自動車保険
+                      </label>
+
+                      <div class="cost-input-wrap">
+                        <input
+                          id="insurance"
+                          type="number"
+                          min="0"
+                          step="1000"
+                          value="0"
+                          inputmode="numeric"
+                        />
+
+                        <span class="input-unit">
+                          円/年
+                        </span>
+                      </div>
+                    </div>
+
+                    <div class="cost-field">
+                      <label for="tax">
+                        税金
+                      </label>
+
+                      <div class="cost-input-wrap">
+                        <input
+                          id="tax"
+                          type="number"
+                          min="0"
+                          step="1000"
+                          value="0"
+                          inputmode="numeric"
+                        />
+
+                        <span class="input-unit">
+                          円/年
+                        </span>
+                      </div>
+
+                      <p class="field-note">
+                        自分の車で年間に見込む税負担額を入力してください。
+                      </p>
+                    </div>
+
+                    <div class="cost-field">
+                      <label for="maintenance">
+                        メンテナンス・消耗品
+                      </label>
+
+                      <div class="cost-input-wrap">
+                        <input
+                          id="maintenance"
+                          type="number"
+                          min="0"
+                          step="1000"
+                          value="0"
+                          inputmode="numeric"
+                        />
+
+                        <span class="input-unit">
+                          円/年
+                        </span>
+                      </div>
+
+                      <p class="field-note">
+                        オイル、タイヤ、点検など、自分で見込む金額を入力。
+                      </p>
+                    </div>
+
+                    <div class="cost-field">
+                      <label for="other">
+                        その他
+                      </label>
+
+                      <div class="cost-input-wrap">
+                        <input
+                          id="other"
+                          type="number"
+                          min="0"
+                          step="1000"
+                          value="0"
+                          inputmode="numeric"
+                        />
+
+                        <span class="input-unit">
+                          円/年
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="cost-group">
+                  <h3>
+                    車検費用
+                  </h3>
+
+                  <div class="cost-fields">
+                    <div class="cost-field">
+                      <label for="inspection-cost">
+                        1回の車検で見込む費用
+                      </label>
+
+                      <div class="cost-input-wrap">
+                        <input
+                          id="inspection-cost"
+                          type="number"
+                          min="0"
+                          step="1000"
+                          value="0"
+                          inputmode="numeric"
+                        />
+
+                        <span class="input-unit">
+                          円
+                        </span>
+                      </div>
+                    </div>
+
+                    <div class="cost-field">
+                      <label for="inspection-years">
+                        何年ごとに見込む？
+                      </label>
+
+                      <div class="cost-input-wrap">
+                        <input
+                          id="inspection-years"
+                          type="number"
+                          min="0.1"
+                          step="0.5"
+                          value="2"
+                          inputmode="decimal"
+                        />
+
+                        <span class="input-unit">
+                          年
+                        </span>
+                      </div>
+
+                      <p class="field-note">
+                        2年は仮の入力値です。自分の車の予定に合わせて変更してください。
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div
+                class="cost-results"
+                aria-live="polite"
+              >
+                <div class="cost-result highlight">
+                  <span>
+                    1年間の維持費
+                  </span>
+
+                  <strong id="annual-result">
+                    0円
+                  </strong>
+
+                  <small>
+                    入力した費用の合計
+                  </small>
+                </div>
+
+                <div class="cost-result">
+                  <span>
+                    1か月あたり
+                  </span>
+
+                  <strong id="monthly-result">
+                    0円
+                  </strong>
+
+                  <small>
+                    年間費用を12か月で換算
+                  </small>
+                </div>
+
+                <div class="cost-result">
+                  <span>
+                    5年間なら
+                  </span>
+
+                  <strong id="five-year-result">
+                    0円
+                  </strong>
+
+                  <small>
+                    現在の入力条件が続く場合
+                  </small>
+                </div>
+              </div>
+
+              <div class="breakdown">
+                <div class="breakdown-row">
+                  <span>
+                    毎月かかる費用
+                  </span>
+
+                  <strong id="monthly-cost-breakdown">
+                    0円/年
+                  </strong>
+                </div>
+
+                <div class="breakdown-row">
+                  <span>
+                    年単位の費用
+                  </span>
+
+                  <strong id="annual-cost-breakdown">
+                    0円/年
+                  </strong>
+                </div>
+
+                <div class="breakdown-row">
+                  <span>
+                    車検費用の年換算
+                  </span>
+
+                  <strong id="inspection-breakdown">
+                    0円/年
+                  </strong>
+                </div>
+              </div>
+
+              <div class="cost-notice">
+                この結果は、入力した金額をもとにした
+                家計準備用の簡易シミュレーションです。
+                実際の維持費は車種、走行距離、地域、
+                契約内容、整備状況などによって変わります。
+              </div>
+            </section>
+
+            <section class="card">
+              <h2>
+                車の維持費を考えるときのポイント
+              </h2>
+
+              <p>
+                車の出費は、毎月発生するものと、
+                年に数回・数年に一度発生するものが混ざっています。
+              </p>
+
+              <ul class="check-list">
+                <li>
+                  ガソリン・充電代や駐車場は月単位で確認
+                </li>
+
+                <li>
+                  保険や税金は年単位で確認
+                </li>
+
+                <li>
+                  車検などのまとまった支出は年換算して考える
+                </li>
+
+                <li>
+                  自分の実際の契約額・利用状況を入力する
+                </li>
+              </ul>
+
+              <p>
+                すべてを同じ「年間費用」に直すと、
+                車のために毎月どれくらい準備すればよいか
+                見通しやすくなります。
+              </p>
+            </section>
+          </div>
+
+          <section class="cta-card">
+            <div>
+              <h2>
+                車だけでなく、家電の出費もまとめて予報
+              </h2>
+
+              <p>
+                車検・保険・家電の買い替えなど、
+                同じ時期に重なる出費までまとめて確認できます。
+              </p>
+            </div>
+
+            <a class="primary-cta" href="/">
+              わが家全体の未来の出費を予報する
+            </a>
+          </section>
+
+          <section class="section">
+            <h2>
+              月額だけでは見えない出費にも注意
+            </h2>
+
+            <p>
+              ガソリン代や駐車場代は毎月確認しやすい一方で、
+              保険、車検、メンテナンスなどは
+              支払い時期がばらばらです。
+            </p>
+
+            <p>
+              年間費用にまとめてから12か月で割ると、
+              「車のために毎月いくら確保しておくか」
+              という形で考えやすくなります。
+            </p>
+          </section>
+
+          <section class="section">
+            <h2>
+              5年間で見ると大きな金額になることも
+            </h2>
+
+            <p>
+              1か月の支出だけでは小さく見えても、
+              数年間続けばまとまった金額になります。
+            </p>
+
+            <p>
+              この計算機では同じ入力条件が続くと仮定した
+              5年間の金額も表示します。
+              将来の家計を考えるための目安として利用してください。
+            </p>
+          </section>
+
+          <section class="section card faq">
+            <h2>
+              よくある質問
+            </h2>
+
+            <details>
+              <summary>
+                車の年間維持費には何を入れればいいですか？
+              </summary>
+
+              <p>
+                このページでは、
+                ガソリン・充電、駐車場、ローン、
+                自動車保険、税金、メンテナンス、
+                車検、その他の費用を入力できます。
+                自分にかからない項目は0円で構いません。
+              </p>
+            </details>
+
+            <details>
+              <summary>
+                月々の維持費はどうやって計算していますか？
+              </summary>
+
+              <p>
+                月額費用を年間換算し、
+                年額で入力した費用と
+                車検費用の年換算額を加えます。
+                その合計を12で割って、
+                1か月あたりの目安を表示します。
+              </p>
+            </details>
+
+            <details>
+              <summary>
+                表示された金額が実際の維持費になりますか？
+              </summary>
+
+              <p>
+                いいえ。
+                入力した金額をもとにした簡易試算です。
+                実際の支出は車種、走行距離、
+                地域、契約内容、整備内容などによって異なります。
+              </p>
+            </details>
+          </section>
+
+          <section class="cta-card">
+            <div>
+              <h2>
+                これから1年・3年・5年の出費をまとめて確認
+              </h2>
+
+              <p>
+                車だけでなく家電や定期支出も登録して、
+                わが家全体の未来のお金を見通せます。
+              </p>
+            </div>
+
+            <a class="primary-cta" href="/">
+              くらし予報をつくる
+            </a>
+          </section>
+
+          <section class="section">
+            <h2>
+              関連ページ
+            </h2>
+
+            <div class="related-links">
+              <a href="/car-inspection-when/">
+                次の車検時期・積立額を計算
+              </a>
+
+              <a href="/car-insurance-renewal/">
+                自動車保険の更新日・積立額を計算
+              </a>
+
+              <a href="/life-cost-tools/">
+                暮らしの出費計算ツール一覧
+              </a>
+
+              <a href="/appliance-savings-calculator/">
+                家電の毎月の積立額を計算
+              </a>
+            </div>
+          </section>
+        </article>
+      </main>
+
+      <footer class="seo-footer">
+        <div class="seo-footer-inner">
+          <span>
+            くらし予報　・　あなたの暮らしに、晴れ間を。
+          </span>
+
+          <a href="/">
+            トップページへ戻る
+          </a>
+
+          <a href="/privacy-policy/">
+            プライバシーポリシー
+          </a>
+        </div>
+      </footer>
+    </div>
+
+    <script>
+      (function () {
+        const ids = [
+          "fuel",
+          "parking",
+          "loan",
+          "insurance",
+          "tax",
+          "maintenance",
+          "other",
+          "inspection-cost",
+          "inspection-years"
+        ];
+
+        const getNumber = (id) => {
+          const value = Number(
+            document.getElementById(id).value
+          );
+
+          return Number.isFinite(value)
+            ? Math.max(0, value)
+            : 0;
+        };
+
+        const yen = (value) =>
+          new Intl.NumberFormat("ja-JP").format(
+            Math.round(value)
+          ) + "円";
+
+        function update() {
+          const monthlyCosts =
+            getNumber("fuel") +
+            getNumber("parking") +
+            getNumber("loan");
+
+          const monthlyAnnual =
+            monthlyCosts * 12;
+
+          const annualCosts =
+            getNumber("insurance") +
+            getNumber("tax") +
+            getNumber("maintenance") +
+            getNumber("other");
+
+          const inspectionCost =
+            getNumber("inspection-cost");
+
+          const inspectionYears =
+            getNumber("inspection-years");
+
+          const inspectionAnnual =
+            inspectionYears > 0
+              ? inspectionCost / inspectionYears
+              : 0;
+
+          const annualTotal =
+            monthlyAnnual +
+            annualCosts +
+            inspectionAnnual;
+
+          const monthlyTotal =
+            annualTotal / 12;
+
+          const fiveYearTotal =
+            annualTotal * 5;
+
+          document.getElementById(
+            "annual-result"
+          ).textContent = yen(annualTotal);
+
+          document.getElementById(
+            "monthly-result"
+          ).textContent = yen(monthlyTotal);
+
+          document.getElementById(
+            "five-year-result"
+          ).textContent = yen(fiveYearTotal);
+
+          document.getElementById(
+            "monthly-cost-breakdown"
+          ).textContent =
+            yen(monthlyAnnual) + "/年";
+
+          document.getElementById(
+            "annual-cost-breakdown"
+          ).textContent =
+            yen(annualCosts) + "/年";
+
+          document.getElementById(
+            "inspection-breakdown"
+          ).textContent =
+            yen(inspectionAnnual) + "/年";
+        }
+
+        ids.forEach((id) => {
+          document
+            .getElementById(id)
+            .addEventListener(
+              "input",
+              update
+            );
+        });
+
+        update();
+      })();
+    </script>
+
+    <script
+      src="/seo/conversion-cta.js"
+      defer
+    ></script>
+  </body>
+</html>
