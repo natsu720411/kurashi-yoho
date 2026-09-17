@@ -1,0 +1,600 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>暮らしの出費計算ツール一覧｜家電・車検・保険を無料計算 | くらし予報</title>
+
+    <meta
+      name="description"
+      content="家電の買い替え費用、毎月の積立額、車検、自動車保険など、これからの暮らしにかかる出費を無料で計算できるツール一覧です。"
+    />
+
+    <link
+      rel="canonical"
+      href="https://kurashi-yoho.vercel.app/life-cost-tools/"
+    />
+
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/favicon.png" />
+    <meta name="theme-color" content="#175d68" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="くらし予報" />
+    <meta
+      property="og:title"
+      content="暮らしの出費計算ツール一覧 | くらし予報"
+    />
+    <meta
+      property="og:description"
+      content="家電・車検・自動車保険など、将来の出費を無料で計算できます。"
+    />
+    <meta
+      property="og:url"
+      content="https://kurashi-yoho.vercel.app/life-cost-tools/"
+    />
+    <meta
+      property="og:image"
+      content="https://kurashi-yoho.vercel.app/ogp.png"
+    />
+    <meta property="og:locale" content="ja_JP" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="暮らしの出費計算ツール一覧 | くらし予報"
+    />
+    <meta
+      name="twitter:description"
+      content="家電・車検・自動車保険など、将来の出費を無料で計算できます。"
+    />
+    <meta
+      name="twitter:image"
+      content="https://kurashi-yoho.vercel.app/ogp.png"
+    />
+
+    <link rel="stylesheet" href="/seo/styles.css" />
+
+    <style>
+      .tools-intro {
+        max-width: 760px;
+      }
+
+      .tool-category {
+        margin-top: 44px;
+      }
+
+      .tool-category-head {
+        margin-bottom: 18px;
+      }
+
+      .tool-category-head p {
+        color: #668387;
+        line-height: 1.8;
+      }
+
+      .tool-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
+      }
+
+      .tool-card {
+        display: flex;
+        flex-direction: column;
+        min-height: 190px;
+        background: #fff;
+        border: 1px solid #d5e8e5;
+        border-radius: 20px;
+        box-shadow: 0 8px 25px rgba(23, 93, 104, 0.06);
+        padding: 22px;
+        text-decoration: none;
+        transition:
+          transform 0.15s ease,
+          box-shadow 0.15s ease,
+          border-color 0.15s ease;
+      }
+
+      .tool-card:hover {
+        transform: translateY(-2px);
+        border-color: #9fcac5;
+        box-shadow: 0 12px 30px rgba(23, 93, 104, 0.11);
+      }
+
+      .tool-icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 44px;
+        height: 44px;
+        margin-bottom: 14px;
+        border-radius: 14px;
+        background: #eef8f7;
+        font-size: 22px;
+      }
+
+      .tool-card h3 {
+        margin: 0 0 8px;
+        color: #174f5b;
+        font-size: 17px;
+        line-height: 1.5;
+      }
+
+      .tool-card p {
+        margin: 0;
+        color: #668387;
+        font-size: 13px;
+        line-height: 1.75;
+      }
+
+      .tool-link {
+        display: block;
+        margin-top: auto;
+        padding-top: 16px;
+        color: #176873;
+        font-size: 13px;
+        font-weight: 800;
+      }
+
+      .future-box {
+        margin-top: 44px;
+        padding: 26px;
+        background: linear-gradient(
+          135deg,
+          #fff9e8 0%,
+          #eef9f7 100%
+        );
+        border: 1px solid #e5dfc5;
+        border-radius: 22px;
+      }
+
+      .future-box h2 {
+        margin-top: 0;
+      }
+
+      .future-points {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px;
+        margin-top: 20px;
+      }
+
+      .future-point {
+        background: rgba(255, 255, 255, 0.82);
+        border-radius: 15px;
+        padding: 16px;
+      }
+
+      .future-point strong {
+        display: block;
+        color: #175d68;
+        margin-bottom: 5px;
+      }
+
+      .future-point span {
+        color: #668387;
+        font-size: 12px;
+        line-height: 1.6;
+      }
+
+      @media (max-width: 700px) {
+        .tool-grid,
+        .future-points {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "くらし予報",
+            "item": "https://kurashi-yoho.vercel.app/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "暮らしの出費計算ツール一覧",
+            "item": "https://kurashi-yoho.vercel.app/life-cost-tools/"
+          }
+        ]
+      }
+    </script>
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        "name": "暮らしの出費計算ツール",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "url": "https://kurashi-yoho.vercel.app/appliance-savings-calculator/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "url": "https://kurashi-yoho.vercel.app/appliance-replacement-cost/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "url": "https://kurashi-yoho.vercel.app/appliance-5year-cost/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 4,
+            "url": "https://kurashi-yoho.vercel.app/single-appliance-cost/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 5,
+            "url": "https://kurashi-yoho.vercel.app/refrigerator-lifespan/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 6,
+            "url": "https://kurashi-yoho.vercel.app/washing-machine-lifespan/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 7,
+            "url": "https://kurashi-yoho.vercel.app/aircon-lifespan/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 8,
+            "url": "https://kurashi-yoho.vercel.app/car-inspection-when/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 9,
+            "url": "https://kurashi-yoho.vercel.app/car-insurance-renewal/"
+          }
+        ]
+      }
+    </script>
+
+    <script src="/analytics.js" defer></script>
+  </head>
+
+  <body>
+    <div class="seo-shell">
+      <header class="seo-header">
+        <div class="seo-header-inner">
+          <a class="brand" href="/">
+            <img src="/favicon.png" alt="" width="40" height="40" />
+
+            <span>
+              <span class="brand-name">くらし予報</span>
+              <span class="brand-subtitle">LIFE WEATHER</span>
+            </span>
+          </a>
+
+          <a class="header-cta" href="/">
+            未来の出費を予報する
+          </a>
+        </div>
+      </header>
+
+      <main class="seo-main">
+        <nav class="breadcrumbs" aria-label="パンくず">
+          <a href="/">くらし予報</a>
+          　›　暮らしの出費計算ツール
+        </nav>
+
+        <article>
+          <section class="hero tools-intro">
+            <p class="eyebrow">
+              LIFE COST TOOLS
+            </p>
+
+            <h1>
+              暮らしの出費を、
+              <br />
+              <span class="hero-accent">
+                無料でかんたん計算
+              </span>
+            </h1>
+
+            <p class="hero-lead">
+              家電の買い替え、車検、自動車保険など、
+              「そのうち必要になる大きな出費」を
+              早めに確認するための無料ツールをまとめています。
+            </p>
+          </section>
+
+          <section class="tool-category">
+            <div class="tool-category-head">
+              <span class="section-kicker">
+                APPLIANCE
+              </span>
+
+              <h2>家電の買い替え・積立</h2>
+
+              <p>
+                冷蔵庫・洗濯機・エアコンなどの購入年から、
+                将来の買い替え時期や費用の目安を確認できます。
+              </p>
+            </div>
+
+            <div class="tool-grid">
+              <a
+                class="tool-card"
+                href="/appliance-savings-calculator/"
+              >
+                <span class="tool-icon">💰</span>
+
+                <h3>
+                  家電の毎月の積立額を計算
+                </h3>
+
+                <p>
+                  複数の家電をまとめて、
+                  毎月いくら準備すればよいかを計算します。
+                </p>
+
+                <span class="tool-link">
+                  無料で計算する →
+                </span>
+              </a>
+
+              <a
+                class="tool-card"
+                href="/appliance-replacement-cost/"
+              >
+                <span class="tool-icon">🏠</span>
+
+                <h3>
+                  家電の買い替え費用を計算
+                </h3>
+
+                <p>
+                  所有している家電から、
+                  将来必要になりそうな費用をまとめて確認します。
+                </p>
+
+                <span class="tool-link">
+                  費用を確認する →
+                </span>
+              </a>
+
+              <a
+                class="tool-card"
+                href="/appliance-5year-cost/"
+              >
+                <span class="tool-icon">📅</span>
+
+                <h3>
+                  5年間の家電出費を予報
+                </h3>
+
+                <p>
+                  今後5年間で、
+                  いつどの家電の出費が重なりそうかを確認します。
+                </p>
+
+                <span class="tool-link">
+                  5年間を見る →
+                </span>
+              </a>
+
+              <a
+                class="tool-card"
+                href="/single-appliance-cost/"
+              >
+                <span class="tool-icon">🧑</span>
+
+                <h3>
+                  一人暮らしの家電費用
+                </h3>
+
+                <p>
+                  一人暮らしで必要になりやすい家電の
+                  買い替え費用をまとめて確認できます。
+                </p>
+
+                <span class="tool-link">
+                  費用を計算する →
+                </span>
+              </a>
+
+              <a
+                class="tool-card"
+                href="/refrigerator-lifespan/"
+              >
+                <span class="tool-icon">🧊</span>
+
+                <h3>
+                  冷蔵庫の買い替え時期
+                </h3>
+
+                <p>
+                  購入年から、
+                  次の買い替えを考える時期と費用目安を確認します。
+                </p>
+
+                <span class="tool-link">
+                  冷蔵庫を確認 →
+                </span>
+              </a>
+
+              <a
+                class="tool-card"
+                href="/washing-machine-lifespan/"
+              >
+                <span class="tool-icon">🫧</span>
+
+                <h3>
+                  洗濯機の買い替え時期
+                </h3>
+
+                <p>
+                  洗濯機の購入年から、
+                  将来の買い替え準備を考えます。
+                </p>
+
+                <span class="tool-link">
+                  洗濯機を確認 →
+                </span>
+              </a>
+
+              <a
+                class="tool-card"
+                href="/aircon-lifespan/"
+              >
+                <span class="tool-icon">❄️</span>
+
+                <h3>
+                  エアコンの買い替え時期
+                </h3>
+
+                <p>
+                  エアコンの購入年から、
+                  買い替え時期と積立の目安を確認します。
+                </p>
+
+                <span class="tool-link">
+                  エアコンを確認 →
+                </span>
+              </a>
+            </div>
+          </section>
+
+          <section class="tool-category">
+            <div class="tool-category-head">
+              <span class="section-kicker">
+                CAR
+              </span>
+
+              <h2>車にかかる予定・出費</h2>
+
+              <p>
+                車検や自動車保険など、
+                定期的に発生するまとまった支出を
+                毎月の積立に分けて考えられます。
+              </p>
+            </div>
+
+            <div class="tool-grid">
+              <a
+                class="tool-card"
+                href="/car-inspection-when/"
+              >
+                <span class="tool-icon">🚗</span>
+
+                <h3>
+                  次の車検時期・積立額
+                </h3>
+
+                <p>
+                  車検証の有効期限と想定費用から、
+                  車検までの期間と毎月の積立額を計算します。
+                </p>
+
+                <span class="tool-link">
+                  車検を計算する →
+                </span>
+              </a>
+
+              <a
+                class="tool-card"
+                href="/car-insurance-renewal/"
+              >
+                <span class="tool-icon">🛡️</span>
+
+                <h3>
+                  自動車保険の更新・積立額
+                </h3>
+
+                <p>
+                  保険の満期日と次回保険料から、
+                  更新までの毎月の準備額を計算します。
+                </p>
+
+                <span class="tool-link">
+                  保険を計算する →
+                </span>
+              </a>
+            </div>
+          </section>
+
+          <section class="future-box">
+            <span class="section-kicker">
+              LIFE WEATHER
+            </span>
+
+            <h2>
+              1つずつではなく、全部まとめて予報
+            </h2>
+
+            <p>
+              家電・車検・保険を個別に準備していても、
+              同じ年に出費が重なることがあります。
+              くらし予報では、わが家全体の予定をまとめて確認できます。
+            </p>
+
+            <div class="future-points">
+              <div class="future-point">
+                <strong>1年後</strong>
+                <span>
+                  近いうちに必要な出費を確認
+                </span>
+              </div>
+
+              <div class="future-point">
+                <strong>3年後</strong>
+                <span>
+                  出費が重なる時期を確認
+                </span>
+              </div>
+
+              <div class="future-point">
+                <strong>5年後</strong>
+                <span>
+                  長期的な積立目安を確認
+                </span>
+              </div>
+            </div>
+          </section>
+
+          <section class="cta-card">
+            <div>
+              <h2>
+                わが家全体の出費をまとめて予報
+              </h2>
+
+              <p>
+                家電・車・定期支出を登録して、
+                これから1年・3年・5年の支出を確認できます。
+              </p>
+            </div>
+
+            <a class="primary-cta" href="/">
+              わが家の予報をつくる
+            </a>
+          </section>
+        </article>
+      </main>
+
+      <footer class="seo-footer">
+        <div class="seo-footer-inner">
+          <span>
+            くらし予報　・　あなたの暮らしに、晴れ間を。
+          </span>
+
+          <a href="/">
+            トップページへ戻る
+          </a>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>
