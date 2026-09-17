@@ -466,6 +466,17 @@
     toolsLink.textContent = "暮らしの出費計算ツール一覧";
     relatedLinks.appendChild(toolsLink);
   }
+    const footerInner = document.querySelector(".seo-footer-inner");
+
+  if (
+    footerInner &&
+    !footerInner.querySelector('a[href="/privacy-policy/"]')
+  ) {
+    const privacyLink = document.createElement("a");
+    privacyLink.href = "/privacy-policy/";
+    privacyLink.textContent = "プライバシーポリシー";
+    footerInner.appendChild(privacyLink);
+  }
 })();
 const analyticsScript = document.createElement("script");
 analyticsScript.src = "/analytics.js";
