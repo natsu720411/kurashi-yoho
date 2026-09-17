@@ -481,6 +481,16 @@
   }
     if (
     relatedLinks &&
+    path !== "/water-heater-replacement-cost/" &&
+    !relatedLinks.querySelector('a[href="/water-heater-replacement-cost/"]')
+  ) {
+    const waterHeaterLink = document.createElement("a");
+    waterHeaterLink.href = "/water-heater-replacement-cost/";
+    waterHeaterLink.textContent = "給湯器の交換費用・積立額を計算";
+    relatedLinks.appendChild(waterHeaterLink);
+  }
+    if (
+    relatedLinks &&
     !relatedLinks.querySelector('a[href="/life-cost-tools/"]')
   ) {
     const toolsLink = document.createElement("a");
