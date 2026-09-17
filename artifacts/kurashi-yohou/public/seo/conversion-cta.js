@@ -459,6 +459,16 @@
   }
     if (
     relatedLinks &&
+    path !== "/car-annual-cost/" &&
+    !relatedLinks.querySelector('a[href="/car-annual-cost/"]')
+  ) {
+    const annualCostLink = document.createElement("a");
+    annualCostLink.href = "/car-annual-cost/";
+    annualCostLink.textContent = "車の年間維持費を計算";
+    relatedLinks.appendChild(annualCostLink);
+  }
+    if (
+    relatedLinks &&
     !relatedLinks.querySelector('a[href="/life-cost-tools/"]')
   ) {
     const toolsLink = document.createElement("a");
