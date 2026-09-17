@@ -209,7 +209,25 @@ function App() {
   useEffect(() => { if (stage === 'landing') localStorage.removeItem(STORAGE_KEY); else localStorage.setItem(STORAGE_KEY, JSON.stringify({ stage, data })); }, [stage, data]);
   const reset = () => { localStorage.removeItem(STORAGE_KEY); setData(createInitialData()); setStage('landing'); window.scrollTo({ top: 0, behavior: 'smooth' }); };
   const completeDiagnostic = (next: HouseholdData) => { setData(next); setStage('result'); window.scrollTo({ top: 0, behavior: 'smooth' }); };
-  return <div className="app-shell"><Header onReset={reset} stage={stage} />{stage === 'landing' && <Landing onStart={() => setStage('diagnostic')} hasSaved={hasSaved} />}{stage === 'diagnostic' && <Diagnostic initial={data} onComplete={completeDiagnostic} onBack={() => setStage('landing')} />}{stage === 'result' && <Result data={data} onDataChange={(next) => { setData(next); setStage('diagnostic'); window.scrollTo({ top: 0, behavior: 'smooth' }); }} onReset={reset} />}<footer className="mx-auto max-w-6xl px-5 pb-7 pt-2 text-center text-[10px] tracking-[.08em] text-[#91a7a8] sm:px-8">くらし予報　・　あなたの暮らしに、晴れ間を。</footer></div>;
+  return <div className="app-shell"><Header onReset={reset} stage={stage} />{stage === 'landing' && <Landing onStart={() => setStage('diagnostic')} hasSaved={hasSaved} />}{stage === 'diagnostic' && <Diagnostic initial={data} onComplete={completeDiagnostic} onBack={() => setStage('landing')} />}{stage === 'result' && <Result data={data} onDataChange={(next) => { setData(next); setStage('diagnostic'); window.scrollTo({ top: 0, behavior: 'smooth' }); }} onReset={reset} />}<footer className="mx-auto max-w-6xl px-5 pb-7 pt-2 text-center text-[10px] tracking-[.08em] text-[#91a7a8] sm:px-8">
+  <p>くらし予報　・　あなたの暮らしに、晴れ間を。</p>
+
+  <div className="mt-3 flex justify-center gap-4">
+    <a
+      href="/life-cost-tools/"
+      className="hover:text-[#175d68]"
+    >
+      無料計算ツール
+    </a>
+
+    <a
+      href="/privacy-policy/"
+      className="hover:text-[#175d68]"
+    >
+      プライバシーポリシー
+    </a>
+  </div>
+</footer></div>;
 }
 
 export default App;
