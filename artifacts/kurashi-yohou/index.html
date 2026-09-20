@@ -62,13 +62,43 @@
         ]
       }
     </script>
+    <style>
+      .initial-site-content{max-width:960px;margin:0 auto;padding:48px 24px 72px;font-family:"Noto Sans JP","Hiragino Kaku Gothic ProN",Meiryo,sans-serif;color:#174f5b}
+      .initial-site-content section{background:#fff;border:1px solid #d5e8e5;border-radius:28px;padding:clamp(24px,5vw,48px);box-shadow:0 14px 36px rgba(23,93,104,.08)}
+      .initial-site-content h1{font-size:clamp(30px,6vw,52px);line-height:1.25;letter-spacing:-.05em;margin:8px 0 18px}
+      .initial-site-content p{color:#617b80;line-height:1.9}
+      .initial-site-content nav{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:24px}
+      .initial-site-content nav a{background:#eaf7f5;border-radius:14px;color:#176873;font-weight:700;padding:12px 14px;text-decoration:none}
+      .initial-kicker{color:#b17a26!important;font-size:12px;font-weight:800;letter-spacing:.12em}
+      @media(max-width:640px){.initial-site-content{padding:28px 14px 56px}.initial-site-content nav{grid-template-columns:1fr}}
+    </style>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
      <script src="/analytics.js" defer></script>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <main class="initial-site-content">
+        <section>
+          <p class="initial-kicker">くらし予報 / LIFE WEATHER</p>
+          <h1>将来の出費と毎月の積立額を無料で見通す</h1>
+          <p>冷蔵庫・洗濯機・エアコンなどの家電、車検・自動車保険、給湯器や住宅設備、税金・保険など、これから必要になるまとまった出費を1年・3年・5年先まで整理できます。</p>
+          <p>登録不要で使えます。気になる項目だけを個別に計算することも、わが家全体の予定をまとめて予報することもできます。</p>
+          <nav aria-label="主要ページ">
+            <a href="/life-cost-tools/">無料計算ツール一覧</a>
+            <a href="/refrigerator-lifespan/">冷蔵庫の寿命・買い替え時期</a>
+            <a href="/washing-machine-lifespan/">洗濯機の寿命・買い替え時期</a>
+            <a href="/aircon-lifespan/">エアコンの寿命・買い替え時期</a>
+            <a href="/car-annual-cost/">車の年間維持費</a>
+            <a href="/car-inspection-when/">次の車検時期・積立額</a>
+            <a href="/homeowner-expenses-guide/">持ち家の維持費・年間支出</a>
+            <a href="/future-major-expenses-guide/">5年以内の大きな出費一覧</a>
+            <a href="/site-map/">サイトマップ</a>
+          </nav>
+        </section>
+      </main>
+    </div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

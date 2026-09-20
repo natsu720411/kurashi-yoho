@@ -326,6 +326,13 @@ function App() {
     >
       プライバシーポリシー
     </a>
+
+    <a
+      href="/site-map/"
+      className="hover:text-[#175d68]"
+    >
+      サイトマップ
+    </a>
   </div>
 </footer></div>;
 }
