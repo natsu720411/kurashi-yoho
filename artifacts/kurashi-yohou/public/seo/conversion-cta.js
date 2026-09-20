@@ -160,6 +160,18 @@
         "固定資産税だけでなく、住宅設備の交換・リフォーム・家電・車などの出費も同じ時期に重なることがあります。くらし予報なら、これから1年・3年・5年の出費をまとめて予報できます。",
       button: "住宅＋家電などもまとめて予報",
     },
+    "/fire-insurance-renewal/": {
+      heading: "火災保険の更新だけで大丈夫？",
+      description:
+        "火災保険だけでなく、地震保険・固定資産税・住宅設備・家電などの出費も同じ時期に重なることがあります。くらし予報なら、これから1年・3年・5年の出費をまとめて予報できます。",
+      button: "住まい＋家電などもまとめて予報",
+    },
+    "/earthquake-insurance-renewal/": {
+      heading: "地震保険の更新だけで大丈夫？",
+      description:
+        "地震保険だけでなく、火災保険・固定資産税・住宅設備・家電などの出費も同じ時期に重なることがあります。くらし予報なら、これから1年・3年・5年の出費をまとめて予報できます。",
+      button: "住まい＋家電などもまとめて予報",
+    },
   };
 
   const config = configs[path];
@@ -712,6 +724,26 @@
     propertyTaxLink.href = "/property-tax-savings/";
     propertyTaxLink.textContent = "固定資産税の支払い・積立額を計算";
     relatedLinks.appendChild(propertyTaxLink);
+  }
+  if (
+    relatedLinks &&
+    path !== "/fire-insurance-renewal/" &&
+    !relatedLinks.querySelector('a[href="/fire-insurance-renewal/"]')
+  ) {
+    const fireInsuranceLink = document.createElement("a");
+    fireInsuranceLink.href = "/fire-insurance-renewal/";
+    fireInsuranceLink.textContent = "火災保険の更新日・積立額を計算";
+    relatedLinks.appendChild(fireInsuranceLink);
+  }
+  if (
+    relatedLinks &&
+    path !== "/earthquake-insurance-renewal/" &&
+    !relatedLinks.querySelector('a[href="/earthquake-insurance-renewal/"]')
+  ) {
+    const earthquakeInsuranceLink = document.createElement("a");
+    earthquakeInsuranceLink.href = "/earthquake-insurance-renewal/";
+    earthquakeInsuranceLink.textContent = "地震保険の更新日・積立額を計算";
+    relatedLinks.appendChild(earthquakeInsuranceLink);
   }
     if (
     relatedLinks &&

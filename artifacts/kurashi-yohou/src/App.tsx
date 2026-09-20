@@ -123,6 +123,8 @@ function Landing({ onStart, hasSaved }: { onStart: () => void; hasSaved: boolean
           { href: '/roof-repair-cost/', label: '屋根塗装・屋根修理費用' },
           { href: '/car-tax-savings/', label: '自動車税の支払い・積立額' },
           { href: '/property-tax-savings/', label: '固定資産税の支払い・積立額' },
+          { href: '/fire-insurance-renewal/', label: '火災保険の更新・積立額' },
+          { href: '/earthquake-insurance-renewal/', label: '地震保険の更新・積立額' },
         ].map((tool) => (
           <a
             key={tool.href}

@@ -1,0 +1,661 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>地震保険の更新はいつ？満期日と毎月の積立額を計算 | くらし予報</title>
+
+    <meta
+      name="description"
+      content="地震保険の満期日と次回保険料の見込み額を入力すると、更新まであと何か月か、毎月いくら準備すればよいかを無料で計算できます。契約期間や更新条件は保険証券・保険会社の案内で確認してください。"
+    />
+
+    <link
+      rel="canonical"
+      href="https://kurashi-yoho.vercel.app/earthquake-insurance-renewal/"
+    />
+
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/favicon.png" />
+    <meta name="theme-color" content="#175d68" />
+
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="くらし予報" />
+    <meta
+      property="og:title"
+      content="地震保険の更新はいつ？満期日と毎月の積立額を計算 | くらし予報"
+    />
+    <meta
+      property="og:description"
+      content="地震保険の満期日と次回保険料から、更新までの期間と毎月の積立目安を簡単に計算できます。"
+    />
+    <meta
+      property="og:url"
+      content="https://kurashi-yoho.vercel.app/earthquake-insurance-renewal/"
+    />
+    <meta
+      property="og:image"
+      content="https://kurashi-yoho.vercel.app/ogp.png"
+    />
+    <meta property="og:locale" content="ja_JP" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="地震保険の更新はいつ？満期日と毎月の積立額を計算 | くらし予報"
+    />
+    <meta
+      name="twitter:description"
+      content="地震保険の満期日と次回保険料から、毎月の積立目安を計算できます。"
+    />
+    <meta
+      name="twitter:image"
+      content="https://kurashi-yoho.vercel.app/ogp.png"
+    />
+
+    <link rel="stylesheet" href="/seo/styles.css" />
+
+    <style>
+      .insurance-form {
+        display: grid;
+        gap: 18px;
+        margin-top: 22px;
+      }
+
+      .insurance-field {
+        display: grid;
+        gap: 7px;
+      }
+
+      .insurance-field label {
+        color: #315e64;
+        font-size: 13px;
+        font-weight: 800;
+      }
+
+      .insurance-field input {
+        width: 100%;
+        min-height: 48px;
+        box-sizing: border-box;
+        border: 1px solid #cfe1df;
+        border-radius: 12px;
+        background: #fff;
+        color: #174f5b;
+        font: inherit;
+        padding: 10px 12px;
+      }
+
+      .insurance-field input:focus {
+        outline: 3px solid rgba(43, 139, 138, 0.18);
+        border-color: #2b8b8a;
+      }
+
+      .insurance-note {
+        color: #789093;
+        font-size: 11px;
+        line-height: 1.6;
+        margin: 0;
+      }
+
+      .insurance-results {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+        margin-top: 22px;
+      }
+
+      .insurance-result {
+        background: #eef8f7;
+        border-radius: 16px;
+        padding: 16px;
+      }
+
+      .insurance-result span {
+        display: block;
+        color: #668387;
+        font-size: 11px;
+        font-weight: 700;
+      }
+
+      .insurance-result strong {
+        display: block;
+        color: #175d68;
+        font-size: clamp(20px, 5vw, 28px);
+        line-height: 1.25;
+        margin-top: 5px;
+      }
+
+      .insurance-result small {
+        display: block;
+        color: #779093;
+        font-size: 10px;
+        line-height: 1.55;
+        margin-top: 5px;
+      }
+
+      .info-box {
+        background: #f7fbfa;
+        border-left: 4px solid #2b8b8a;
+        border-radius: 0 14px 14px 0;
+        margin-top: 18px;
+        padding: 15px 17px;
+      }
+
+      .info-box p {
+        margin: 0;
+      }
+
+      .info-box p + p {
+        margin-top: 8px;
+      }
+
+      @media (max-width: 640px) {
+        .insurance-results {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "くらし予報",
+            "item": "https://kurashi-yoho.vercel.app/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "地震保険の更新日・積立額を計算",
+            "item": "https://kurashi-yoho.vercel.app/earthquake-insurance-renewal/"
+          }
+        ]
+      }
+    </script>
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "地震保険の更新日はどこで確認できますか？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "契約している保険会社の保険証券、契約内容のお知らせ、マイページなどで満期日を確認できます。契約によって異なるため、実際の更新日は保険会社の案内を確認してください。"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "地震保険の更新費用は毎月いくら積み立てればいいですか？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "このページでは、入力した次回保険料の見込み額を満期日までの残り月数で割り、毎月の積立目安を計算します。"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "次回の地震保険料は今と同じですか？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "保険料は契約内容や補償内容、保険期間などによって変わる場合があります。このページでは家計準備用の目安として、見込む金額を自由に入力できます。"
+            }
+          }
+        ]
+      }
+    </script>
+
+    <script src="/analytics.js" defer></script>
+  </head>
+
+  <body>
+    <div class="seo-shell">
+      <header class="seo-header">
+        <div class="seo-header-inner">
+          <a class="brand" href="/">
+            <img src="/favicon.png" alt="" width="40" height="40" />
+            <span>
+              <span class="brand-name">くらし予報</span>
+              <span class="brand-subtitle">LIFE WEATHER</span>
+            </span>
+          </a>
+
+          <a class="header-cta" href="/">
+            未来の出費を予報する
+          </a>
+        </div>
+      </header>
+
+      <main class="seo-main">
+        <nav class="breadcrumbs" aria-label="パンくず">
+          <a href="/">くらし予報</a>
+          　›　地震保険の更新日・積立額
+        </nav>
+
+        <article>
+          <section class="hero">
+            <p class="eyebrow">HOME INSURANCE GUIDE</p>
+
+            <h1>
+              地震保険の更新はいつ？
+              <br />
+              <span class="hero-accent">
+                更新日と積立額をかんたん計算
+              </span>
+            </h1>
+
+            <p class="hero-lead">
+              地震保険の満期日と次回保険料の見込み額を入力すると、
+              更新まであと何か月か、毎月いくら準備するとよいかを確認できます。
+            </p>
+          </section>
+
+          <div class="content-grid">
+            <section class="card calculator" id="calculator">
+              <h2>地震保険の更新積立額を計算</h2>
+
+              <p>
+                保険証券や保険会社のマイページなどで確認した満期日を入力してください。
+              </p>
+
+              <div class="insurance-form">
+                <div class="insurance-field">
+                  <label for="insurance-expiry">
+                    保険の満期日
+                  </label>
+
+                  <input
+                    id="insurance-expiry"
+                    type="date"
+                  />
+
+                  <p class="insurance-note">
+                    実際の日付は、契約している保険会社の案内で確認してください。
+                  </p>
+                </div>
+
+                <div class="insurance-field">
+                  <label for="insurance-cost">
+                    次回保険料の見込み
+                  </label>
+
+                  <input
+                    id="insurance-cost"
+                    type="number"
+                    min="0"
+                    step="1000"
+                    value="0"
+                    inputmode="numeric"
+                  />
+
+                  <p class="insurance-note">
+                    保険証券や更新案内を参考に、次回支払うと見込む金額を入力してください。
+                  </p>
+                </div>
+              </div>
+
+              <div
+                class="insurance-results"
+                aria-live="polite"
+              >
+                <div class="insurance-result">
+                  <span>更新まで</span>
+                  <strong id="months-left">---</strong>
+                  <small id="days-detail">
+                    満期日を入力すると表示されます
+                  </small>
+                </div>
+
+                <div class="insurance-result">
+                  <span>保険の満期日</span>
+                  <strong id="expiry-result">---</strong>
+                  <small>
+                    入力した契約満期日
+                  </small>
+                </div>
+
+                <div class="insurance-result">
+                  <span>次回保険料の見込み</span>
+                  <strong id="cost-result">---</strong>
+                  <small>
+                    入力した金額を表示
+                  </small>
+                </div>
+
+                <div class="insurance-result">
+                  <span>毎月の積立目安</span>
+                  <strong id="monthly-saving">---</strong>
+                  <small>
+                    満期日までに準備する場合
+                  </small>
+                </div>
+              </div>
+
+              <p class="calculator-note">
+                この計算は家計準備のための簡易試算です。
+                実際の保険料・契約条件・更新手続きは、
+                契約している保険会社の案内をご確認ください。
+              </p>
+            </section>
+
+            <section class="card">
+              <h2>更新前に確認しておきたいこと</h2>
+
+              <p>
+                更新時には、契約条件や保険料が変わる場合があります。
+                更新時には契約内容も一緒に確認しておくと安心です。
+              </p>
+
+              <ul class="check-list">
+                <li>契約の満期日</li>
+                <li>次回の保険料</li>
+                <li>補償内容</li>
+                <li>建物・家財などの補償対象</li>
+                <li>建物・家財などの状況に変化がないか</li>
+              </ul>
+
+              <div class="info-box">
+                <p>
+                  <strong>ポイント</strong>
+                </p>
+
+                <p>
+                  このページでは「いくら備えるか」を確認できます。
+                  実際の契約内容や更新方法については、
+                  契約している保険会社の案内を確認してください。
+                </p>
+              </div>
+            </section>
+          </div>
+
+          <section class="cta-card">
+            <div>
+              <h2>
+                保険だけでなく、住宅設備や家電もまとめて確認
+              </h2>
+
+              <p>
+                住宅設備・保険・家電の買い替えなど、
+                同じ時期に重なる出費をまとめて予報できます。
+              </p>
+            </div>
+
+            <a class="primary-cta" href="/">
+              わが家全体の未来の出費を予報する
+            </a>
+          </section>
+
+          <section class="section">
+            <h2>満期日から逆算して少しずつ準備</h2>
+
+            <p>
+              保険料をまとめて支払う予定がある場合は、まとまった出費になります。
+              満期日までの残り月数で分けて考えると、
+              毎月どれくらい準備すればよいか把握しやすくなります。
+            </p>
+
+            <p>
+              このページでは、次回保険料の見込み額を自由に入力できます。
+              更新後の実際の保険料とは異なる場合があるため、
+              家計計画用の目安としてご利用ください。
+            </p>
+          </section>
+
+          <section class="section">
+            <h2>住まいの修繕と保険が近い時期に重なることも</h2>
+
+            <p>
+              住まいにかかる出費は、保険だけではありません。
+              給湯器や屋根・外壁などの修繕、さらに家電の買い替えが
+              同じ時期に重なる場合もあります。
+            </p>
+
+            <p>
+              くらし予報では、
+              住まい・家電・定期的な支出をまとめて登録し、
+              これから1年・3年・5年の支出をひとつのタイムラインで確認できます。
+            </p>
+          </section>
+
+          <section class="section card faq">
+            <h2>よくある質問</h2>
+
+            <details>
+              <summary>
+                地震保険の更新日はどこで確認できますか？
+              </summary>
+
+              <p>
+                保険証券、契約内容のお知らせ、
+                保険会社のマイページなどで満期日を確認できます。
+                実際の日付は契約している保険会社の案内をご確認ください。
+              </p>
+            </details>
+
+            <details>
+              <summary>
+                毎月いくら準備すればいいですか？
+              </summary>
+
+              <p>
+                上の計算機では、
+                入力した次回保険料の見込み額を
+                満期日までの残り月数で割って、
+                毎月の積立目安を表示します。
+              </p>
+            </details>
+
+            <details>
+              <summary>
+                次回の保険料は今と同じですか？
+              </summary>
+
+              <p>
+                保険料は契約内容などによって変わる場合があります。
+                このページでは、次回支払うと見込む金額を自由に入力してください。
+              </p>
+            </details>
+          </section>
+
+          <section class="cta-card">
+            <div>
+              <h2>
+                住まいと家電の出費をまとめて予報
+              </h2>
+
+              <p>
+                住宅設備・保険・家電・定期支出を登録して、
+                今後のまとまった出費を先回りできます。
+              </p>
+            </div>
+
+            <a class="primary-cta" href="/">
+              わが家の未来の出費を予報する
+            </a>
+          </section>
+
+          <section class="section">
+            <h2>関連ページ</h2>
+            <div class="related-links">
+              <a href="/fire-insurance-renewal/">火災保険の更新日・積立額を計算</a>
+              <a href="/property-tax-savings/">固定資産税の支払い・積立額を計算</a>
+              <a href="/roof-repair-cost/">屋根塗装・屋根修理費用を計算</a>
+              <a href="/exterior-wall-painting-cost/">外壁塗装・リフォーム費用を計算</a>
+            </div>
+          </section>
+        </article>
+      </main>
+
+      <footer class="seo-footer">
+        <div class="seo-footer-inner">
+          <span>
+            くらし予報　・　あなたの暮らしに、晴れ間を。
+          </span>
+
+          <a href="/">
+            トップページへ戻る
+          </a>
+        </div>
+      </footer>
+    </div>
+
+    <script>
+      (function () {
+        const expiryInput =
+          document.getElementById("insurance-expiry");
+
+        const costInput =
+          document.getElementById("insurance-cost");
+
+        const monthsLeft =
+          document.getElementById("months-left");
+
+        const daysDetail =
+          document.getElementById("days-detail");
+
+        const expiryResult =
+          document.getElementById("expiry-result");
+
+        const costResult =
+          document.getElementById("cost-result");
+
+        const monthlySaving =
+          document.getElementById("monthly-saving");
+
+        const yen = (value) =>
+          new Intl.NumberFormat("ja-JP").format(
+            Math.round(value)
+          ) + "円";
+
+        const formatDate = (date) =>
+          `${date.getFullYear()}年${
+            date.getMonth() + 1
+          }月${date.getDate()}日`;
+
+        function update() {
+          if (!expiryInput.value) {
+            monthsLeft.textContent = "---";
+            daysDetail.textContent =
+              "満期日を入力すると表示されます";
+            expiryResult.textContent = "---";
+            costResult.textContent = "---";
+            monthlySaving.textContent = "---";
+            return;
+          }
+
+          const expiry = new Date(
+            expiryInput.value + "T00:00:00"
+          );
+
+          const today = new Date();
+          today.setHours(0, 0, 0, 0);
+
+          const difference =
+            expiry.getTime() - today.getTime();
+
+          const days =
+            Math.ceil(
+              difference / (1000 * 60 * 60 * 24)
+            );
+
+          const cost =
+            Math.max(
+              0,
+              Number(costInput.value) || 0
+            );
+
+          expiryResult.textContent =
+            formatDate(expiry);
+
+          costResult.textContent =
+            yen(cost);
+
+          if (days < 0) {
+            monthsLeft.textContent =
+              "満期日を過ぎています";
+
+            daysDetail.textContent =
+              "契約状況を確認してください";
+
+            monthlySaving.textContent =
+              yen(cost);
+
+            return;
+          }
+
+          if (days === 0) {
+            monthsLeft.textContent =
+              "今日が満期日です";
+
+            daysDetail.textContent =
+              "契約状況を確認してください";
+
+            monthlySaving.textContent =
+              yen(cost);
+
+            return;
+          }
+
+          const months =
+            Math.max(
+              1,
+              Math.ceil(days / 30.44)
+            );
+
+          monthsLeft.textContent =
+            `約${months}か月`;
+
+          daysDetail.textContent =
+            `満期日まであと${days}日`;
+
+          monthlySaving.textContent =
+            `毎月 約${yen(cost / months)}`;
+        }
+
+        if (!expiryInput.value) {
+          const defaultDate = new Date();
+
+          defaultDate.setFullYear(
+            defaultDate.getFullYear() + 1
+          );
+
+          const year =
+            defaultDate.getFullYear();
+
+          const month =
+            String(
+              defaultDate.getMonth() + 1
+            ).padStart(2, "0");
+
+          const day =
+            String(
+              defaultDate.getDate()
+            ).padStart(2, "0");
+
+          expiryInput.value =
+            `${year}-${month}-${day}`;
+        }
+
+        expiryInput.addEventListener(
+          "change",
+          update
+        );
+
+        costInput.addEventListener(
+          "input",
+          update
+        );
+
+        update();
+      })();
+    </script>
+
+    <script src="/seo/conversion-cta.js" defer></script>
+  </body>
+</html>
