@@ -130,6 +130,12 @@
         "窓・サッシのリフォームだけでなく、床・屋根・外壁・キッチン・浴室・家電などの出費も同じ時期に重なることがあります。くらし予報なら、これから1年・3年・5年の出費をまとめて予報できます。",
       button: "住宅設備＋家電などもまとめて予報",
     },
+    "/entrance-door-replacement-cost/": {
+      heading: "玄関ドア交換・リフォームの出費だけで大丈夫？",
+      description:
+        "玄関ドアの交換・リフォームだけでなく、窓・床・屋根・外壁・家電・車検などの出費も同じ時期に重なることがあります。くらし予報なら、これから1年・3年・5年の出費をまとめて予報できます。",
+      button: "住宅設備＋家電などもまとめて予報",
+    },
   };
 
   const config = configs[path];
@@ -632,6 +638,16 @@
     windowLink.href = "/window-reform-cost/";
     windowLink.textContent = "窓・サッシリフォーム費用を計算";
     relatedLinks.appendChild(windowLink);
+  }
+  if (
+    relatedLinks &&
+    path !== "/entrance-door-replacement-cost/" &&
+    !relatedLinks.querySelector('a[href="/entrance-door-replacement-cost/"]')
+  ) {
+    const entranceDoorLink = document.createElement("a");
+    entranceDoorLink.href = "/entrance-door-replacement-cost/";
+    entranceDoorLink.textContent = "玄関ドア交換・リフォーム費用を計算";
+    relatedLinks.appendChild(entranceDoorLink);
   }
     if (
     relatedLinks &&
