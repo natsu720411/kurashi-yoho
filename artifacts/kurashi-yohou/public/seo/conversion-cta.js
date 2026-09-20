@@ -758,6 +758,16 @@
 
   if (
     footerInner &&
+    !footerInner.querySelector('a[href="/about/"]')
+  ) {
+    const aboutLink = document.createElement("a");
+    aboutLink.href = "/about/";
+    aboutLink.textContent = "このサイトについて";
+    footerInner.appendChild(aboutLink);
+  }
+
+  if (
+    footerInner &&
     !footerInner.querySelector('a[href="/privacy-policy/"]')
   ) {
     const privacyLink = document.createElement("a");

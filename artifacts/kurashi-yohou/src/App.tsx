@@ -135,6 +135,16 @@ function Landing({ onStart, hasSaved }: { onStart: () => void; hasSaved: boolean
           </a>
         ))}
       </nav>
+
+      <div className="mt-6 border-t border-[#dcebea] pt-5">
+        <p className="text-xs font-bold tracking-[.12em] text-[#b17a26]">GUIDES</p>
+        <h3 className="mt-2 text-lg font-bold text-[#174f5b]">まとめて知りたい人向け</h3>
+        <div className="mt-3 grid gap-3 sm:grid-cols-3">
+          <a href="/appliance-replacement-guide/" className="rounded-2xl bg-[#eef8f7] px-4 py-4 text-sm font-bold leading-6 text-[#315e64] hover:bg-white hover:text-[#175d68]">家電の買い替え時期一覧 →</a>
+          <a href="/home-maintenance-cost-guide/" className="rounded-2xl bg-[#eef8f7] px-4 py-4 text-sm font-bold leading-6 text-[#315e64] hover:bg-white hover:text-[#175d68]">住宅設備・リフォームの出費一覧 →</a>
+          <a href="/annual-expenses-guide/" className="rounded-2xl bg-[#eef8f7] px-4 py-4 text-sm font-bold leading-6 text-[#315e64] hover:bg-white hover:text-[#175d68]">毎年・数年ごとの出費一覧 →</a>
+        </div>
+      </div>
     </section>
   </main>;
 }
@@ -254,6 +264,13 @@ function App() {
       className="hover:text-[#175d68]"
     >
       無料計算ツール
+    </a>
+
+    <a
+      href="/about/"
+      className="hover:text-[#175d68]"
+    >
+      このサイトについて
     </a>
 
     <a
