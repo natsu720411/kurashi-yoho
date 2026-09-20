@@ -5,7 +5,7 @@ import { fileURLToPath } from "node:url";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const chunkDir = resolve(root, "scripts/ogp-chunks");
-const chunkNames = ["01.txt", "02.txt", "03.txt", "04.txt"];
+const chunkNames = ["01a.txt", "01b.txt", "02.txt", "03.txt", "04.txt"];
 
 const chunks = await Promise.all(
   chunkNames.map((name) => readFile(resolve(chunkDir, name), "utf8"))
