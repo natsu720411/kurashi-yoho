@@ -100,6 +100,12 @@
         "キッチンのリフォームだけでなく、浴室・トイレ・給湯器・家電・車検などの出費も同じ時期に重なることがあります。くらし予報なら、これから1年・3年・5年の出費をまとめて予報できます。",
       button: "住宅設備＋家電などもまとめて予報",
     },
+    "/washbasin-reform-cost/": {
+      heading: "洗面台リフォームの出費だけで大丈夫？",
+      description:
+        "洗面台のリフォームだけでなく、キッチン・浴室・トイレ・給湯器・家電・車検などの出費も同じ時期に重なることがあります。くらし予報なら、これから1年・3年・5年の出費をまとめて予報できます。",
+      button: "住宅設備＋家電などもまとめて予報",
+    },
   };
 
   const config = configs[path];
@@ -552,6 +558,16 @@
     kitchenLink.href = "/kitchen-reform-cost/";
     kitchenLink.textContent = "キッチンリフォーム費用を計算";
     relatedLinks.appendChild(kitchenLink);
+  }
+  if (
+    relatedLinks &&
+    path !== "/washbasin-reform-cost/" &&
+    !relatedLinks.querySelector('a[href="/washbasin-reform-cost/"]')
+  ) {
+    const washbasinLink = document.createElement("a");
+    washbasinLink.href = "/washbasin-reform-cost/";
+    washbasinLink.textContent = "洗面台リフォーム費用を計算";
+    relatedLinks.appendChild(washbasinLink);
   }
     if (
     relatedLinks &&
