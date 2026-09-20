@@ -148,6 +148,9 @@ function Landing({ onStart, hasSaved }: { onStart: () => void; hasSaved: boolean
           <a href="/future-major-expenses-guide/" className="rounded-2xl bg-[#eef8f7] px-4 py-4 text-sm font-bold leading-6 text-[#315e64] hover:bg-white hover:text-[#175d68]">5年先の大きな出費一覧 →</a>
           <a href="/single-living-expenses-guide/" className="rounded-2xl bg-[#eef8f7] px-4 py-4 text-sm font-bold leading-6 text-[#315e64] hover:bg-white hover:text-[#175d68]">一人暮らしの出費一覧 →</a>
           <a href="/family-household-expenses-guide/" className="rounded-2xl bg-[#eef8f7] px-4 py-4 text-sm font-bold leading-6 text-[#315e64] hover:bg-white hover:text-[#175d68]">家族世帯の大きな出費 →</a>
+          <a href="/moving-expenses-guide/" className="rounded-2xl bg-[#eef8f7] px-4 py-4 text-sm font-bold leading-6 text-[#315e64] hover:bg-white hover:text-[#175d68]">引っ越しでかかる費用一覧 →</a>
+          <a href="/rental-expenses-guide/" className="rounded-2xl bg-[#eef8f7] px-4 py-4 text-sm font-bold leading-6 text-[#315e64] hover:bg-white hover:text-[#175d68]">賃貸でかかる出費一覧 →</a>
+          <a href="/childraising-expenses-guide/" className="rounded-2xl bg-[#eef8f7] px-4 py-4 text-sm font-bold leading-6 text-[#315e64] hover:bg-white hover:text-[#175d68]">子育て世帯の大きな出費 →</a>
         </div>
       </div>
     </section>
