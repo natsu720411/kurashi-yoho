@@ -79,5 +79,32 @@
           target.getAttribute("href") || "",
       });
     }
+
+    if (target.matches("[data-home-tool]")) {
+      sendEvent("home_tool_click", {
+        link_text: text,
+        destination:
+          target.getAttribute("href") || "",
+      });
+    }
+
+    if (target.matches("[data-home-guide]")) {
+      sendEvent("home_guide_click", {
+        link_text: text,
+        destination:
+          target.getAttribute("href") || "",
+      });
+    }
+
+    if (
+      normalizePath(window.location.pathname) === "/life-cost-tools/" &&
+      target.matches(".tool-card")
+    ) {
+      sendEvent("tools_hub_click", {
+        link_text: text,
+        destination:
+          target.getAttribute("href") || "",
+      });
+    }
   });
 })();

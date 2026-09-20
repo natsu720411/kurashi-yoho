@@ -165,6 +165,7 @@ function Landing({ onStart, hasSaved }: { onStart: () => void; hasSaved: boolean
           <a
             key={tool.href}
             href={tool.href}
+            data-home-tool
             className="rounded-2xl border border-[#d5e8e5] bg-[#f7fbfa] px-4 py-4 text-sm font-bold leading-6 text-[#315e64] transition hover:-translate-y-0.5 hover:border-[#9fcac5] hover:bg-white hover:text-[#175d68]"
           >
             {tool.label} →
@@ -176,19 +177,19 @@ function Landing({ onStart, hasSaved }: { onStart: () => void; hasSaved: boolean
         <p className="text-xs font-bold tracking-[.12em] text-[#b17a26]">GUIDES</p>
         <h3 className="mt-2 text-lg font-bold text-[#174f5b]">まとめて知りたい人向け</h3>
         <div className="mt-3 grid gap-3 sm:grid-cols-3">
-          <a href="/appliance-replacement-guide/" className="rounded-2xl bg-[#eef8f7] px-4 py-4 text-sm font-bold leading-6 text-[#315e64] hover:bg-white hover:text-[#175d68]">家電の買い替え時期一覧 →</a>
-          <a href="/home-maintenance-cost-guide/" className="rounded-2xl bg-[#eef8f7] px-4 py-4 text-sm font-bold leading-6 text-[#315e64] hover:bg-white hover:text-[#175d68]">住宅設備・リフォームの出費一覧 →</a>
-          <a href="/annual-expenses-guide/" className="rounded-2xl bg-[#eef8f7] px-4 py-4 text-sm font-bold leading-6 text-[#315e64] hover:bg-white hover:text-[#175d68]">毎年・数年ごとの出費一覧 →</a>
-          <a href="/homeowner-expenses-guide/" className="rounded-2xl bg-[#eef8f7] px-4 py-4 text-sm font-bold leading-6 text-[#315e64] hover:bg-white hover:text-[#175d68]">持ち家の出費一覧 →</a>
-          <a href="/car-cost-guide/" className="rounded-2xl bg-[#eef8f7] px-4 py-4 text-sm font-bold leading-6 text-[#315e64] hover:bg-white hover:text-[#175d68]">車にかかる出費一覧 →</a>
-          <a href="/future-major-expenses-guide/" className="rounded-2xl bg-[#eef8f7] px-4 py-4 text-sm font-bold leading-6 text-[#315e64] hover:bg-white hover:text-[#175d68]">5年先の大きな出費一覧 →</a>
-          <a href="/single-living-expenses-guide/" className="rounded-2xl bg-[#eef8f7] px-4 py-4 text-sm font-bold leading-6 text-[#315e64] hover:bg-white hover:text-[#175d68]">一人暮らしの出費一覧 →</a>
-          <a href="/family-household-expenses-guide/" className="rounded-2xl bg-[#eef8f7] px-4 py-4 text-sm font-bold leading-6 text-[#315e64] hover:bg-white hover:text-[#175d68]">家族世帯の大きな出費 →</a>
-          <a href="/moving-expenses-guide/" className="rounded-2xl bg-[#eef8f7] px-4 py-4 text-sm font-bold leading-6 text-[#315e64] hover:bg-white hover:text-[#175d68]">引っ越しでかかる費用一覧 →</a>
-          <a href="/rental-expenses-guide/" className="rounded-2xl bg-[#eef8f7] px-4 py-4 text-sm font-bold leading-6 text-[#315e64] hover:bg-white hover:text-[#175d68]">賃貸でかかる出費一覧 →</a>
-          <a href="/childraising-expenses-guide/" className="rounded-2xl bg-[#eef8f7] px-4 py-4 text-sm font-bold leading-6 text-[#315e64] hover:bg-white hover:text-[#175d68]">子育て世帯の大きな出費 →</a>
-          <a href="/new-life-expenses-guide/" className="rounded-2xl bg-[#eef8f7] px-4 py-4 text-sm font-bold leading-6 text-[#315e64] hover:bg-white hover:text-[#175d68]">新生活の出費チェック →</a>
-          <a href="/yearly-expense-check-guide/" className="rounded-2xl bg-[#eef8f7] px-4 py-4 text-sm font-bold leading-6 text-[#315e64] hover:bg-white hover:text-[#175d68]">年1回の家計見直し →</a>
+          <a data-home-guide href="/appliance-replacement-guide/" className="rounded-2xl bg-[#eef8f7] px-4 py-4 text-sm font-bold leading-6 text-[#315e64] hover:bg-white hover:text-[#175d68]">家電の買い替え時期一覧 →</a>
+          <a data-home-guide href="/home-maintenance-cost-guide/" className="rounded-2xl bg-[#eef8f7] px-4 py-4 text-sm font-bold leading-6 text-[#315e64] hover:bg-white hover:text-[#175d68]">住宅設備・リフォームの出費一覧 →</a>
+          <a data-home-guide href="/annual-expenses-guide/" className="rounded-2xl bg-[#eef8f7] px-4 py-4 text-sm font-bold leading-6 text-[#315e64] hover:bg-white hover:text-[#175d68]">毎年・数年ごとの出費一覧 →</a>
+          <a data-home-guide href="/homeowner-expenses-guide/" className="rounded-2xl bg-[#eef8f7] px-4 py-4 text-sm font-bold leading-6 text-[#315e64] hover:bg-white hover:text-[#175d68]">持ち家の出費一覧 →</a>
+          <a data-home-guide href="/car-cost-guide/" className="rounded-2xl bg-[#eef8f7] px-4 py-4 text-sm font-bold leading-6 text-[#315e64] hover:bg-white hover:text-[#175d68]">車にかかる出費一覧 →</a>
+          <a data-home-guide href="/future-major-expenses-guide/" className="rounded-2xl bg-[#eef8f7] px-4 py-4 text-sm font-bold leading-6 text-[#315e64] hover:bg-white hover:text-[#175d68]">5年先の大きな出費一覧 →</a>
+          <a data-home-guide href="/single-living-expenses-guide/" className="rounded-2xl bg-[#eef8f7] px-4 py-4 text-sm font-bold leading-6 text-[#315e64] hover:bg-white hover:text-[#175d68]">一人暮らしの出費一覧 →</a>
+          <a data-home-guide href="/family-household-expenses-guide/" className="rounded-2xl bg-[#eef8f7] px-4 py-4 text-sm font-bold leading-6 text-[#315e64] hover:bg-white hover:text-[#175d68]">家族世帯の大きな出費 →</a>
+          <a data-home-guide href="/moving-expenses-guide/" className="rounded-2xl bg-[#eef8f7] px-4 py-4 text-sm font-bold leading-6 text-[#315e64] hover:bg-white hover:text-[#175d68]">引っ越しでかかる費用一覧 →</a>
+          <a data-home-guide href="/rental-expenses-guide/" className="rounded-2xl bg-[#eef8f7] px-4 py-4 text-sm font-bold leading-6 text-[#315e64] hover:bg-white hover:text-[#175d68]">賃貸でかかる出費一覧 →</a>
+          <a data-home-guide href="/childraising-expenses-guide/" className="rounded-2xl bg-[#eef8f7] px-4 py-4 text-sm font-bold leading-6 text-[#315e64] hover:bg-white hover:text-[#175d68]">子育て世帯の大きな出費 →</a>
+          <a data-home-guide href="/new-life-expenses-guide/" className="rounded-2xl bg-[#eef8f7] px-4 py-4 text-sm font-bold leading-6 text-[#315e64] hover:bg-white hover:text-[#175d68]">新生活の出費チェック →</a>
+          <a data-home-guide href="/yearly-expense-check-guide/" className="rounded-2xl bg-[#eef8f7] px-4 py-4 text-sm font-bold leading-6 text-[#315e64] hover:bg-white hover:text-[#175d68]">年1回の家計見直し →</a>
         </div>
       </div>
     </section>
