@@ -112,6 +112,12 @@
         "外壁塗装・リフォームだけでなく、キッチン・浴室・洗面台・給湯器・家電・車検などの出費も同じ時期に重なることがあります。くらし予報なら、これから1年・3年・5年の出費をまとめて予報できます。",
       button: "住宅設備＋家電などもまとめて予報",
     },
+    "/roof-repair-cost/": {
+      heading: "屋根塗装・屋根修理の出費だけで大丈夫？",
+      description:
+        "屋根塗装・屋根修理だけでなく、外壁・キッチン・浴室・給湯器・家電・車検などの出費も同じ時期に重なることがあります。くらし予報なら、これから1年・3年・5年の出費をまとめて予報できます。",
+      button: "住宅設備＋家電などもまとめて予報",
+    },
   };
 
   const config = configs[path];
@@ -584,6 +590,16 @@
     exteriorWallLink.href = "/exterior-wall-painting-cost/";
     exteriorWallLink.textContent = "外壁塗装・リフォーム費用を計算";
     relatedLinks.appendChild(exteriorWallLink);
+  }
+  if (
+    relatedLinks &&
+    path !== "/roof-repair-cost/" &&
+    !relatedLinks.querySelector('a[href="/roof-repair-cost/"]')
+  ) {
+    const roofLink = document.createElement("a");
+    roofLink.href = "/roof-repair-cost/";
+    roofLink.textContent = "屋根塗装・屋根修理費用を計算";
+    relatedLinks.appendChild(roofLink);
   }
     if (
     relatedLinks &&
