@@ -69,5 +69,15 @@
         button_text: text,
       });
     }
+
+    if (target.matches("[data-home-featured]")) {
+      sendEvent("home_feature_click", {
+        feature_category:
+          target.getAttribute("data-featured-category") || "",
+        link_text: text,
+        destination:
+          target.getAttribute("href") || "",
+      });
+    }
   });
 })();
