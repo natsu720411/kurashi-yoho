@@ -142,6 +142,12 @@
         "ベランダ・バルコニーの防水工事だけでなく、外壁・屋根・窓・玄関ドア・家電・車検などの出費も同じ時期に重なることがあります。くらし予報なら、これから1年・3年・5年の出費をまとめて予報できます。",
       button: "住宅設備＋家電などもまとめて予報",
     },
+    "/rain-gutter-repair-cost/": {
+      heading: "雨どい修理・交換の出費だけで大丈夫？",
+      description:
+        "雨どいの修理・交換だけでなく、屋根・外壁・ベランダ・窓・家電・車検などの出費も同じ時期に重なることがあります。くらし予報なら、これから1年・3年・5年の出費をまとめて予報できます。",
+      button: "住宅設備＋家電などもまとめて予報",
+    },
   };
 
   const config = configs[path];
@@ -664,6 +670,16 @@
     balconyLink.href = "/balcony-waterproofing-cost/";
     balconyLink.textContent = "ベランダ・バルコニー防水工事費用を計算";
     relatedLinks.appendChild(balconyLink);
+  }
+  if (
+    relatedLinks &&
+    path !== "/rain-gutter-repair-cost/" &&
+    !relatedLinks.querySelector('a[href="/rain-gutter-repair-cost/"]')
+  ) {
+    const rainGutterLink = document.createElement("a");
+    rainGutterLink.href = "/rain-gutter-repair-cost/";
+    rainGutterLink.textContent = "雨どい修理・交換費用を計算";
+    relatedLinks.appendChild(rainGutterLink);
   }
     if (
     relatedLinks &&
