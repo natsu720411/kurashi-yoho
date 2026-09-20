@@ -124,6 +124,12 @@
         "床・フローリングのリフォームだけでなく、屋根・外壁・キッチン・浴室・家電・車検などの出費も同じ時期に重なることがあります。くらし予報なら、これから1年・3年・5年の出費をまとめて予報できます。",
       button: "住宅設備＋家電などもまとめて予報",
     },
+    "/window-reform-cost/": {
+      heading: "窓・サッシリフォームの出費だけで大丈夫？",
+      description:
+        "窓・サッシのリフォームだけでなく、床・屋根・外壁・キッチン・浴室・家電などの出費も同じ時期に重なることがあります。くらし予報なら、これから1年・3年・5年の出費をまとめて予報できます。",
+      button: "住宅設備＋家電などもまとめて予報",
+    },
   };
 
   const config = configs[path];
@@ -616,6 +622,16 @@
     floorLink.href = "/floor-reform-cost/";
     floorLink.textContent = "床・フローリングリフォーム費用を計算";
     relatedLinks.appendChild(floorLink);
+  }
+  if (
+    relatedLinks &&
+    path !== "/window-reform-cost/" &&
+    !relatedLinks.querySelector('a[href="/window-reform-cost/"]')
+  ) {
+    const windowLink = document.createElement("a");
+    windowLink.href = "/window-reform-cost/";
+    windowLink.textContent = "窓・サッシリフォーム費用を計算";
+    relatedLinks.appendChild(windowLink);
   }
     if (
     relatedLinks &&
