@@ -100,6 +100,38 @@ function Landing({ onStart, hasSaved }: { onStart: () => void; hasSaved: boolean
       <div className="weather-sun right-[12%] top-[3%]" /><div className="cloud left-[6%] top-[18%] h-8 w-24 opacity-80" /><div className="cloud right-[4%] top-[32%] h-7 w-20 opacity-60" />
       <div className="absolute bottom-[5%] left-1/2 w-[min(100%,390px)] -translate-x-1/2 rotate-[-3deg] rounded-[28px] border border-[#c6e1df] bg-white/90 p-5 shadow-[0_22px_60px_rgba(38,105,114,.16)] backdrop-blur-sm sm:p-6"><div className="flex items-center justify-between border-b border-[#e0eded] pb-4"><div><p className="text-xs font-bold text-[#6d898d]">わが家のくらし予報</p><p className="mt-1 font-display text-2xl font-bold text-[#175d68]">これから3年</p></div><div className="grid h-12 w-12 place-items-center rounded-2xl bg-[#fff3c9] text-[#d89028]"><CloudSun size={25} /></div></div><div className="mt-5 rounded-2xl bg-[#eef8f7] p-4"><div className="flex items-center gap-3"><span className="grid h-9 w-9 place-items-center rounded-xl bg-white text-[#e1a13f]"><CalendarDays size={18} /></span><div><p className="text-xs font-bold text-[#35666b]">近い予定</p><p className="mt-1 text-[13px] font-bold text-[#174f5b]">冷蔵庫の買い替え</p></div><span className="ml-auto rounded-full bg-[#fff0d9] px-2.5 py-1 text-[10px] font-bold text-[#a75b21]">1年以内</span></div></div><div className="mt-3 flex items-end justify-between rounded-2xl bg-[#175d68] p-4 text-white"><div><p className="text-xs text-[#b7d7d4]">毎月の積み立て目安</p><p className="mt-1 font-display text-2xl font-bold">¥18,400</p></div><TrendingUp size={26} className="text-[#ffdc78]" /></div></div>
     </section>
+
+    <section className="fade-up md:col-span-2 rounded-[28px] border border-[#cfe4e1] bg-white/80 p-5 shadow-[0_14px_38px_rgba(48,111,121,.08)] sm:p-7">
+      <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <p className="text-xs font-bold tracking-[.12em] text-[#b17a26]">FREE TOOLS</p>
+          <h2 className="mt-2 font-display text-2xl font-bold tracking-[-.03em] text-[#174f5b]">よく使われる無料計算ツール</h2>
+          <p className="mt-2 max-w-2xl text-sm leading-7 text-[#617b80]">家電の買い替え、車検、住宅設備など、気になる出費だけをすぐに計算できます。</p>
+        </div>
+        <a href="/life-cost-tools/" className="text-sm font-bold text-[#176873] underline decoration-[#9fcac5] underline-offset-4 hover:text-[#0d4953]">すべての計算ツールを見る →</a>
+      </div>
+
+      <nav className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-4" aria-label="人気の無料計算ツール">
+        {[
+          { href: '/refrigerator-lifespan/', label: '冷蔵庫の寿命・買い替え時期' },
+          { href: '/washing-machine-lifespan/', label: '洗濯機の寿命・買い替え時期' },
+          { href: '/aircon-lifespan/', label: 'エアコンの寿命・買い替え時期' },
+          { href: '/car-inspection-when/', label: '次の車検時期・積立額' },
+          { href: '/car-annual-cost/', label: '車の年間維持費' },
+          { href: '/water-heater-replacement-cost/', label: '給湯器の交換費用・積立額' },
+          { href: '/exterior-wall-painting-cost/', label: '外壁塗装・リフォーム費用' },
+          { href: '/roof-repair-cost/', label: '屋根塗装・屋根修理費用' },
+        ].map((tool) => (
+          <a
+            key={tool.href}
+            href={tool.href}
+            className="rounded-2xl border border-[#d5e8e5] bg-[#f7fbfa] px-4 py-4 text-sm font-bold leading-6 text-[#315e64] transition hover:-translate-y-0.5 hover:border-[#9fcac5] hover:bg-white hover:text-[#175d68]"
+          >
+            {tool.label} →
+          </a>
+        ))}
+      </nav>
+    </section>
   </main>;
 }
 
