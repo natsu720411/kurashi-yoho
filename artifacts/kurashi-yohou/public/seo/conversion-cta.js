@@ -118,6 +118,12 @@
         "屋根塗装・屋根修理だけでなく、外壁・キッチン・浴室・給湯器・家電・車検などの出費も同じ時期に重なることがあります。くらし予報なら、これから1年・3年・5年の出費をまとめて予報できます。",
       button: "住宅設備＋家電などもまとめて予報",
     },
+    "/floor-reform-cost/": {
+      heading: "床・フローリングリフォームの出費だけで大丈夫？",
+      description:
+        "床・フローリングのリフォームだけでなく、屋根・外壁・キッチン・浴室・家電・車検などの出費も同じ時期に重なることがあります。くらし予報なら、これから1年・3年・5年の出費をまとめて予報できます。",
+      button: "住宅設備＋家電などもまとめて予報",
+    },
   };
 
   const config = configs[path];
@@ -600,6 +606,16 @@
     roofLink.href = "/roof-repair-cost/";
     roofLink.textContent = "屋根塗装・屋根修理費用を計算";
     relatedLinks.appendChild(roofLink);
+  }
+  if (
+    relatedLinks &&
+    path !== "/floor-reform-cost/" &&
+    !relatedLinks.querySelector('a[href="/floor-reform-cost/"]')
+  ) {
+    const floorLink = document.createElement("a");
+    floorLink.href = "/floor-reform-cost/";
+    floorLink.textContent = "床・フローリングリフォーム費用を計算";
+    relatedLinks.appendChild(floorLink);
   }
     if (
     relatedLinks &&
