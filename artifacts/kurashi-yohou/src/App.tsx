@@ -143,6 +143,8 @@ function Landing({ onStart, hasSaved }: { onStart: () => void; hasSaved: boolean
           <a href="/appliance-replacement-guide/" className="rounded-2xl bg-[#eef8f7] px-4 py-4 text-sm font-bold leading-6 text-[#315e64] hover:bg-white hover:text-[#175d68]">家電の買い替え時期一覧 →</a>
           <a href="/home-maintenance-cost-guide/" className="rounded-2xl bg-[#eef8f7] px-4 py-4 text-sm font-bold leading-6 text-[#315e64] hover:bg-white hover:text-[#175d68]">住宅設備・リフォームの出費一覧 →</a>
           <a href="/annual-expenses-guide/" className="rounded-2xl bg-[#eef8f7] px-4 py-4 text-sm font-bold leading-6 text-[#315e64] hover:bg-white hover:text-[#175d68]">毎年・数年ごとの出費一覧 →</a>
+          <a href="/homeowner-expenses-guide/" className="rounded-2xl bg-[#eef8f7] px-4 py-4 text-sm font-bold leading-6 text-[#315e64] hover:bg-white hover:text-[#175d68]">持ち家の出費一覧 →</a>
+          <a href="/car-cost-guide/" className="rounded-2xl bg-[#eef8f7] px-4 py-4 text-sm font-bold leading-6 text-[#315e64] hover:bg-white hover:text-[#175d68]">車にかかる出費一覧 →</a>
         </div>
       </div>
     </section>
