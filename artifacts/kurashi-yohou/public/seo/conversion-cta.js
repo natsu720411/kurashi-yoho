@@ -106,6 +106,12 @@
         "洗面台のリフォームだけでなく、キッチン・浴室・トイレ・給湯器・家電・車検などの出費も同じ時期に重なることがあります。くらし予報なら、これから1年・3年・5年の出費をまとめて予報できます。",
       button: "住宅設備＋家電などもまとめて予報",
     },
+    "/exterior-wall-painting-cost/": {
+      heading: "外壁塗装・リフォームの出費だけで大丈夫？",
+      description:
+        "外壁塗装・リフォームだけでなく、キッチン・浴室・洗面台・給湯器・家電・車検などの出費も同じ時期に重なることがあります。くらし予報なら、これから1年・3年・5年の出費をまとめて予報できます。",
+      button: "住宅設備＋家電などもまとめて予報",
+    },
   };
 
   const config = configs[path];
@@ -568,6 +574,16 @@
     washbasinLink.href = "/washbasin-reform-cost/";
     washbasinLink.textContent = "洗面台リフォーム費用を計算";
     relatedLinks.appendChild(washbasinLink);
+  }
+  if (
+    relatedLinks &&
+    path !== "/exterior-wall-painting-cost/" &&
+    !relatedLinks.querySelector('a[href="/exterior-wall-painting-cost/"]')
+  ) {
+    const exteriorWallLink = document.createElement("a");
+    exteriorWallLink.href = "/exterior-wall-painting-cost/";
+    exteriorWallLink.textContent = "外壁塗装・リフォーム費用を計算";
+    relatedLinks.appendChild(exteriorWallLink);
   }
     if (
     relatedLinks &&
