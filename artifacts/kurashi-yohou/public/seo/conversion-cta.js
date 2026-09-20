@@ -545,216 +545,95 @@
   }
     const relatedLinks = document.querySelector(".related-links");
 
-  if (
-    relatedLinks &&
-    path !== "/car-inspection-when/" &&
-    !relatedLinks.querySelector('a[href="/car-inspection-when/"]')
-  ) {
-    const carLink = document.createElement("a");
-    carLink.href = "/car-inspection-when/";
-    carLink.textContent = "次の車検時期・積立額を計算";
-    relatedLinks.appendChild(carLink);
-  }
+  const appliancePaths = new Set([
+    "/refrigerator-lifespan/",
+    "/washing-machine-lifespan/",
+    "/aircon-lifespan/",
+    "/appliance-savings-calculator/",
+    "/appliance-replacement-cost/",
+    "/appliance-5year-cost/",
+    "/single-appliance-cost/",
+  ]);
+
+  const carPaths = new Set([
+    "/car-inspection-when/",
+    "/car-insurance-renewal/",
+    "/car-annual-cost/",
+    "/car-tax-savings/",
+  ]);
+
+  const homePaths = new Set([
+    "/water-heater-replacement-cost/",
+    "/ecocute-replacement-cost/",
+    "/toilet-replacement-cost/",
+    "/bathroom-reform-cost/",
+    "/kitchen-reform-cost/",
+    "/washbasin-reform-cost/",
+    "/exterior-wall-painting-cost/",
+    "/roof-repair-cost/",
+    "/floor-reform-cost/",
+    "/window-reform-cost/",
+    "/entrance-door-replacement-cost/",
+    "/balcony-waterproofing-cost/",
+    "/rain-gutter-repair-cost/",
+    "/property-tax-savings/",
+    "/fire-insurance-renewal/",
+    "/earthquake-insurance-renewal/",
+  ]);
+
+  const appendRelatedLink = (href, label) => {
     if (
-    relatedLinks &&
-    path !== "/car-insurance-renewal/" &&
-    !relatedLinks.querySelector('a[href="/car-insurance-renewal/"]')
-  ) {
-    const insuranceLink = document.createElement("a");
-    insuranceLink.href = "/car-insurance-renewal/";
-    insuranceLink.textContent = "自動車保険の更新日・積立額を計算";
-    relatedLinks.appendChild(insuranceLink);
+      !relatedLinks ||
+      path === href ||
+      relatedLinks.querySelector(`a[href="${href}"]`)
+    ) {
+      return;
+    }
+
+    const link = document.createElement("a");
+    link.href = href;
+    link.textContent = label;
+    relatedLinks.appendChild(link);
+  };
+
+  if (appliancePaths.has(path)) {
+    appendRelatedLink(
+      "/appliance-replacement-guide/",
+      "家電の買い替え時期・出費ガイド"
+    );
   }
+
+  if (carPaths.has(path)) {
+    appendRelatedLink(
+      "/annual-expenses-guide/",
+      "車・税金・保険など定期支出ガイド"
+    );
+  }
+
+  if (homePaths.has(path)) {
+    appendRelatedLink(
+      "/home-maintenance-cost-guide/",
+      "住宅設備・リフォームの出費ガイド"
+    );
+
     if (
-    relatedLinks &&
-    path !== "/car-annual-cost/" &&
-    !relatedLinks.querySelector('a[href="/car-annual-cost/"]')
-  ) {
-    const annualCostLink = document.createElement("a");
-    annualCostLink.href = "/car-annual-cost/";
-    annualCostLink.textContent = "車の年間維持費を計算";
-    relatedLinks.appendChild(annualCostLink);
+      path === "/property-tax-savings/" ||
+      path === "/fire-insurance-renewal/" ||
+      path === "/earthquake-insurance-renewal/"
+    ) {
+      appendRelatedLink(
+        "/annual-expenses-guide/",
+        "税金・保険など定期支出ガイド"
+      );
+    }
   }
-    if (
-    relatedLinks &&
-    path !== "/water-heater-replacement-cost/" &&
-    !relatedLinks.querySelector('a[href="/water-heater-replacement-cost/"]')
-  ) {
-    const waterHeaterLink = document.createElement("a");
-    waterHeaterLink.href = "/water-heater-replacement-cost/";
-    waterHeaterLink.textContent = "給湯器の交換費用・積立額を計算";
-    relatedLinks.appendChild(waterHeaterLink);
-  }
-    if (
-    relatedLinks &&
-    path !== "/ecocute-replacement-cost/" &&
-    !relatedLinks.querySelector('a[href="/ecocute-replacement-cost/"]')
-  ) {
-    const ecocuteLink = document.createElement("a");
-    ecocuteLink.href = "/ecocute-replacement-cost/";
-    ecocuteLink.textContent = "エコキュートの交換費用・積立額を計算";
-    relatedLinks.appendChild(ecocuteLink);
-  }
-    if (
-    relatedLinks &&
-    path !== "/toilet-replacement-cost/" &&
-    !relatedLinks.querySelector('a[href="/toilet-replacement-cost/"]')
-  ) {
-    const toiletLink = document.createElement("a");
-    toiletLink.href = "/toilet-replacement-cost/";
-    toiletLink.textContent = "トイレ交換・リフォーム費用を計算";
-    relatedLinks.appendChild(toiletLink);
-  }
-  if (
-  relatedLinks &&
-  path !== "/bathroom-reform-cost/" &&
-  !relatedLinks.querySelector('a[href="/bathroom-reform-cost/"]')
-) {
-  const bathroomLink = document.createElement("a");
-  bathroomLink.href = "/bathroom-reform-cost/";
-  bathroomLink.textContent = "浴室・お風呂リフォーム費用を計算";
-  relatedLinks.appendChild(bathroomLink);
-}
-  if (
-    relatedLinks &&
-    path !== "/kitchen-reform-cost/" &&
-    !relatedLinks.querySelector('a[href="/kitchen-reform-cost/"]')
-  ) {
-    const kitchenLink = document.createElement("a");
-    kitchenLink.href = "/kitchen-reform-cost/";
-    kitchenLink.textContent = "キッチンリフォーム費用を計算";
-    relatedLinks.appendChild(kitchenLink);
-  }
-  if (
-    relatedLinks &&
-    path !== "/washbasin-reform-cost/" &&
-    !relatedLinks.querySelector('a[href="/washbasin-reform-cost/"]')
-  ) {
-    const washbasinLink = document.createElement("a");
-    washbasinLink.href = "/washbasin-reform-cost/";
-    washbasinLink.textContent = "洗面台リフォーム費用を計算";
-    relatedLinks.appendChild(washbasinLink);
-  }
-  if (
-    relatedLinks &&
-    path !== "/exterior-wall-painting-cost/" &&
-    !relatedLinks.querySelector('a[href="/exterior-wall-painting-cost/"]')
-  ) {
-    const exteriorWallLink = document.createElement("a");
-    exteriorWallLink.href = "/exterior-wall-painting-cost/";
-    exteriorWallLink.textContent = "外壁塗装・リフォーム費用を計算";
-    relatedLinks.appendChild(exteriorWallLink);
-  }
-  if (
-    relatedLinks &&
-    path !== "/roof-repair-cost/" &&
-    !relatedLinks.querySelector('a[href="/roof-repair-cost/"]')
-  ) {
-    const roofLink = document.createElement("a");
-    roofLink.href = "/roof-repair-cost/";
-    roofLink.textContent = "屋根塗装・屋根修理費用を計算";
-    relatedLinks.appendChild(roofLink);
-  }
-  if (
-    relatedLinks &&
-    path !== "/floor-reform-cost/" &&
-    !relatedLinks.querySelector('a[href="/floor-reform-cost/"]')
-  ) {
-    const floorLink = document.createElement("a");
-    floorLink.href = "/floor-reform-cost/";
-    floorLink.textContent = "床・フローリングリフォーム費用を計算";
-    relatedLinks.appendChild(floorLink);
-  }
-  if (
-    relatedLinks &&
-    path !== "/window-reform-cost/" &&
-    !relatedLinks.querySelector('a[href="/window-reform-cost/"]')
-  ) {
-    const windowLink = document.createElement("a");
-    windowLink.href = "/window-reform-cost/";
-    windowLink.textContent = "窓・サッシリフォーム費用を計算";
-    relatedLinks.appendChild(windowLink);
-  }
-  if (
-    relatedLinks &&
-    path !== "/entrance-door-replacement-cost/" &&
-    !relatedLinks.querySelector('a[href="/entrance-door-replacement-cost/"]')
-  ) {
-    const entranceDoorLink = document.createElement("a");
-    entranceDoorLink.href = "/entrance-door-replacement-cost/";
-    entranceDoorLink.textContent = "玄関ドア交換・リフォーム費用を計算";
-    relatedLinks.appendChild(entranceDoorLink);
-  }
-  if (
-    relatedLinks &&
-    path !== "/balcony-waterproofing-cost/" &&
-    !relatedLinks.querySelector('a[href="/balcony-waterproofing-cost/"]')
-  ) {
-    const balconyLink = document.createElement("a");
-    balconyLink.href = "/balcony-waterproofing-cost/";
-    balconyLink.textContent = "ベランダ・バルコニー防水工事費用を計算";
-    relatedLinks.appendChild(balconyLink);
-  }
-  if (
-    relatedLinks &&
-    path !== "/rain-gutter-repair-cost/" &&
-    !relatedLinks.querySelector('a[href="/rain-gutter-repair-cost/"]')
-  ) {
-    const rainGutterLink = document.createElement("a");
-    rainGutterLink.href = "/rain-gutter-repair-cost/";
-    rainGutterLink.textContent = "雨どい修理・交換費用を計算";
-    relatedLinks.appendChild(rainGutterLink);
-  }
-  if (
-    relatedLinks &&
-    path !== "/car-tax-savings/" &&
-    !relatedLinks.querySelector('a[href="/car-tax-savings/"]')
-  ) {
-    const carTaxLink = document.createElement("a");
-    carTaxLink.href = "/car-tax-savings/";
-    carTaxLink.textContent = "自動車税の支払い・積立額を計算";
-    relatedLinks.appendChild(carTaxLink);
-  }
-  if (
-    relatedLinks &&
-    path !== "/property-tax-savings/" &&
-    !relatedLinks.querySelector('a[href="/property-tax-savings/"]')
-  ) {
-    const propertyTaxLink = document.createElement("a");
-    propertyTaxLink.href = "/property-tax-savings/";
-    propertyTaxLink.textContent = "固定資産税の支払い・積立額を計算";
-    relatedLinks.appendChild(propertyTaxLink);
-  }
-  if (
-    relatedLinks &&
-    path !== "/fire-insurance-renewal/" &&
-    !relatedLinks.querySelector('a[href="/fire-insurance-renewal/"]')
-  ) {
-    const fireInsuranceLink = document.createElement("a");
-    fireInsuranceLink.href = "/fire-insurance-renewal/";
-    fireInsuranceLink.textContent = "火災保険の更新日・積立額を計算";
-    relatedLinks.appendChild(fireInsuranceLink);
-  }
-  if (
-    relatedLinks &&
-    path !== "/earthquake-insurance-renewal/" &&
-    !relatedLinks.querySelector('a[href="/earthquake-insurance-renewal/"]')
-  ) {
-    const earthquakeInsuranceLink = document.createElement("a");
-    earthquakeInsuranceLink.href = "/earthquake-insurance-renewal/";
-    earthquakeInsuranceLink.textContent = "地震保険の更新日・積立額を計算";
-    relatedLinks.appendChild(earthquakeInsuranceLink);
-  }
-    if (
-    relatedLinks &&
-    !relatedLinks.querySelector('a[href="/life-cost-tools/"]')
-  ) {
-    const toolsLink = document.createElement("a");
-    toolsLink.href = "/life-cost-tools/";
-    toolsLink.textContent = "暮らしの出費計算ツール一覧";
-    relatedLinks.appendChild(toolsLink);
-  }
-    const footerInner = document.querySelector(".seo-footer-inner");
+
+  appendRelatedLink(
+    "/life-cost-tools/",
+    "暮らしの出費計算ツール一覧"
+  );
+
+  const footerInner = document.querySelector(".seo-footer-inner");
 
   if (
     footerInner &&
@@ -776,6 +655,3 @@
     footerInner.appendChild(privacyLink);
   }
 })();
-const analyticsScript = document.createElement("script");
-analyticsScript.src = "/analytics.js";
-document.body.appendChild(analyticsScript);
