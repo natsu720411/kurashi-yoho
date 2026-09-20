@@ -136,6 +136,12 @@
         "玄関ドアの交換・リフォームだけでなく、窓・床・屋根・外壁・家電・車検などの出費も同じ時期に重なることがあります。くらし予報なら、これから1年・3年・5年の出費をまとめて予報できます。",
       button: "住宅設備＋家電などもまとめて予報",
     },
+    "/balcony-waterproofing-cost/": {
+      heading: "ベランダ・バルコニー防水工事の出費だけで大丈夫？",
+      description:
+        "ベランダ・バルコニーの防水工事だけでなく、外壁・屋根・窓・玄関ドア・家電・車検などの出費も同じ時期に重なることがあります。くらし予報なら、これから1年・3年・5年の出費をまとめて予報できます。",
+      button: "住宅設備＋家電などもまとめて予報",
+    },
   };
 
   const config = configs[path];
@@ -648,6 +654,16 @@
     entranceDoorLink.href = "/entrance-door-replacement-cost/";
     entranceDoorLink.textContent = "玄関ドア交換・リフォーム費用を計算";
     relatedLinks.appendChild(entranceDoorLink);
+  }
+  if (
+    relatedLinks &&
+    path !== "/balcony-waterproofing-cost/" &&
+    !relatedLinks.querySelector('a[href="/balcony-waterproofing-cost/"]')
+  ) {
+    const balconyLink = document.createElement("a");
+    balconyLink.href = "/balcony-waterproofing-cost/";
+    balconyLink.textContent = "ベランダ・バルコニー防水工事費用を計算";
+    relatedLinks.appendChild(balconyLink);
   }
     if (
     relatedLinks &&
