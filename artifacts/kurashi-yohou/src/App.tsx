@@ -146,6 +146,8 @@ function Landing({ onStart, hasSaved }: { onStart: () => void; hasSaved: boolean
           <a href="/homeowner-expenses-guide/" className="rounded-2xl bg-[#eef8f7] px-4 py-4 text-sm font-bold leading-6 text-[#315e64] hover:bg-white hover:text-[#175d68]">持ち家の出費一覧 →</a>
           <a href="/car-cost-guide/" className="rounded-2xl bg-[#eef8f7] px-4 py-4 text-sm font-bold leading-6 text-[#315e64] hover:bg-white hover:text-[#175d68]">車にかかる出費一覧 →</a>
           <a href="/future-major-expenses-guide/" className="rounded-2xl bg-[#eef8f7] px-4 py-4 text-sm font-bold leading-6 text-[#315e64] hover:bg-white hover:text-[#175d68]">5年先の大きな出費一覧 →</a>
+          <a href="/single-living-expenses-guide/" className="rounded-2xl bg-[#eef8f7] px-4 py-4 text-sm font-bold leading-6 text-[#315e64] hover:bg-white hover:text-[#175d68]">一人暮らしの出費一覧 →</a>
+          <a href="/family-household-expenses-guide/" className="rounded-2xl bg-[#eef8f7] px-4 py-4 text-sm font-bold leading-6 text-[#315e64] hover:bg-white hover:text-[#175d68]">家族世帯の大きな出費 →</a>
         </div>
       </div>
     </section>
