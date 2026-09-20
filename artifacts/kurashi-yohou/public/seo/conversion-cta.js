@@ -148,6 +148,18 @@
         "雨どいの修理・交換だけでなく、屋根・外壁・ベランダ・窓・家電・車検などの出費も同じ時期に重なることがあります。くらし予報なら、これから1年・3年・5年の出費をまとめて予報できます。",
       button: "住宅設備＋家電などもまとめて予報",
     },
+    "/car-tax-savings/": {
+      heading: "自動車税だけで大丈夫？",
+      description:
+        "自動車税だけでなく、車検・自動車保険・家電・住宅設備などの出費も同じ時期に重なることがあります。くらし予報なら、これから1年・3年・5年の出費をまとめて予報できます。",
+      button: "車＋家電などもまとめて予報",
+    },
+    "/property-tax-savings/": {
+      heading: "固定資産税だけで大丈夫？",
+      description:
+        "固定資産税だけでなく、住宅設備の交換・リフォーム・家電・車などの出費も同じ時期に重なることがあります。くらし予報なら、これから1年・3年・5年の出費をまとめて予報できます。",
+      button: "住宅＋家電などもまとめて予報",
+    },
   };
 
   const config = configs[path];
@@ -680,6 +692,26 @@
     rainGutterLink.href = "/rain-gutter-repair-cost/";
     rainGutterLink.textContent = "雨どい修理・交換費用を計算";
     relatedLinks.appendChild(rainGutterLink);
+  }
+  if (
+    relatedLinks &&
+    path !== "/car-tax-savings/" &&
+    !relatedLinks.querySelector('a[href="/car-tax-savings/"]')
+  ) {
+    const carTaxLink = document.createElement("a");
+    carTaxLink.href = "/car-tax-savings/";
+    carTaxLink.textContent = "自動車税の支払い・積立額を計算";
+    relatedLinks.appendChild(carTaxLink);
+  }
+  if (
+    relatedLinks &&
+    path !== "/property-tax-savings/" &&
+    !relatedLinks.querySelector('a[href="/property-tax-savings/"]')
+  ) {
+    const propertyTaxLink = document.createElement("a");
+    propertyTaxLink.href = "/property-tax-savings/";
+    propertyTaxLink.textContent = "固定資産税の支払い・積立額を計算";
+    relatedLinks.appendChild(propertyTaxLink);
   }
     if (
     relatedLinks &&

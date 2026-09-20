@@ -121,6 +121,8 @@ function Landing({ onStart, hasSaved }: { onStart: () => void; hasSaved: boolean
           { href: '/water-heater-replacement-cost/', label: '給湯器の交換費用・積立額' },
           { href: '/exterior-wall-painting-cost/', label: '外壁塗装・リフォーム費用' },
           { href: '/roof-repair-cost/', label: '屋根塗装・屋根修理費用' },
+          { href: '/car-tax-savings/', label: '自動車税の支払い・積立額' },
+          { href: '/property-tax-savings/', label: '固定資産税の支払い・積立額' },
         ].map((tool) => (
           <a
             key={tool.href}
