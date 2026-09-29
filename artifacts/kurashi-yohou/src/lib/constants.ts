@@ -6,6 +6,7 @@ export type ApplianceKey = '冷蔵庫' | '洗濯機' | 'エアコン' | 'テレ�
 export type ApplianceInput = {
   owned: boolean;
   purchaseYear: string;
+  expectedCost: number;
 };
 
 export type RecurringExpense = {
@@ -21,19 +22,21 @@ export type HouseholdData = {
   housing: HousingType;
   car: boolean;
   carInspectionMonth: string;
+  carInspectionCost: number;
   carInsuranceMonth: string;
+  carInsuranceCost: number;
   appliances: Record<ApplianceKey, ApplianceInput>;
   expenses: RecurringExpense[];
 };
 
-export const APPLIANCE_LIFETIMES: Record<ApplianceKey, { years: number; averageCost: number; note: string }> = {
-  冷蔵庫: { years: 10, averageCost: 120000, note: '大きさと省エネ性能で幅があります' },
-  洗濯機: { years: 8, averageCost: 100000, note: '乾燥機能つきは高めです' },
-  エアコン: { years: 10, averageCost: 120000, note: '設置工事費を含む目安です' },
-  テレビ: { years: 10, averageCost: 100000, note: 'サイズ別の平均的な目安です' },
-  掃除機: { years: 7, averageCost: 55000, note: 'コードレスは電池交換も考慮します' },
-  電子レンジ: { years: 10, averageCost: 45000, note: 'オーブン機能つきの平均です' },
-  炊飯器: { years: 6, averageCost: 35000, note: '容量により変わります' },
+export const APPLIANCE_LIFETIMES: Record<ApplianceKey, { years: number; trialCost: number; note: string }> = {
+  冷蔵庫: { years: 10, trialCost: 120000, note: '買い替え時期・金額とも試算用の目安です' },
+  洗濯機: { years: 7, trialCost: 100000, note: '7年は早めに準備するための試算目安です' },
+  エアコン: { years: 10, trialCost: 120000, note: '買い替え時期・金額とも試算用の目安です' },
+  テレビ: { years: 10, trialCost: 100000, note: '買い替え時期・金額とも試算用の目安です' },
+  掃除機: { years: 7, trialCost: 55000, note: '買い替え時期・金額とも試算用の目安です' },
+  電子レンジ: { years: 10, trialCost: 45000, note: '買い替え時期・金額とも試算用の目安です' },
+  炊飯器: { years: 6, trialCost: 35000, note: '買い替え時期・金額とも試算用の目安です' },
 };
 
 export const APPLIANCE_KEYS = Object.keys(APPLIANCE_LIFETIMES) as ApplianceKey[];
@@ -45,8 +48,19 @@ export const createInitialData = (): HouseholdData => ({
   housing: '賃貸',
   car: false,
   carInspectionMonth: '6',
+  carInspectionCost: 0,
   carInsuranceMonth: '6',
-  appliances: Object.fromEntries(APPLIANCE_KEYS.map((key) => [key, { owned: true, purchaseYear: String(new Date().getFullYear() - 4) }])) as Record<ApplianceKey, ApplianceInput>,
+  carInsuranceCost: 0,
+  appliances: Object.fromEntries(
+    APPLIANCE_KEYS.map((key) => [
+      key,
+      {
+        owned: true,
+        purchaseYear: String(new Date().getFullYear() - 4),
+        expectedCost: APPLIANCE_LIFETIMES[key].trialCost,
+      },
+    ]),
+  ) as Record<ApplianceKey, ApplianceInput>,
   expenses: [],
 });
 
