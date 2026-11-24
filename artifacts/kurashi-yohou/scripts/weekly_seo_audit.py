@@ -118,7 +118,7 @@ def authenticate():
         return str(creds.token)
     except Exception:
         raise RuntimeError("Google認証に失敗しました。JSON形式・API有効化・アカウント権限を確認してください。") from None
-def render(cur,prev,whole,data,analytics=None):
+def render(cur,prev,whole,data,analytics=None,analytics_error=None):
     output=["# くらし予報｜Google公式API 週次SEO点検",
       f"対象：{cur[0]} ～ {cur[1]}（直近3日を除く28日）",
       f"比較：{prev[0]} ～ {prev[1]}（前28日）",
@@ -130,7 +130,10 @@ def render(cur,prev,whole,data,analytics=None):
             f"### {label}｜検証候補（自動編集しない）",report_candidates(now,older)])
     output.append("少数表示や短期変動だけで本文・タイトルを変更しません。直近14日以内に編集したページは再編集を見送ります。")
     if analytics is None:
-        output.append("## GA4\n未設定のため取得していません。数字のGA4_PROPERTY_IDをGitHub Variablesに追加してください。")
+        if analytics_error:
+            output.append("## GA4｜未取得（Search Consoleの集計は取得済み）\n"+analytics_error+"\nGA4のアクセス権限またはAPI設定が未完了のため、計算ツールのイベント数は集計していません。")
+        else:
+            output.append("## GA4\n未設定のため取得していません。数字のGA4_PROPERTY_IDをGitHub Variablesに追加してください。")
     else:
         now,older=analytics["events"]
         def counts(items):
@@ -164,12 +167,19 @@ def main():
         for name,dims in (("クエリ",["query"]),("ページ",["page"]),("クエリ×ページ",["query","page"])):
             data[name]=(indexed(gsc(token,site,cur,dims)),indexed(gsc(token,site,prev,dims)))
         analytics=None
+        analytics_error=None
         prop=os.environ.get("GA4_PROPERTY_ID","").strip()
         if prop:
-            if not prop.isdigit():raise RuntimeError("GA4_PROPERTY_IDにはG-で始まる測定IDではなく数字のプロパティIDを指定してください。")
-            analytics={"events":(ga4(token,prop,cur,["eventName"]),ga4(token,prop,prev,["eventName"])),
-                "page":ga4(token,prop,cur,["eventName","pagePath"])}
-        report=render(cur,prev,whole,data,analytics)
+            if not prop.isdigit():
+                analytics_error="GA4_PROPERTY_IDにはG-で始まる測定IDではなく数字のプロパティIDを指定してください。"
+            else:
+                try:
+                    analytics={"events":(ga4(token,prop,cur,["eventName"]),ga4(token,prop,prev,["eventName"])),
+                        "page":ga4(token,prop,cur,["eventName","pagePath"])}
+                except RuntimeError as e:
+                    analytics_error=str(e)
+                    print("Search Consoleの取得は成功。GA4は未取得: "+analytics_error,file=sys.stderr)
+        report=render(cur,prev,whole,data,analytics,analytics_error)
         filename=Path(os.environ.get("REPORT_PATH","seo-report.md"))
         filename.write_text(report,encoding="utf-8")
         if step:

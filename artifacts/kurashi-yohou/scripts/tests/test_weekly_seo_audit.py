@@ -38,6 +38,14 @@ class TestAudit(unittest.TestCase):
                 self.assertIn("403",str(context.exception))
                 self.assertIn("PERMISSION_DENIED",str(context.exception))
                 self.assertNotIn("DO_NOT_DISPLAY_SECRET_TOKEN",str(context.exception))
+    def test_ga4_403_does_not_hide_search_console_results(self):
+        periods=windows(date(2026,11,24))
+        site=dict(clicks=3,impressions=100,ctr=.03,position=19)
+        output=render(*periods,(site,site),{"クエリ":({}, {})},None,"GA4 Data API HTTP 403（コード: PERMISSION_DENIED）")
+        self.assertIn("Search Consoleの集計は取得済み",output)
+        self.assertIn("GA4 Data API HTTP 403",output)
+        self.assertIn("100",output)
+        self.assertNotIn("GA4\\n未設定",output)
     def test_render(self):
         periods=windows(date(2026,11,24))
         zeros=dict(clicks=0,impressions=0,ctr=0,position=0)
