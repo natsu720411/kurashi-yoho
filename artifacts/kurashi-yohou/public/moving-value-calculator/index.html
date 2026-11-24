@@ -8,7 +8,7 @@
  <meta property="og:url" content="https://kurashi-yoho.vercel.app/moving-value-calculator/"/><meta property="og:image" content="https://kurashi-yoho.vercel.app/ogp-guides.jpg"/>
  <meta name="twitter:card" content="summary_large_image"/>
  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"くらし予報","item":"https://kurashi-yoho.vercel.app/"},{"@type":"ListItem","position":2,"name":"引っ越すと、結局いくらお得？","item":"https://kurashi-yoho.vercel.app/moving-value-calculator/"}]},{"@type":"WebApplication","name":"引っ越すと、結局いくらお得？","url":"https://kurashi-yoho.vercel.app/moving-value-calculator/","applicationCategory":"FinanceApplication","operatingSystem":"Web","description":"今と新居の家賃差、敷金・礼金・仲介手数料・退去費などを入力。引っ越しの初期費用を家賃差で何か月で回収できるか、1年・3年後の差額を無料計算できます。","offers":{"@type":"Offer","price":"0","priceCurrency":"JPY"}},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"引っ越し費用はどこまで入力しますか？","acceptedAnswer":{"@type":"Answer","text":"引っ越し会社・礼金・仲介手数料・退去費・家具家電など実際に支払う金額を入力します。新居の敷金も一時的な現金支出として扱い、旧居敷金の返還予定額を差し引きます。"}},{"@type":"Question","name":"敷金が返ってくる場合はどうなりますか？","acceptedAnswer":{"@type":"Answer","text":"旧居の敷金返還予定額を入力すると初期現金負担から差し引きます。ただし返還時期や金額が不確かな場合、実際の資金繰りは異なります。"}},{"@type":"Question","name":"家賃が高くなる場合も計算できますか？","acceptedAnswer":{"@type":"Answer","text":"できます。毎月の差額と1年・3年後の負担増を表示します。家賃差だけで初期費用を回収できない場合はその旨を表示します。"}}]}]}</script>
- <link rel="stylesheet" href="/compare/tools.css"/><script src="/analytics.js" defer></script><script src="/compare/tools.js" defer></script>
+ <link rel="stylesheet" href="/compare/tools.css"/><script src="/analytics.js" defer></script><script src="/compare/math.js" defer></script><script src="/compare/tools.js" defer></script>
  </head><body data-compare-tool="move">
  <header><div class="sitebar"><a class="brand" href="/"><span class="brand-mark">☀</span><span>くらし予報<small>LIFE WEATHER</small></span></a>
  <nav class="toplinks"><a href="/">トップ</a><a href="/#tools">すべての計算ツール</a><a class="top-cta" href="/#guides">お役立ち記事</a></nav></div></header>
@@ -28,12 +28,29 @@
  <div class="field"><label for="f-departure">退去費・原状回復など</label><div class="input-wrap"><input id="f-departure" data-input="departure" type="number" min="0" max="1000000000" inputmode="numeric" placeholder="入力してください"  /><span class="unit">円</span></div></div>
  <div class="field"><label for="f-furniture">新しく買う家具・家電</label><div class="input-wrap"><input id="f-furniture" data-input="furniture" type="number" min="0" max="1000000000" inputmode="numeric" placeholder="入力してください"  /><span class="unit">円</span></div></div>
  <div class="field"><label for="f-other">その他の初期費用</label><div class="input-wrap"><input id="f-other" data-input="other" type="number" min="0" max="1000000000" inputmode="numeric" placeholder="入力してください"  /><span class="unit">円</span></div></div>
- </div><p class="form-note">賃貸契約・見積もりの金額をご入力ください。敷金が返る時期や金額によって、実際の資金繰りは異なります。</p><div class="mobile-results-link"><button type="button" id="show-results-mobile">計算結果を見る ↓</button></div>
+ </div><p class="form-note">賃貸契約・見積もりの金額をご入力ください。敷金が返る時期や金額によって、実際の資金繰りは異なります。</p><p id="input-warning" class="input-warning" role="status">未入力項目は0円として計算します。</p><div class="mobile-results-link"><button type="button" id="show-results-mobile">計算結果を見る ↓</button></div>
  </section><aside class="panel result-panel" id="result-area" aria-live="polite"><div class="result-head"><h2>計算結果</h2><span>自動計算</span></div><div id="result-empty" class="empty">必要な金額を入力すると、結果とグラフが表示されます。</div>
  <div id="result-content" hidden><div class="main-metric"><span id="result-label"></span><strong id="result-value"></strong></div>
  <div class="metrics" id="result-metrics"></div><p class="result-explain" id="result-description"></p>
  <div class="graph-panel"><h3 id="graph-title">比較グラフ</h3><div id="result-graph"></div><p class="graph-footnote">比較条件・期間が変わると結果も変わります。入力値に基づく概算です。</p></div>
- </div><div class="actions"><button id="copy-result" type="button" disabled>結果をコピー</button><button id="image-result" type="button" disabled>画像で保存・共有</button></div><p id="action-status" class="action-status" role="status"></p></aside></div>
+ </div><div class="actions"><button id="copy-result" type="button" disabled>結果をコピー</button><button id="image-result" type="button" disabled>画像で保存・共有</button></div>
+ <section class="history-panel" aria-label="計算結果の履歴"><h3>あとで比較するために保存</h3><p>計算条件をこの端末に最大8件保存。復元や個別削除ができます。</p><button type="button" class="history-save" id="save-history" disabled>この結果を保存</button><ul class="history-list" id="history-list"></ul></section><p id="action-status" class="action-status" role="status"></p></aside></div>
+
+<section class="content-section scenario-calculator" id="compare-two-apartments" aria-labelledby="scenario-heading">
+<h2 id="scenario-heading">引っ越し先A・Bを並べて比較</h2>
+<p>候補の家賃・実質初期費用を入力し、契約後の12・36・60か月間でどちらの支払いが少ないか比べられます。金額は端末にのみ保存します。</p>
+<div class="scenario-grid">
+<div class="scenario-option"><h3>物件A</h3>
+<label for="a-rent">家賃（月額・円）</label><input id="a-rent" type="number" min="0" max="1000000000" inputmode="numeric" data-scenario="aRent" placeholder="自分の金額"/>
+<label for="a-cost">実質初期費用（円）</label><input id="a-cost" type="number" min="0" max="1000000000" inputmode="numeric" data-scenario="aCost" placeholder="自分の金額"/>
+</div><div class="scenario-option"><h3>物件B</h3>
+<label for="b-rent">家賃（月額・円）</label><input id="b-rent" type="number" min="0" max="1000000000" inputmode="numeric" data-scenario="bRent" placeholder="自分の金額"/>
+<label for="b-cost">実質初期費用（円）</label><input id="b-cost" type="number" min="0" max="1000000000" inputmode="numeric" data-scenario="bCost" placeholder="自分の金額"/>
+</div></div>
+<label for="scenario-term">比較する期間</label><select id="scenario-term"><option value="12">1年間（12か月）</option><option value="36" selected>3年間（36か月）</option><option value="60">5年間（60か月）</option></select>
+<p id="scenario-result" class="scenario-result" role="status">各物件の金額を入力すると比較できます。</p>
+<p>家賃と初期費用だけの比較です。更新料、光熱費、交通費、退去費などの差は含みません。敷金の返還額と時期にもご注意ください。</p>
+</section>
  <section class="content-section"><h2>引っ越しで得するかは「家賃差」と「実質初期費用」で考える</h2><p>家賃が安くなるだけでお得とは限りません。引っ越し会社の費用、礼金、仲介手数料、退去費、家具家電、入居時の敷金、旧居から戻る敷金などを整理し、差し引きの現金負担を確認することが大切です。</p><p>例えば月1万円家賃が安くなっても、実質初期費用が30万円かかれば、家賃差だけでの回収には30か月かかります。更新料や光熱費、移動時間が変わる場合は別に比較してください。</p></section>
  <section class="content-section faq"><h2>よくある質問</h2><details><summary>引っ越し費用はどこまで入力しますか？</summary><p>引っ越し会社・礼金・仲介手数料・退去費・家具家電など実際に支払う金額を入力します。新居の敷金も一時的な現金支出として扱い、旧居敷金の返還予定額を差し引きます。</p></details><details><summary>敷金が返ってくる場合はどうなりますか？</summary><p>旧居の敷金返還予定額を入力すると初期現金負担から差し引きます。ただし返還時期や金額が不確かな場合、実際の資金繰りは異なります。</p></details><details><summary>家賃が高くなる場合も計算できますか？</summary><p>できます。毎月の差額と1年・3年後の負担増を表示します。家賃差だけで初期費用を回収できない場合はその旨を表示します。</p></details></section>
  <section class="content-section"><h2>関連する無料ツール・解説</h2><div class="related-links"><a href="/moving-expenses-guide/" data-related>引っ越し会社の見積もり・費用ガイド →</a><a href="/new-life-expenses-guide/" data-related>新生活に必要な費用ガイド →</a><a href="/repair-or-replace-calculator/" data-related>家電の買い替え比較 →</a><a href="/" data-related>ほかの損得計算ツールを見る →</a></div></section>

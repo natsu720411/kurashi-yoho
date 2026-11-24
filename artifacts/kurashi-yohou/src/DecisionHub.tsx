@@ -86,7 +86,7 @@ function MoneyField({ id, label, value, onChange, hint, suffix = '円' }: {
       <label htmlFor={id}>{label}</label>
       <div className="compare-input-wrap">
         <input id={id} type="number" min="0" max={MAX_MONEY} step="1" inputMode="numeric"
-          value={value} placeholder="金額を入力" onChange={(event) => onChange(event.target.value)} />
+          value={value} placeholder="金額を入力" aria-invalid={value !== '' && money(value) === null} onChange={(event) => onChange(event.target.value)} />
         <span>{suffix}</span>
       </div>
       {hint && <p className="compare-field-hint">{hint}</p>}
@@ -204,6 +204,17 @@ export function DecisionHub({ onOpenForecast, hasSavedForecast }: Props) {
       : breakdown.filter((item) => item.amount > 0).map((item) => ({ label: item.label, value: item.amount }));
   const quickMax = Math.max(1, ...quickChart.map((item) => Math.abs(item.value)));
   const hasNegative = quickChart.some((item) => item.value < 0);
+  const missingRequired = selectedTool === 'move'
+    ? [['currentRent', '今の家賃'], ['newRent', '新しい家賃'], ['movingCost', '引っ越しの実質初期費用']].filter(([key]) => !move[key as keyof MoveFields].trim()).map(([, label]) => label)
+    : selectedTool === 'appliance'
+      ? [['repairCost', '修理の見積もり'], ['replacementCost', '新品の総額']].filter(([key]) => !appliance[key as keyof ApplianceFields].trim()).map(([, label]) => label)
+      : [];
+  const optionalMissingCount = selectedTool === 'car' ? carKeys.filter((key) => !car[key].trim()).length : 0;
+  const invalidEntered = selectedTool === 'move'
+    ? Object.values(move).some((value) => value !== '' && money(value) === null)
+    : selectedTool === 'appliance'
+      ? ([appliance.repairCost, appliance.replacementCost].some((value) => value !== '' && money(value) === null) || [appliance.repairYears, appliance.replacementYears].some((value) => value !== '' && positiveYears(value) === null))
+      : carKeys.some((key) => car[key] !== '' && optionalMoney(car[key]) === null);
   function summary(): string {
     if (selectedTool === 'move' && moveValid) {
       const payback = movePayback === null ? '家賃差だけでは回収できません' : movePayback + 'か月';
@@ -328,9 +339,11 @@ export function DecisionHub({ onOpenForecast, hasSavedForecast }: Props) {
                 </div>
                 <p className="compare-mini-note">未入力の項目は0円で計算します。車両購入費・ローン・減価償却・高速料金などは入力項目に含まれていません。実見積もりや通知書の金額を使ってください。</p>
               </>}
+              <p className="compare-input-notice" role="status">{invalidEntered ? '入力した数値に誤りがあります。0以上の整数で入力してください。' : missingRequired.length > 0 ? '入力が必要です：' + missingRequired.join('、') : selectedTool === 'car' && optionalMissingCount > 0 ? '未入力の費用が' + optionalMissingCount + '項目あります。未入力は0円として計算するため、費用が実際より低く出ることがあります。' : '入力した金額をもとに計算しています。'}</p>
+              <button className="compare-mobile-jump" type="button" onClick={() => {document.getElementById('compare-result-panel')?.scrollIntoView({behavior: 'smooth', block: 'start'});track('comparison_result_jump', selectedTool);}}>計算結果を見る ↓</button>
             </div>
 
-            <aside className="compare-result" aria-live="polite" aria-atomic="true">
+            <aside id="compare-result-panel" className="compare-result" aria-live="polite" aria-atomic="true">
               <div className="compare-result-top"><span><Calculator size={18}/> 計算結果</span><small>{TOOL_LABELS[selectedTool]}</small></div>
               {!hasResult && <div className="compare-result-empty"><span><Calculator size={38}/></span><strong>数字を入れると、ここに結果が表示されます</strong><p>{selectedTool === 'car' ? '分かる項目から入力してください。' : 'まずは上の必要な金額を入力してください。'}</p></div>}
               {selectedTool === 'move' && moveValid && <>
