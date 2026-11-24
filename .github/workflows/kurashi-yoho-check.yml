@@ -25,6 +25,7 @@ jobs:
           node-version: '22'
           cache: 'pnpm'
       - run: pnpm install --frozen-lockfile
+      - run: python -m unittest discover -s artifacts/kurashi-yohou/scripts/tests -v
       - run: node --test artifacts/kurashi-yohou/tests/*.test.mjs
       - run: pnpm --filter @workspace/kurashi-yohou typecheck
       - run: pnpm --filter @workspace/kurashi-yohou build
