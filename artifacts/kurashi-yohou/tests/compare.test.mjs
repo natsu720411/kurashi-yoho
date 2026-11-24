@@ -34,3 +34,15 @@ test('all dedicated pages load math and have canonical URLs',()=>{
   assert.match(html,/rel="canonical"/);assert.ok(sitemap.includes('https://kurashi-yoho.vercel.app/'+slug+'/'));
  }
 });
+
+test('analytics funnel naming stays consistent between the homepage and individual tools',()=>{
+ const home=read('src/DecisionHub.tsx');
+ const standalone=read('public/compare/tools.js');
+ for(const event of ['comparison_tool_view','comparison_input_start','comparison_calculation_complete','comparison_result_copy']){
+  assert.ok(home.includes("'"+event+"'"), 'homepage missing '+event);
+  assert.ok(standalone.includes("'"+event+"'"), 'standalone page missing '+event);
+ }
+ assert.ok(home.includes('comparison_tool: tool'));
+ assert.ok(standalone.includes("if(!valid){return;}"), 'avoid counting the same form completion repeatedly');
+ assert.ok(!home.includes("track('compare_result_copy'"));
+});

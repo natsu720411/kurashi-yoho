@@ -74,7 +74,7 @@ function initialTool(): ToolId {
 }
 function track(eventName: string, tool: ToolId) {
   const analytics = window as Window & { gtag?: (...args: unknown[]) => void };
-  analytics.gtag?.('event', eventName, { tool_id: tool });
+  analytics.gtag?.('event', eventName, { tool_id: tool, comparison_tool: tool, page_path: window.location.pathname });
 }
 
 function MoneyField({ id, label, value, onChange, hint, suffix = '円' }: {
@@ -116,6 +116,8 @@ export function DecisionHub({ onOpenForecast, hasSavedForecast }: Props) {
   const move = inputs.move;
   const appliance = inputs.appliance;
   const car = inputs.car;
+
+  useEffect(() => { track('comparison_tool_view', selectedTool); }, [selectedTool]);
 
   useEffect(() => {
     try { localStorage.setItem(STORAGE_KEY, JSON.stringify(inputs)); }
@@ -233,7 +235,7 @@ export function DecisionHub({ onOpenForecast, hasSavedForecast }: Props) {
     try {
       await navigator.clipboard.writeText(summary());
       setCopyMessage('計算結果をコピーしました。金額は共有前に確認してください。');
-      track('compare_result_copy', selectedTool);
+      track('comparison_result_copy', selectedTool);
     } catch {
       setCopyMessage('コピーできませんでした。ブラウザーの権限を確認してください。');
     }

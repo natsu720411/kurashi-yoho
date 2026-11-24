@@ -214,7 +214,7 @@
     placeholder.hidden=valid;
     resultContent.hidden=!valid;
     copyButton.disabled=!valid;imageButton.disabled=!valid;saveHistoryButton.disabled=!valid;
-    if(!valid){completed=false;return;}
+    if(!valid){return;}
     if(!completed && started){send('comparison_calculation_complete');completed=true;}
     mainLabel.textContent=calc.label;
     mainValue.textContent=calc.main;
