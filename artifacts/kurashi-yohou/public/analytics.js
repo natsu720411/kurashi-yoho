@@ -1,6 +1,11 @@
 (function () {
   const GA_ID = "G-3B091E5CBH";
 
+  function normalizePath(path) {
+    if (!path) return "/";
+    return path.endsWith("/") ? path : path + "/";
+  }
+
   if (window.__kurashiAnalyticsLoaded) return;
   window.__kurashiAnalyticsLoaded = true;
 
