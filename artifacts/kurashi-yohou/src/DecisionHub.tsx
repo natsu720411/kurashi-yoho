@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {
   ArrowRight, Calculator, CarFront, Check, ChevronRight, CloudSun,
   Copy, House, PiggyBank, Refrigerator, RotateCcw, ShieldCheck,
@@ -18,6 +18,11 @@ const DEFAULT_INPUTS: Inputs = {
   move: { currentRent: '', newRent: '', movingCost: '' },
   appliance: { repairCost: '', replacementCost: '', repairYears: '', replacementYears: '' },
   car: { fuel: '', parking: '', monthlyOther: '', insurance: '', tax: '', inspection: '', inspectionYears: '2', maintenance: '' },
+};
+const DETAILED_PATHS: Record<ToolId, string> = {
+  move: '/moving-value-calculator/',
+  appliance: '/repair-or-replace-calculator/',
+  car: '/car-or-no-car-calculator/',
 };
 const TOOL_LABELS: Record<ToolId, string> = {
   move: '引っ越しの損得',
@@ -101,6 +106,13 @@ export function DecisionHub({ onOpenForecast, hasSavedForecast }: Props) {
   const [selectedTool, setSelectedTool] = useState<ToolId>(initialTool);
   const [inputs, setInputs] = useState<Inputs>(loadInputs);
   const [copyMessage, setCopyMessage] = useState('');
+  const startedTools = useRef(new Set<ToolId>());
+  const completedTools = useRef(new Set<ToolId>());
+  const trackStart = (tool: ToolId) => {
+    if (startedTools.current.has(tool)) return;
+    startedTools.current.add(tool);
+    track('comparison_input_start', tool);
+  };
   const move = inputs.move;
   const appliance = inputs.appliance;
   const car = inputs.car;
@@ -161,12 +173,15 @@ export function DecisionHub({ onOpenForecast, hasSavedForecast }: Props) {
   }
 
   function updateMove(key: keyof MoveFields, value: string) {
+    trackStart('move');
     setInputs((before) => ({ ...before, move: { ...before.move, [key]: value } }));
   }
   function updateAppliance(key: keyof ApplianceFields, value: string) {
+    trackStart('appliance');
     setInputs((before) => ({ ...before, appliance: { ...before.appliance, [key]: value } }));
   }
   function updateCar(key: keyof CarFields, value: string) {
+    trackStart('car');
     setInputs((before) => ({ ...before, car: { ...before.car, [key]: value } }));
   }
   function resetInputs() {
@@ -176,6 +191,19 @@ export function DecisionHub({ onOpenForecast, hasSavedForecast }: Props) {
   }
 
   const hasResult = selectedTool === 'move' ? moveValid : selectedTool === 'appliance' ? applianceValid : carValid;
+  useEffect(() => {
+    if (hasResult && startedTools.current.has(selectedTool) && !completedTools.current.has(selectedTool)) {
+      completedTools.current.add(selectedTool);
+      track('comparison_calculation_complete', selectedTool);
+    }
+  }, [hasResult, selectedTool]);
+  const quickChart = selectedTool === 'move'
+    ? [12, 24, 36].map((month) => ({ label: month / 12 + '年後', value: monthlyDifference * month - (moveCost || 0) }))
+    : selectedTool === 'appliance'
+      ? [{ label: '修理', value: repair || 0 }, { label: '新品', value: replacement || 0 }]
+      : breakdown.filter((item) => item.amount > 0).map((item) => ({ label: item.label, value: item.amount }));
+  const quickMax = Math.max(1, ...quickChart.map((item) => Math.abs(item.value)));
+  const hasNegative = quickChart.some((item) => item.value < 0);
   function summary(): string {
     if (selectedTool === 'move' && moveValid) {
       const payback = movePayback === null ? '家賃差だけでは回収できません' : movePayback + 'か月';
@@ -253,11 +281,15 @@ export function DecisionHub({ onOpenForecast, hasSavedForecast }: Props) {
               <span className="compare-tool-icon sky"><CarFront size={26}/></span><span className="compare-tool-index">03 / 車</span><strong>維持費はいくら？</strong><small>月額・年間・5年間を計算する</small><span className="compare-tool-arrow"><ArrowRight size={19}/></span>
             </button>
           </div>
+          <div className="compare-detailed-link">
+            <span>もっと詳しく知りたい人はこちら</span>
+            <a href={DETAILED_PATHS[selectedTool]} data-home-tool onClick={() => track('comparison_deep_link_click', selectedTool)}>費用の内訳まで詳しく比較する <ArrowRight size={16}/></a>
+          </div>
         </section>
 
         <section id="compare-calculator" className="compare-workbench" aria-label={TOOL_LABELS[selectedTool] + 'を計算'}>
           <div className="compare-workbench-heading">
-            <div><div className="compare-section-kicker">FREE SIMULATOR</div><h2>{TOOL_LABELS[selectedTool]}</h2><p>入力すると、計算結果がその場で更新されます。</p></div>
+            <div><div className="compare-section-kicker">FREE SIMULATOR</div><h2>{TOOL_LABELS[selectedTool]}</h2><p>入力すると、計算結果がその場で更新されます。</p><a className="compare-deep-link" data-home-tool href={DETAILED_PATHS[selectedTool]} onClick={() => track('comparison_deep_link_click', selectedTool)}>さらに詳しい比較・グラフ・画像共有 <ArrowRight size={15}/></a></div>
             <button className="compare-reset" type="button" onClick={resetInputs}><RotateCcw size={14}/> 入力をリセット</button>
           </div>
           <div className="compare-workbench-grid">
@@ -329,6 +361,20 @@ export function DecisionHub({ onOpenForecast, hasSavedForecast }: Props) {
                 <div className="compare-breakdown"><strong>年間の内訳</strong>{breakdown.filter((item) => item.amount > 0).map((item) => <div key={item.label}><span>{item.label}</span><b>{yen(item.amount)}</b></div>)}</div>
                 <p className="compare-result-note">未入力項目は0円として計算しています。実際の費用は走行距離・契約・整備内容などで変わります。</p>
               </>}
+              {hasResult && <div className="compare-quick-chart" role="img" aria-label={TOOL_LABELS[selectedTool] + 'の費用比較グラフ'}>
+                <strong>費用をグラフで比較</strong>
+                {quickChart.map((item) => <div className="compare-quick-row" key={item.label}>
+                  <span>{item.label}</span>
+                  <div className={'compare-quick-track ' + (hasNegative ? 'signed' : '')}>
+                    <div className={item.value < 0 ? 'compare-quick-bar negative' : 'compare-quick-bar'} style={{
+                      width: hasNegative ? Math.abs(item.value) / quickMax * 47 + '%' : Math.abs(item.value) / quickMax * 100 + '%',
+                      left: hasNegative ? (item.value < 0 ? 50 - Math.abs(item.value) / quickMax * 47 : 50) + '%' : '0%'
+                    }} />
+                  </div>
+                  <b>{yen(item.value)}</b>
+                </div>)}
+                <p>{selectedTool === 'move' ? '家賃差から初期費用を差し引いた累積額です。' : selectedTool === 'appliance' ? '修理と新品の初期費用の比較です。' : 'ご入力済みの年間費用の内訳です。'}</p>
+              </div>}
               {hasResult && <><button type="button" className="compare-copy-button" onClick={copySummary}><Copy size={16}/> 計算結果をコピー</button>{copyMessage && <p className="compare-copy-status" role="status">{copyMessage}</p>}</>}
             </aside>
           </div>
