@@ -1,9 +1,12 @@
 import unittest
+from unittest.mock import patch
+from urllib.error import HTTPError
+from io import BytesIO
 from datetime import date
 import sys
 from pathlib import Path
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
-from weekly_seo_audit import windows, totals, indexed, candidates, ga_rows, render
+from weekly_seo_audit import windows, totals, indexed, candidates, ga_rows, render, api
 class TestAudit(unittest.TestCase):
     def test_windows(self):
         current,previous=windows(date(2026,11,24))
@@ -20,6 +23,21 @@ class TestAudit(unittest.TestCase):
     def test_ga4_event_rows(self):
         response={"dimensionHeaders":[{"name":"eventName"}],"rows":[{"dimensionValues":[{"value":"comparison_input_start"}],"metricValues":[{"value":"4"}]}]}
         self.assertEqual(ga_rows(response)[0]["eventCount"],4)
+    def test_http_403_reports_the_failing_google_service_without_leaking_credentials(self):
+        payload=b'{"error":{"code":403,"status":"PERMISSION_DENIED"}}'
+        for url,label in (
+            ("https://www.googleapis.com/webmasters/v3/sites/example/searchAnalytics/query","Search Console"),
+            ("https://analyticsdata.googleapis.com/v1beta/properties/123:runReport","GA4 Data API")
+        ):
+            with self.subTest(service=label):
+                error=HTTPError(url,403,"Forbidden",{},BytesIO(payload))
+                with patch('weekly_seo_audit.urlopen',side_effect=error):
+                    with self.assertRaises(RuntimeError) as context:
+                        api(url,{},"DO_NOT_DISPLAY_SECRET_TOKEN")
+                self.assertIn(label,str(context.exception))
+                self.assertIn("403",str(context.exception))
+                self.assertIn("PERMISSION_DENIED",str(context.exception))
+                self.assertNotIn("DO_NOT_DISPLAY_SECRET_TOKEN",str(context.exception))
     def test_render(self):
         periods=windows(date(2026,11,24))
         zeros=dict(clicks=0,impressions=0,ctr=0,position=0)

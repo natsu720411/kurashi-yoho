@@ -1,6 +1,12 @@
 name: Kurashi Yoho free Google API weekly SEO audit
 on:
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'artifacts/kurashi-yohou/scripts/weekly_seo_audit.py'
+      - 'artifacts/kurashi-yohou/scripts/tests/test_weekly_seo_audit.py'
+      - '.github/workflows/kurashi-yoho-free-seo-audit.yml'
   schedule:
     - cron: '17 23 * * 0'
 permissions:

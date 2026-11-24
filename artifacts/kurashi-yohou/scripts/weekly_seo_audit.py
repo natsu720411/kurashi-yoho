@@ -63,9 +63,33 @@ def api(url,body,token):
     try:
         with urlopen(request,timeout=45) as r:return json.load(r)
     except HTTPError as e:
-        raise RuntimeError(f"Google API HTTP {e.code}。サービスアカウントの権限・API有効化・プロパティIDを確認してください。") from None
+        # Never log response bodies, URLs, tokens, JSON credentials or private Google data.
+        # Google returns a safe machine-readable failure reason, which narrows down
+        # a missing API enablement versus property access without exposing secrets.
+        import re
+        service = "Search Console" if "/webmasters/v3/" in url else "GA4 Data API"
+        reason = ""
+        try:
+            payload = json.loads(e.read().decode("utf-8"))
+            problem = payload.get("error", {})
+            errors = problem.get("errors") or []
+            details = problem.get("details") or []
+            candidates = ([problem.get("status")] +
+                [item.get("reason") for item in errors if isinstance(item,dict)] +
+                [item.get("reason") for item in details if isinstance(item,dict)])
+            reason = next((value for value in candidates
+                           if isinstance(value,str) and re.fullmatch(r"[A-Za-z][A-Za-z_]{1,63}",value)), "")
+        except (ValueError, UnicodeDecodeError, OSError, TypeError, AttributeError):
+            pass
+        reason_text = f"（コード: {reason}）" if reason else ""
+        if service == "Search Console":
+            action = "Search Consoleの対象プロパティ、サービスアカウントの閲覧権限、Search Console APIの有効化を確認してください。"
+        else:
+            action = "GA4のプロパティ閲覧権限とGoogle Analytics Data APIの有効化を確認してください。"
+        raise RuntimeError(f"{service} HTTP {e.code}{reason_text}。{action}") from None
     except URLError:
-        raise RuntimeError("Google APIへ接続できませんでした。") from None
+        service = "Search Console" if "/webmasters/v3/" in url else "GA4 Data API"
+        raise RuntimeError(f"{service} に接続できませんでした。") from None
 def gsc(token,site,period,dimensions):
     url="https://www.googleapis.com/webmasters/v3/sites/"+quote(site,safe="")+"/searchAnalytics/query"
     return api(url,{"startDate":period[0].isoformat(),"endDate":period[1].isoformat(),"dimensions":dimensions,"type":"web","dataState":"final","rowLimit":2000},token)
