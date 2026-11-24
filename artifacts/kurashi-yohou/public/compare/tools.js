@@ -165,7 +165,7 @@
     resultContent.hidden=!valid;
     copyButton.disabled=!valid;imageButton.disabled=!valid;
     if(!valid){completed=false;return;}
-    if(!completed){send('comparison_calculation_complete');completed=true;}
+    if(!completed && started){send('comparison_calculation_complete');completed=true;}
     mainLabel.textContent=calc.label;
     mainValue.textContent=calc.main;
     metrics.replaceChildren();
