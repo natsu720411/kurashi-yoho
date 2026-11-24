@@ -26,6 +26,8 @@
   const saveHistoryButton = root.querySelector('#save-history');
   const historyList = root.querySelector('#history-list');
   const historyKey = 'kurashi-yoho-history-v1-' + tool;
+  const restoredNotice = root.querySelector('#restored-notice');
+  const clearButton = root.querySelector('#clear-calculator');
   let history = [];
   const required = tool==='move' ? ['oldRent','newRent'] : tool==='appliance' ? ['repair','replacement'] : [];
   const moneyFields = inputs.filter((input)=>!['cycle','holdingYears','repairYears','replacementYears'].includes(input.dataset.input));
@@ -229,10 +231,12 @@
   try{
     const saved=JSON.parse(localStorage.getItem(storageKey)||'{}');
     if(saved&&typeof saved==='object'&&!Array.isArray(saved)){
+      let count=0;
       for(const input of inputs){
         const value=saved[input.dataset.input];
-        if(typeof value==='string'&&/^\d{0,10}$/.test(value))input.value=value;
+        if(typeof value==='string'&&/^\d{0,10}$/.test(value)) {input.value=value;if(value!=='')count++;}
       }
+      if(count>0){restoredNotice.hidden=false;restoredNotice.textContent='前回の入力内容（'+count+'項目）を読み込みました。新しく計算するときは「入力をすべてクリア」を押してください。';}
     }
   }catch{ /* Input is optional and stored locally. */ }
   function onInput(){
@@ -241,6 +245,12 @@
     render();
   }
   for(const input of inputs){input.addEventListener('input',onInput);input.addEventListener('change',onInput);}
+  clearButton.addEventListener('click',()=>{
+    if(!window.confirm('この計算ツールの入力値をすべてクリアしますか？保存した履歴は消えません。'))return;
+    for(const input of inputs){input.value=input.dataset.input==='cycle'?'2':input.dataset.input==='holdingYears'?'5':'';}
+    try{localStorage.removeItem(storageKey);}catch{}
+    restoredNotice.hidden=true;started=false;completed=false;current=null;status.textContent='入力をクリアしました。履歴はそのまま残っています。';render();send('comparison_inputs_cleared');
+  });
   saveHistoryButton.addEventListener('click',()=>{
     if(!current)return;
     const fields=Object.fromEntries(inputs.map((input)=>[input.dataset.input,input.value]));
