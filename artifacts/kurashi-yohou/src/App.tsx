@@ -1,4 +1,5 @@
 import { type ChangeEvent, type ReactNode, useEffect, useMemo, useState } from 'react';
+import { DecisionHub } from './DecisionHub';
 import {
   ArrowLeft, ArrowRight, CalendarDays, CarFront, Check, CircleHelp,
   CloudSun, Home, Pencil, Plus, RotateCcw, Settings2, ShieldCheck,
@@ -325,6 +326,7 @@ function normalizeBackupData(value: unknown): HouseholdData {
 function App() {
   const initial = useMemo(loadSaved, []);
   const [stage, setStage] = useState<AppStage>(initial.stage);
+  const [showDecisionHub, setShowDecisionHub] = useState(true);
   const [data, setData] = useState<HouseholdData>(initial.data);
   const [hasSaved, setHasSaved] = useState(initial.stage !== 'landing');
   const [lastStage, setLastStage] = useState<AppStage>(initial.stage === 'result' ? 'result' : 'diagnostic');
@@ -352,7 +354,7 @@ function App() {
   useEffect(() => { if (stage !== 'landing') { localStorage.setItem(STORAGE_KEY, JSON.stringify({ stage, data })); setHasSaved(true); } }, [stage, data]);
   const reset = () => { if (!window.confirm('保存データをすべて削除しますか？この操作は元に戻せません。')) return; localStorage.removeItem(STORAGE_KEY); setData(createInitialData()); setHasSaved(false); setLastStage('diagnostic'); setBackupMessage(''); setStage('landing'); window.scrollTo({ top: 0, behavior: 'smooth' }); };
   const completeDiagnostic = (next: HouseholdData) => { setData(next); setStage('result'); setLastStage('result'); window.scrollTo({ top: 0, behavior: 'smooth' }); };
-  return <div className="app-shell"><Header onHome={onHome} stage={stage} />{stage === 'landing' && <Landing onStart={() => setStage(hasSaved ? lastStage : 'diagnostic')} hasSaved={hasSaved} />}{stage === 'diagnostic' && <Diagnostic initial={data} onComplete={completeDiagnostic} onBack={onHome} />}{stage === 'result' && <Result data={data} onDataChange={setData} onEditSettings={() => { setLastStage('diagnostic'); setStage('diagnostic'); window.scrollTo({ top: 0, behavior: 'smooth' }); }} onReset={reset} onExport={exportData} onImport={importData} backupMessage={backupMessage} />}<footer className="mx-auto max-w-6xl px-5 pb-7 pt-2 text-center text-[10px] tracking-[.08em] text-[#91a7a8] sm:px-8"><p>くらし予報　・　あなたの暮らしに、晴れ間を。</p><div className="mt-3 flex justify-center gap-4"><a href="/life-cost-tools/" className="hover:text-[#175d68]">無料計算ツール</a><a href="/about/" className="hover:text-[#175d68]">このサイトについて</a><a href="/privacy-policy/" className="hover:text-[#175d68]">プライバシーポリシー</a><a href="/site-map/" className="hover:text-[#175d68]">サイトマップ</a></div></footer></div>;
+  return <div className="app-shell">{showDecisionHub ? <DecisionHub hasSavedForecast={hasSaved} onOpenForecast={() => { setShowDecisionHub(false); window.scrollTo({ top: 0, behavior: 'smooth' }); }} /> : <><Header onHome={() => { setShowDecisionHub(true); window.scrollTo({ top: 0, behavior: 'smooth' }); }} stage={stage} />{stage === 'landing' && <Landing onStart={() => setStage(hasSaved ? lastStage : 'diagnostic')} hasSaved={hasSaved} />}{stage === 'diagnostic' && <Diagnostic initial={data} onComplete={completeDiagnostic} onBack={onHome} />}{stage === 'result' && <Result data={data} onDataChange={setData} onEditSettings={() => { setLastStage('diagnostic'); setStage('diagnostic'); window.scrollTo({ top: 0, behavior: 'smooth' }); }} onReset={reset} onExport={exportData} onImport={importData} backupMessage={backupMessage} />}<footer className="mx-auto max-w-6xl px-5 pb-7 pt-2 text-center text-[10px] tracking-[.08em] text-[#91a7a8] sm:px-8"><p>くらし予報　・　あなたの暮らしに、晴れ間を。</p><div className="mt-3 flex justify-center gap-4"><a href="/life-cost-tools/" className="hover:text-[#175d68]">無料計算ツール</a><a href="/about/" className="hover:text-[#175d68]">このサイトについて</a><a href="/privacy-policy/" className="hover:text-[#175d68]">プライバシーポリシー</a><a href="/site-map/" className="hover:text-[#175d68]">サイトマップ</a></div></footer></>}</div>;
 }
 
 export default App;
